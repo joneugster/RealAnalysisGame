@@ -1,0 +1,96 @@
+.inventory, .documentation {
+  padding: 0 1em 1em 1em;
+}
+
+.inventory h2, .documentation h2, .documentation h1 {
+  font-size: 1.5em;
+  margin-top: 1em;
+  margin-bottom: .2em;
+}
+
+.documentation h1 {
+  font-weight: 900;
+}
+
+.documentation.hidden {
+  display: none;
+  transition: display 2s;
+}
+
+.inventory-list {
+  display: flex;
+  gap: .5em;
+  flex-wrap : wrap;
+}
+
+.inventory .item {
+  background: #fff;
+  border: solid 1px #777;
+  padding-left: .5rem;
+  padding-right: 1.0rem;
+  padding-top: .1rem;
+  padding-bottom: .1rem;
+  position: relative;
+}
+
+.inventory .item.locked {
+  border: solid 1px #ccc;
+  color: #ccc;
+}
+
+.inventory .item.disabled {
+  color: #d92c2c;
+}
+
+.inventory .item.new {
+  background-color: rgb(255, 242, 190);
+}
+
+.inventory .item:not(.locked), .inventory .item.enabled {
+  cursor: pointer;
+}
+
+.tab-bar {
+  border-bottom: 0.1em solid var(--clr-dark-gray);
+  margin-bottom: 0.5em;
+}
+
+.tab {
+  color: var(--clr-darker-gray);
+  line-height: inherit;
+  text-decoration: none;
+  padding: 0.2rem .6em;
+  font-size: 1rem;
+  margin: 0 .1em;
+  border: 0;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.tab-bar.current .tab.active {
+  color: black;
+  border-bottom: 0.3em solid var(--clr-primary);
+}
+
+.tab.active {
+  color: black;
+  border-bottom: 0.3em solid #999;
+}
+
+
+.inventory .item .copy-button {
+	min-width: 3px;
+	min-height: 3px;
+	display: inline-block;
+	color: #ccc;
+	font-size: 0.6em;
+	padding-right: .2rem;
+	vertical-align: top;
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 1rem;
+	align-items: end;
+	text-align: end;
+}
