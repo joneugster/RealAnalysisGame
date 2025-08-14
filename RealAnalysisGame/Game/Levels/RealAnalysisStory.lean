@@ -29,6 +29,8 @@ Simplicio: Easy! If I have a function $f : \\R \\to \\R$ and it's differentiable
 derivative is $f'(x) := \\lim_{h \\to 0}\\frac{f(x+h) - f(x)}{h}$. This represents the \"instantaneous\" slope
 of the graph of the function $y=f(x)$ at the point $(x, f(x))$.
 
+<img src=\"https://raw.githubusercontent.com/AlexKontorovich/RealAnalysisGame/main/RealAnalysisGame/images/Deriv.png\"/>
+
 Socrates: Very good! And tell me please, what is an integral?
 
 Simplicio: That's easy, too! If you want to integrate our function $f$ along an

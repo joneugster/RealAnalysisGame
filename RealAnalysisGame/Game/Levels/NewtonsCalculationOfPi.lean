@@ -1,6 +1,6 @@
 import Game.Levels.NewtonsCalculationOfPi.L01_the_problem
 
-World "NewtonsPiComputation"
+World "NewtonsCalculationOfPi"
 Title "Newton's π Computation"
 
 Introduction "

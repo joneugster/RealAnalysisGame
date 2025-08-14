@@ -24,7 +24,7 @@ TacticDoc rfl
 
 /-- Every mathematical expression equals itself. -/
 Statement (x y : ℝ) : x^2 + 2*y = x^2 + 2*y := by
-  Hint "Use `rfl` since we're proving that something equals itself."
+  Hint (hidden := true) "Write `rfl` since we're proving that something equals itself."
   rfl
 
 NewTactic rfl

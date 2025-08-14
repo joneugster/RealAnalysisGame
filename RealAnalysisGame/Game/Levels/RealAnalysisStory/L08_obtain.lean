@@ -19,10 +19,12 @@ And say you want to prove that \"there exists a real number `c` such that `(f c)
 Again, you can't just say `exact h` because these are different statements. But you can use the information from the hypothesis to construct your proof. The name of this command is `obtain`.
 
 The syntax for `obtain` is the weirdest yet: write
+
 `obtain ⟨c, hc⟩ := h`.
+
 The reason for the angle brackets is that `h` is actually a bundle of two things, first a particular value for `c`, and second is the fact, which we're calling `hc`, that `f c = 2`. And don't forget the colon-equals! You're obtaining `c` and `hc` *from* `h`.
 
-The angle brackets `⟨ ⟩` are typed with `\\<` (backslash, less than sign, space) and `\\>` in Lean.
+The angle brackets `⟨ ⟩` are typed in Lean via `\\<` (backslash, less than sign, space) and `\\>`.
 
 Then you'll have a value for `c`, and the hypothesis `hc : f c = 2`. You should be able to figure out how to solve the goal from here.
 "
@@ -32,10 +34,10 @@ TacticDoc obtain
 
 /-- If there exists a point where f equals 2, then there exists a point where f² equals 4. -/
 Statement (f : ℝ → ℝ) (h : ∃ c : ℝ, f c = 2) : ∃ x : ℝ, (f x) ^ 2 = 4 := by
-  Hint "Use `obtain ⟨c, hc⟩ := h`, then you should be able to finish it yourself."
+  Hint (hidden := true) "Use `obtain ⟨c, hc⟩ := h`, then you should be able to finish it yourself."
   obtain ⟨c, hc⟩ := h
   use c
-  rw [hc]
+  rewrite [hc]
   ring_nf
 
 NewTactic obtain
@@ -46,7 +48,7 @@ Excellent! You've learned the `obtain` tactic for working with existence in hypo
 Notice the complete pattern:
 1. `obtain ⟨c, hc⟩ := h` unpacked the hypothesis into a specific value `c` and proof `hc : f c = 2`
 2. `use c` provided this same value as our witness for the goal
-3. `rw [hc]` rewrote `f c` as `2` in the goal, changing it to `2^2 = 4`
+3. `rewrite [hc]` rewrote `f c` as `2` in the goal, changing it to `2^2 = 4`
 4. `ring_nf` verified that `2 ^ 2 = 4`
 
 The symmetry is beautiful:

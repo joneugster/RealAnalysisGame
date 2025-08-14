@@ -16,35 +16,37 @@ Can you use `exact Bob`? No, because `Bob` says `x = 2`, which is not *exactly* 
 
 But you can use the hypothesis `Bob` to *rewrite* the goal. Since `Bob` tells us that `x = 2`, we can replace `x` with `2` in our goal.
 
-In Lean, if you have a hypothesis which is an equality, and you want to replace the *left hand side* of that equality with the *right hand side* in your goal, you use the `rw` (rewrite) tactic.
+In Lean, if you have a hypothesis which is an equality, and you want to replace the *left hand side* of that equality with the *right hand side* in your goal, you use the `rewrite` (rewrite) tactic.
 
-The syntax is: `rw [hypothesis_name]`
+The syntax is: `rewrite [hypothesis_name]`
 
-Unfortunately, those square brackets are part of the Lean syntax, and there's nothing you or I can do about them right now. Just remember: `rw [Bob]` means \"use the equality in `Bob` to rewrite the goal.\"
+Unfortunately, those square brackets are part of the Lean syntax, and there's nothing you or I can do about them right now. Just remember: `rewrite [Bob]` means \"use the equality in `Bob` to rewrite the goal.\"
+
+After you rewrite, you're not done. But you should know how to finish from there.
 
 Try it out!
 "
 
-/-- The `rw` tactic replaces the left-hand side of an equality with the right-hand side in the goal. The syntax is `rw [hypothesis_name1, hypothesis_name2, etc]`.  -/
-TacticDoc rw
+/-- The `rewrite` tactic replaces the left-hand side of an equality with the right-hand side in the goal. The syntax is `rewrite [hypothesis_name1, hypothesis_name2, etc]`.  -/
+TacticDoc rewrite
 
 /-- If we know that $x = 2$, then we can prove that $x + y = 2 + y$. -/
 Statement (x y : ℝ) (Bob : x = 2) : x + y = 2 + y := by
-  Hint "Use `rw [Bob]` to replace `x` with `2` in the goal."
-  rw [Bob]
+  Hint (hidden := true) "Type `rewrite [Bob]` to replace `x` with `2` in the goal. Then what?"
+  rewrite [Bob]
+  rfl
 
-
-NewTactic rw
+NewTactic rewrite
 
 Conclusion "
-Great! You've learned the `rw` (rewrite) tactic.
+Great! You've learned the `rewrite` tactic.
 
-Notice what happened: after you typed `rw [Bob]`, the goal changed from `x + y = 2 + y` to `2 + y = 2 + y`. Then Lean automatically applied `rfl` to finish the proof, since both sides were now identical.
+Notice what happened: after you typed `rewrite [Bob]`, the goal changed from `x + y = 2 + y` to `2 + y = 2 + y`. Then you needed to type `rfl` to finish the proof, since both sides were now identical.
 
 So far you've learned:
 - `exact hypothesis_name` when a hypothesis exactly matches your goal
 - `rfl` when you need to prove something equals itself
-- `rw [hypothesis_name]` when you want to use an equality to rewrite your goal
+- `rewrite [hypothesis_name]` when you want to use an equality to rewrite your goal
 
-The `rw` tactic is incredibly powerful and you'll use it constantly in real analysis!
+The `rewrite` tactic is incredibly powerful and you'll use it constantly in real analysis!
 "

@@ -32,7 +32,7 @@ TacticDoc specialize
 
 /-- If a function of `x` always equals `x²`, then it equals `t²` when evaluated at `t`. -/
 Statement (t : ℝ) (f : ℝ → ℝ) (hf : ∀ x, f (x) = x^2) : f (t) = t^2 := by
-  Hint "Write `specialize hf t` to apply the universal statement to the specific value t; then you should be able to finish it yourself."
+  Hint (hidden := true) "Write `specialize hf t` to apply the universal statement to the specific value t; then you should be able to finish it yourself."
   specialize hf t
   exact hf
 

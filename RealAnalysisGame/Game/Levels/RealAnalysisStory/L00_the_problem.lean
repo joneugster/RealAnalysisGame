@@ -24,7 +24,7 @@ TacticDoc exact
 
 /-- If we know that $x = 5$, then we can prove that $x = 5$. -/
 Statement (x : ℝ) (h : x = 5) : x = 5 := by
-  Hint "Use `exact h` since the hypothesis `h` is exactly what we want to prove."
+  Hint (hidden := true) "Write `exact h` since the hypothesis `h` is exactly what we want to prove."
   exact h
 
 NewTactic exact

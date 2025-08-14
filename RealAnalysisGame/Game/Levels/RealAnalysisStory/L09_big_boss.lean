@@ -12,7 +12,7 @@ Introduction "
 Congratulations! You've learned many fundamental tactics for mathematical reasoning in Lean:
 - `exact hypothesisName` for when a hypothesis matches the goal exactly
 - `rfl` for reflexivity (proving `X = X`)
-- `rw [hypothesisName]` for rewriting using equalities
+- `rewrite [hypothesisName]` for rewriting using equalities
 - `ring_nf` for algebraic manipulation
 - `use` for providing witnesses to existence statements in goals
 - `intro` for handling universal quantifiers in goals
@@ -41,9 +41,9 @@ Statement (f : ℝ → ℝ) (h_existential : ∃ (a : ℝ), f (a) = 3) (h_univer
   -- Step 4: Apply the universal property to our specific value a
   specialize h_universal y hy
   -- Step 5: Rewrite using what we learned about g(a + 1)
-  rw [h_universal]
+  rewrite [h_universal]
   -- Step 6: Rewrite using what we know about g(a)
-  rw [ha]
+  rewrite [ha]
   -- Step 7: Simplify the algebra
   ring_nf
 
@@ -58,8 +58,8 @@ Conclusion "
 2. **`use a`** - Chose `a` as your witness for the existence statement in the goal
 3. **`intro y` and `intro hy`** - Handled the universal quantifier \"for all y > 0\" in the goal
 4. **`specialize h_universal y hy`** - Applied the universal property to your specific value in the hypothesis
-5. **`rw [h_universal]`** - Used the specialized fact to rewrite the goal
-6. **`rw [ha]`** - Used the original fact that `f (a) = 3` to also rewrite the goal
+5. **`rewrite [h_universal]`** - Used the specialized fact to rewrite the goal
+6. **`rewrite [ha]`** - Used the original fact that `f (a) = 3` to also rewrite the goal
 7. **`ring_nf`** - Verified finally that `(f y + 9) ^ 2 = (f y + 3 ^ 2) ^ 2`
 
 You've just completed a genuinely sophisticated mathematical argument! This kind of multi-step reasoning, combining existence statements, universal properties, and algebraic manipulation, is exactly what you'll encounter throughout real analysis.

@@ -1,10 +1,14 @@
 import Game.Levels.RealAnalysisStory
+import Game.Levels.NewtonsCalculationOfPi
 
 
 -- Here's what we'll put on the title screen
 Title "An Introduction to Formal Real Analysis"
 Introduction "
 # Welcome to Real Analysis, The Game!
+
+This course is currently being developed for Rutgers University Math 311H by [Alex Kontorovich](https://math.rutgers.edu/~alexk). Please email alex.kontorovich@rutgers.edu for suggestions/corrections,
+or better yet, send a PR to https://github.com/AlexKontorovich/RealAnalysisGame.
 
 This course takes you through an Introduction to the Real Numbers, rigorous ε-δ Calculus,
 and basic Point-Set Topology.
