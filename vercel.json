@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pwd && ls -la && bash build.sh",
-  "outputDirectory": "lean4game/client/dist",
+  "buildCommand": "bash ../build.sh",
+  "outputDirectory": "client/dist",
   "installCommand": "echo 'Dependencies installed in build script'"
 }
