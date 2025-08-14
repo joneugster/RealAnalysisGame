@@ -56,7 +56,7 @@ Conclusion "
 
 1. **`obtain ⟨a, ha⟩ := h_existential`** - Extracted the witness `a` and fact that `f (a) = 3` from the hypothesis
 2. **`use a`** - Chose `a` as your witness for the existence statement in the goal
-3. **`intro y` and `intro hy`** - Handled the universal quantifier \"for all y > 0\" in the goal
+3. **`intro y hy`** - Handled the universal quantifier \"for all y > 0\" in the goal
 4. **`specialize h_universal y hy`** - Applied the universal property to your specific value in the hypothesis
 5. **`rewrite [h_universal]`** - Used the specialized fact to rewrite the goal
 6. **`rewrite [ha]`** - Used the original fact that `f (a) = 3` to also rewrite the goal

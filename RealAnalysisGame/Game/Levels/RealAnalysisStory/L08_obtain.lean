@@ -11,18 +11,18 @@ Introduction "
 
 Now let's learn the counterpart to `use`. You know that if you have `∃` in the goal, you write `use` to provide a specific value.
 
-But suppose you have a *hypothesis* that says \"there exists a real number `c` such that `f(c) = 2`\". In Lean, this looks like:
+But suppose you have a *hypothesis* that says \"there exists a real number `c` such that `f (c) = 2`\". In Lean, this looks like:
 `h : ∃ (c : ℝ), f c = 2`
 
 And say you want to prove that \"there exists a real number `c` such that `(f c)^2 = 4`\".
 
 Again, you can't just say `exact h` because these are different statements. But you can use the information from the hypothesis to construct your proof. The name of this command is `obtain`.
 
-The syntax for `obtain` is the weirdest yet: write
+The syntax for `obtain` is the weirdest yet. We write:
 
 `obtain ⟨c, hc⟩ := h`.
 
-The reason for the angle brackets is that `h` is actually a bundle of two things, first a particular value for `c`, and second is the fact, which we're calling `hc`, that `f c = 2`. And don't forget the colon-equals! You're obtaining `c` and `hc` *from* `h`.
+The reason for the angle brackets is that `h` is actually a bundle of two things: first a particular value for `c`, and then the hypothesis, which we named `hc`, that `f c = 2`. And don't forget the colon-equals! You're obtaining `c` and `hc` *from* `h`.
 
 The angle brackets `⟨ ⟩` are typed in Lean via `\\<` (backslash, less than sign, space) and `\\>`.
 
@@ -34,10 +34,12 @@ TacticDoc obtain
 
 /-- If there exists a point where f equals 2, then there exists a point where f² equals 4. -/
 Statement (f : ℝ → ℝ) (h : ∃ c : ℝ, f c = 2) : ∃ x : ℝ, (f x) ^ 2 = 4 := by
-  Hint (hidden := true) "Use `obtain ⟨c, hc⟩ := h`, then you should be able to finish it yourself."
+  Hint (hidden := true) "Write `obtain ⟨c, hc⟩ := h`, then you should be able to finish it yourself."
   obtain ⟨c, hc⟩ := h
   use c
   rewrite [hc]
+  Hint (hidden := true) "If you're struggling to prove that `2 ^ 2 = 4`, it's
+  a basic fact in a *ring*..."
   ring_nf
 
 NewTactic obtain
