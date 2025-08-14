@@ -1,8 +1,9 @@
 import Lake
 open Lake DSL
 
--- Using this assumes that each dependency has a tag of the form `v4.X.0`.
-def leanVersion : String := s!"v{Lean.versionString}"
+-- Pin to stable versions instead of dynamic leanVersion
+def stableLeanVersion : String := "v4.12.0"
+def stableGameServerVersion : String := "v4.12.0"
 
 /--
 Use the GameServer from a `lean4game` folder lying next to the game on your local computer.
@@ -23,8 +24,8 @@ Deactivate local version with `lake update -R`.
 def RemoteGameServer : Dependency := {
   name := `GameServer
   scope := "hhu-adam"
-  src? := DependencySrc.git "https://github.com/leanprover-community/lean4game.git" leanVersion "server"
-  version? := s!"git#{leanVersion}"
+  src? := DependencySrc.git "https://github.com/leanprover-community/lean4game.git" stableGameServerVersion "server"
+  version? := s!"git#{stableGameServerVersion}"
   opts := ∅
 }
 
@@ -51,7 +52,8 @@ require "leanprover-community" / mathlib @ git leanVersion
 ```
  -/
 
-require "leanprover-community" / mathlib @ git leanVersion
+-- Pin mathlib to a stable version that builds without simp? issues
+require "leanprover-community" / mathlib @ git stableLeanVersion
 
 /-!
 # PACKAGE CONFIGURATION
