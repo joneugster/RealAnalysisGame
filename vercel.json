@@ -1,5 +1,0 @@
-{
-  "buildCommand": "bash ../build.sh",
-  "outputDirectory": "client/dist",
-  "installCommand": "echo 'Dependencies installed in build script'"
-}
