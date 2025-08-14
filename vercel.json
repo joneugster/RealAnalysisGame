@@ -1,5 +1,5 @@
 {
-  "buildCommand": "chmod +x build.sh && ./build.sh",
+  "buildCommand": "bash build.sh",
   "outputDirectory": "lean4game/client/dist",
   "installCommand": "echo 'Dependencies installed in build script'"
 }
