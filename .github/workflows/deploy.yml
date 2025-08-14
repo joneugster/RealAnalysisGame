@@ -71,5 +71,5 @@ jobs:
         repository-name: AlexKontorovich/alexkontorovich.github.io
         branch: main
         folder: lean4game/client/dist
-        target-folder: 2025F311H
+        target-folder: RealAnalysisGame
         clean: true
