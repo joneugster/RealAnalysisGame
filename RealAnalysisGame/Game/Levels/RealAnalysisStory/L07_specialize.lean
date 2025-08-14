@@ -14,7 +14,7 @@ Now let's learn the flip side of `intro`. You have already learned that:
 
 But what if you have `∀` in a *hypothesis* and you want to use it for a particular value?
 
-Suppose you have:
+For a concrete example, suppose you have:
 - A positive real number `t`, that is a real number `t`, together with a hypothesis, say, `t_pos` that `t > 0`
 - A function `f : ℝ → ℝ`
 - A hypothesis `hf : ∀ x > 0, f (x) = x^2`, meaning \"for all x positive, f (x) equals x²\". (Note that you *have* to put a space after `f` before `(x)` or else Lean will be very angry with you! In fact, Lean will often drop unnecessary parentheses, so you'll see `f x` instead of `f (x)` -- and again, definitely *not* `f(x)`.)
@@ -31,9 +31,10 @@ I'm sure you can solve the goal from there yourself!
 TacticDoc specialize
 
 /-- If a function of `x` always equals `x²`, then it equals `t²` when evaluated at `t`. -/
-Statement (t : ℝ) (f : ℝ → ℝ) (hf : ∀ x, f (x) = x^2) : f (t) = t^2 := by
+Statement (t : ℝ) (t_pos : t > 0) (f : ℝ → ℝ) (hf : ∀ x > 0, f (x) = x^2) : f (t) = t^2 := by
   Hint (hidden := true) "Write `specialize hf t` to apply the universal statement to the specific value t; then you should be able to finish it yourself."
   specialize hf t
+  specialize hf t_pos
   exact hf
 
 NewTactic specialize

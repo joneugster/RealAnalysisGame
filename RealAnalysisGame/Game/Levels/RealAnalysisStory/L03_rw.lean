@@ -16,9 +16,9 @@ Can you use `exact Bob`? No, because `Bob` says `x = 2`, which is not *exactly* 
 
 But you can use the hypothesis `Bob` to *rewrite* the goal. Since `Bob` tells us that `x = 2`, we can replace `x` with `2` in our goal.
 
-In Lean, if you have a hypothesis which is an equality, and you want to replace the *left hand side* of that equality with the *right hand side* in your goal, you use the `rewrite` (rewrite) tactic.
+In Lean, if you have a hypothesis which is an equality, and you want to replace the *left hand side* of that equality with the *right hand side* in your goal, you use the `rewrite` tactic. The syntax is:
 
-The syntax is: `rewrite [hypothesis_name]`
+`rewrite [hypothesis_name]`
 
 Unfortunately, those square brackets are part of the Lean syntax, and there's nothing you or I can do about them right now. Just remember: `rewrite [Bob]` means \"use the equality in `Bob` to rewrite the goal.\"
 

@@ -155,24 +155,6 @@ msgid "Excellent! You've learned the `rfl` tactic.\n"
 "These are two of the most fundamental tactics in Lean. As we progress through real analysis, you'll see that many complex proofs ultimately come down to showing that two expressions are identical."
 msgstr ""
 
-#: Game.Levels.RealAnalysisStory.L05_use
-msgid "# Proving existence\n"
-"\n"
-"Sometimes in mathematics, you need to prove that something exists. For example, you might need to prove \"there exists a real number $c$ such that $(x+y)^4 = x^4 + 4x^3y + cx^2y^2 + 4xy^3 + y^4$.\"\n"
-"\n"
-"This is called an *existence statement*. In Lean, as in mathematics,\n"
-"existence is written using `∃` (\"there exists\").\n"
-"It is called the *existential quantifier*, and is written in Lean by typing \\exists, that is, a backslash, then the word `exists`, and then a space.\n"
-"So this goal would look like:\n"
-"`∃ (c : ℝ), (x + y)^4 = x^4 + 4*x^3*y + c*x^2*y^2 + 4*x*y^3 + y^4`\n"
-"\n"
-"To prove an existence statement, you need to provide a specific value that works. This is where the `use` tactic comes in.\n"
-"\n"
-"If you think you know what value of `c` would work, you can write `use 42` (or with `42` replaced by whatever number you think is right). Lean will then substitute that value and ask you to prove that the resulting equation is true.\n"
-"\n"
-"Try writing `use someNumber`. Do you see what to do after that?"
-msgstr ""
-
 #: GameServer.RpcHandlers
 msgid "level completed with warnings… 🎭"
 msgstr ""
@@ -273,6 +255,14 @@ msgid "Perfect! You've completed your first Lean proof involving real numbers.\n
 "Remember: the `exact` tactic is used when you have exactly what you need to prove the goal. Look at the top right: your list of tactics now includes `exact`, and if you forget how it works or what it does, just click on it for a reminder."
 msgstr ""
 
+#: Game.Levels.NewtonsCalculationOfPi.L01_the_problem
+msgid "Newton's Problem: Computing π"
+msgstr ""
+
+#: GameServer.RpcHandlers
+msgid "level completed! 🎉"
+msgstr ""
+
 #: Game.Levels.RealAnalysisStory.L03_rw
 msgid "# Rewriting with equalities\n"
 "\n"
@@ -284,23 +274,15 @@ msgid "# Rewriting with equalities\n"
 "\n"
 "But you can use the hypothesis `Bob` to *rewrite* the goal. Since `Bob` tells us that `x = 2`, we can replace `x` with `2` in our goal.\n"
 "\n"
-"In Lean, if you have a hypothesis which is an equality, and you want to replace the *left hand side* of that equality with the *right hand side* in your goal, you use the `rewrite` (rewrite) tactic.\n"
+"In Lean, if you have a hypothesis which is an equality, and you want to replace the *left hand side* of that equality with the *right hand side* in your goal, you use the `rewrite` tactic. The syntax is:\n"
 "\n"
-"The syntax is: `rewrite [hypothesis_name]`\n"
+"`rewrite [hypothesis_name]`\n"
 "\n"
 "Unfortunately, those square brackets are part of the Lean syntax, and there's nothing you or I can do about them right now. Just remember: `rewrite [Bob]` means \"use the equality in `Bob` to rewrite the goal.\"\n"
 "\n"
 "After you rewrite, you're not done. But you should know how to finish from there.\n"
 "\n"
 "Try it out!"
-msgstr ""
-
-#: Game.Levels.NewtonsCalculationOfPi.L01_the_problem
-msgid "Newton's Problem: Computing π"
-msgstr ""
-
-#: GameServer.RpcHandlers
-msgid "level completed! 🎉"
 msgstr ""
 
 #: Game.Levels.RealAnalysisStory.L04_ring_nf
@@ -471,26 +453,30 @@ msgid "There exists a real number that makes this binomial expansion work."
 msgstr ""
 
 #: Game.Levels.RealAnalysisStory.L05_use
-msgid "The use tactic"
+msgid "# Proving existence\n"
+"\n"
+"Sometimes in mathematics, you need to prove that something exists. For example, suppose I wanted to ask you what the binomial coefficient in front of $x^2y^2$ is\n"
+"in the expansion of $(x+y)^4$; how would I do it? Lean can't ask questions,\n"
+"it can only prove theorems! The way I would ask is:\n"
+"  \"prove that there exists a real number $c$ such that $(x+y)^4 = x^4 + 4x^3y + cx^2y^2 + 4xy^3 + y^4$.\" The way to prove that such a number\n"
+"  exists is to exhibit it, that is, tell me which number to *use*,\n"
+"  and then prove that that number indeed satisfies the equation.\n"
+"\n"
+"This is called an *existential statement*. In Lean, as in mathematics,\n"
+"existence is written using `∃` (read: \"there exists\").\n"
+"This symbol is called the *existential quantifier*, and is written in Lean by typing \\exists, that is, a backslash, then the word `exists`, and then a space.\n"
+"So this goal would look like:\n"
+"`∃ (c : ℝ), (x + y)^4 = x^4 + 4*x^3*y + c*x^2*y^2 + 4*x*y^3 + y^4`\n"
+"\n"
+"To prove an existence statement, you need to provide a specific value that works. This is where the `use` tactic comes in.\n"
+"\n"
+"If you think you know what value of `c` would work, you can write `use 42` (or with `42` replaced by whatever number you think is right). Lean will then substitute that value and ask you to prove that the resulting equation is true.\n"
+"\n"
+"Try writing `use someNumber`. Do you see what to do after that?"
 msgstr ""
 
 #: Game.Levels.RealAnalysisStory.L05_use
-msgid "Perfect! You've learned the `use` tactic for existence proofs.\n"
-"\n"
-"Notice what happened:\n"
-"1. `use 6` told Lean that $c = 6$ is our proposed value\n"
-"2. The goal changed to proving $(x + y)^4 = x^4 + 4x^3y + 6x^2y^2 + 4xy^3 + y^4$\n"
-"3. `ring_nf` verified that this algebraic identity is correct\n"
-"\n"
-"The `use` tactic is fundamental in real analysis. You'll use it to:\n"
-"- Find specific values of $\\varepsilon$ and $\\delta$ in limit proofs\n"
-"- Construct witnesses for existence theorems\n"
-"- Provide counterexamples\n"
-"\n"
-"Your growing toolkit:\n"
-"- `exact`, `rfl`, `rewrite` for basic equality reasoning\n"
-"- `ring_nf` for algebraic manipulation\n"
-"- `use` for existence proofs"
+msgid "The use tactic"
 msgstr ""
 
 #: Game.Levels.NewtonsCalculationOfPi.L01_the_problem
@@ -656,6 +642,25 @@ msgstr ""
 
 #: Game.Levels.RealAnalysisStory.L00_the_problem
 msgid "Introduction to Lean"
+msgstr ""
+
+#: Game.Levels.RealAnalysisStory.L05_use
+msgid "Perfect! You've learned the `use` tactic for existence proofs.\n"
+"\n"
+"Notice what happened:\n"
+"1. `use 6` told Lean that $c = 6$ is our proposed value\n"
+"2. The goal changed to proving $(x + y)^4 = x^4 + 4x^3y + 6x^2y^2 + 4xy^3 + y^4$\n"
+"3. `ring_nf` verified that this algebraic identity is correct\n"
+"\n"
+"The `use` tactic is fundamental in real analysis. You'll need it to:\n"
+"- Find specific values of $\\varepsilon$ and $\\delta$ in limit proofs\n"
+"- Construct witnesses for existence theorems\n"
+"- Provide counterexamples\n"
+"\n"
+"Your growing toolkit:\n"
+"- `exact`, `rfl`, `rewrite` for basic equality reasoning\n"
+"- `ring_nf` for algebraic manipulation\n"
+"- `use` for existence proofs"
 msgstr ""
 
 #: Game.Levels.RealAnalysisStory.L07_specialize

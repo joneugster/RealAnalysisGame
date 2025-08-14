@@ -29,7 +29,7 @@ TacticDoc ring_nf
 
 /-- The binomial expansion: $(x + y)^3 = x^3 + 3x^2y + 3xy^2 + y^3$. -/
 Statement (x y : ℝ) : (x + y)^3 = x^3 + 3*x^2*y + 3*x*y^2 + y^3 := by
-  Hint (hidden := true) "Use `ring_nf` to expand and simplify both sides algebraically."
+  Hint (hidden := true) "Write `ring_nf` to expand and simplify both sides algebraically."
   ring_nf
 
 NewTactic ring_nf
