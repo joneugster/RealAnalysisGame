@@ -51,14 +51,7 @@ jobs:
       run: cd lean4game && npm run build_relay
       
     - name: Build client
-      run: |
-        cd lean4game
-        echo "Vite config:"
-        cat vite.config.ts
-        echo "Running build..."
-        npm run build_client
-        echo "Build completed, checking output..."
-        ls -la
+      run: cd lean4game && npm run build_client
         
     - name: Debug build output
       run: |
@@ -77,6 +70,6 @@ jobs:
         token: ${{ secrets.DEPLOY_TOKEN }}
         repository-name: AlexKontorovich/alexkontorovich.github.io
         branch: main
-        folder: lean4game/dist
+        folder: lean4game/client/dist
         target-folder: 2025F311H
         clean: true
