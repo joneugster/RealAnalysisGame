@@ -5,16 +5,15 @@ set -e
 curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
 export PATH="$HOME/.elan/bin:$PATH"
 
-# Install npm dependencies
-cd lean4game
+# Install npm dependencies (we're already in lean4game directory)
 npm ci
 
-# Set up Lean toolchain and build
+# Set up Lean toolchain and build (go to RealAnalysisGame directory)
 cd ../RealAnalysisGame
 elan default $(cat lean-toolchain 2>/dev/null || echo "leanprover/lean4:stable")
 lake build
 
-# Build the web components
+# Build the web components (go back to lean4game directory)
 cd ../lean4game
 npm run build_relay
 npm run build_client
