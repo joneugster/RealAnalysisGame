@@ -7,8 +7,10 @@ Introduction "
 # Welcome to Real Analysis, The Game!
 
 This course takes you through an Introduction to the Real Numbers, rigorous ε-δ Calculus,
-and basic Point-Set Topology. To get started, click on
-**\"Level 0: The Story of Real Analysis\"**, and good luck!
+and basic Point-Set Topology.
+
+To get started, click on
+**\"Level 1: The Story of Real Analysis\"**, and good luck!
 
 "
 
