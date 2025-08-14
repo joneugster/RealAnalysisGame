@@ -33,6 +33,9 @@ else
     elan default stable
 fi
 
+echo "=== Updating dependencies (including mathlib) ==="
+lake update || echo "Lake update failed, trying build anyway"
+
 echo "=== Running lake build ==="
 lake build || echo "Lake build failed, continuing anyway"
 
