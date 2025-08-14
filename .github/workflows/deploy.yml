@@ -1,0 +1,75 @@
+name: Build and Deploy Lean4Game
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout source repository
+      uses: actions/checkout@v4
+      
+    - name: Install Elan (Lean toolchain manager)
+      run: |
+        curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+        echo "$HOME/.elan/bin" >> $GITHUB_PATH
+        
+    - name: Debug repository structure
+      run: |
+        echo "Repository root contents:"
+        ls -la
+        echo "Looking for lakefile.lean files:"
+        find . -name "lakefile.lean" -type f
+        echo "Looking for lake-manifest.json files:"
+        find . -name "lake-manifest.json" -type f
+        
+    - name: Setup Lean toolchain
+      run: |
+        cd RealAnalysisGame
+        elan default $(cat lean-toolchain 2>/dev/null || echo "leanprover/lean4:stable")
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: 'lean4game/package-lock.json'
+        
+    - name: Install dependencies
+      run: cd lean4game && npm ci
+      
+    - name: Build Lean server (game)
+      run: cd RealAnalysisGame && lake build
+      
+    - name: Build Lean server (framework)
+      run: cd lean4game/server && lake build
+      
+    - name: Build relay
+      run: cd lean4game && npm run build_relay
+      
+    - name: Build client
+      run: cd lean4game && npm run build_client
+        
+    - name: Debug build output
+      run: |
+        echo "Contents of lean4game folder after build:"
+        ls -la lean4game/
+        echo "Checking for common build output folders:"
+        find . -name "dist" -type d
+        find . -name "build" -type d
+        find . -name "out" -type d
+        echo "Contents of client folder:"
+        ls -la lean4game/client/ || echo "No client folder"
+      
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        token: ${{ secrets.DEPLOY_TOKEN }}
+        repository-name: AlexKontorovich/alexkontorovich.github.io
+        branch: main
+        folder: lean4game/client/dist
+        target-folder: RealAnalysisGame
+        clean: true
