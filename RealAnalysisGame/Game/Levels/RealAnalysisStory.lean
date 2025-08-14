@@ -3,6 +3,10 @@ import Game.Levels.RealAnalysisStory.L02_rfl
 import Game.Levels.RealAnalysisStory.L03_rw
 import Game.Levels.RealAnalysisStory.L04_ring_nf
 import Game.Levels.RealAnalysisStory.L05_use
+import Game.Levels.RealAnalysisStory.L06_intro
+import Game.Levels.RealAnalysisStory.L07_specialize
+import Game.Levels.RealAnalysisStory.L08_obtain
+import Game.Levels.RealAnalysisStory.L09_big_boss
 
 World "RealAnalysisStory"
 Title "Level 1: The Story of Real Analysis"
