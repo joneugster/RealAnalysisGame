@@ -77,7 +77,7 @@ Socrates: Well, the problem is that around the same time, a guy named Joseph Fou
 Simplicio: What?!
 
 Socrates: Look for yourself: Here's a graph of $\\sum_{n=1}^{100}\\frac1n \\sin(nx)$. As you take 100
-out to infinity, Cauchy claims that this will get
+out to infinity, Fourier claims that this will get
 closer and closer to a sawtooth function!
 
 Simplicio: Whoa. Wait, I can think of an even easier example: just look at the simplest family of
@@ -108,7 +108,7 @@ replace $\\to$ with $\\mapsto$ (see the tail on the second arrow?) when we want 
 $f$. Let me remind you that $x$ here is a dummy variable, so it's the same function if we'd said $f : u \\mapsto u ^ 2 - 2$.) In particular, what happens to $f$ on the rational numbers?
 
 Simplicio: Ok, well if $x$ is a rational number, then so is $x^2$, and hence so is $x^2-2$.
-So actually, we could say that $f : \\Q \\to \\Q$, that is, $f$ maps rational numbers to rational numbers.
+So actually, we could say that $f : \\mathbb Q \\to \\mathbb Q$, that is, $f$ maps rational numbers to rational numbers.
 Over the reals, the graph of $y=f(x)$ is a simple parabola.
 But you'd asked me about the Intermediate Value Theorem. Hmm. When $x=0$, I know that $f(x)$ will
 be $f(0)=0^2-2=-2$ which is negative. And when $x=2$, $f(2)=2^2-2=2$ which is positive.

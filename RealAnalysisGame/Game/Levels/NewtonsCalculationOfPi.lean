@@ -1,21 +1,21 @@
 import Game.Levels.NewtonsCalculationOfPi.L01_the_problem
 
-World "NewtonsCalculationOfPi"
-Title "Newton's Calculation of π"
+World "NewtonsPiComputation"
+Title "Newton's π Computation"
 
 Introduction "
-# The Story Behind the Mathematics
+# The Mathematical Revolution of 1666
 
-Before we dive into rigorous proofs, let's follow Newton's original 1666 calculation
-of π step by step. This informal walkthrough will motivate everything we do later.
+Now that you've mastered the basic tactics of mathematical reasoning, let's dive into the story that will motivate everything we do in real analysis.
 
-We'll see exactly how Newton:
-- Connected π to a simple geometric area
-- Used the binomial theorem to create infinite series
-- Integrated term by term to get π
+This world tells the tale of Newton's amazing π computation - how a 23-year-old genius transformed a geometric constant into an infinite series. But more importantly, we'll see how this brilliant calculation exposed the shaky foundations of mathematics.
 
-By the end, you'll understand both the genius and the gaps in Newton's approach—
-and why mathematicians like Cauchy had to invent ε-δ calculus 150 years later.
+Newton's method worked, but we did not have the tools to rigorously prove *why*, until the late 19th century.
 
-**This world contains no proofs—just the story of an amazing calculation.**
+**You'll learn:**
+- How Newton actually computed π using infinite series
+- Why his method was both brilliant and problematic
+- How this connects to the foundational issues we'll resolve later
+
+This is the story behind the story - the mathematical revolution that made real analysis necessary.
 "

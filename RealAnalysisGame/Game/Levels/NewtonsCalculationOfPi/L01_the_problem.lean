@@ -7,21 +7,11 @@ Title "Newton's Problem: Computing π"
 Introduction "
 # Cambridge, 1666: The Plague Year
 
-Isaac Newton, age 23, has fled Cambridge due to the plague. In his mother's farmhouse
+Isaac Newton, age 23, is home from  Cambridge, quarantining to escape an outbreak of the Plague, when he decides to invent calculus. (And what did you manage to accomplish during your COVID quarantine?..) In his mother's farmhouse
 in Woolsthorpe, he's about to revolutionize mathematics.
 
-The problem: **How do you compute π to arbitrary precision?**
-
-Ancient methods like Archimedes' polygonal approximations are painfully slow.
-After inscribing a 96-sided polygon in a circle, Archimedes could only determine
-that π lies between 3.1408... and 3.1429...
-
-Newton realizes he needs something completely different: **infinite series**.
-
-But how do you turn the geometric constant π into an infinite sum?
-
-Newton's insight: Connect π to areas under curves, then use infinite series to
-compute those areas.
+Newton starts to mess around with the Binomial Theorem. He knows Pascal's triangle,
+like everybody else, but decides to do something crazy with it.
 "
 
 /-- This level has no proof - it's pure exposition. -/
