@@ -1,10 +1,8 @@
 name: Build and Deploy Lean4Game
-
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -39,7 +37,7 @@ jobs:
         cache-dependency-path: 'lean4game/package-lock.json'
         
     - name: Install dependencies
-      run: cd lean4game && npm ci
+      run: cd lean4game && npm ci --legacy-peer-deps
       
     - name: Build Lean server (game)
       run: cd RealAnalysisGame && lake build
@@ -52,6 +50,20 @@ jobs:
       
     - name: Build client
       run: cd lean4game && npm run build_client
+
+    - name: Copy game data to client dist
+      run: |
+        echo "Copying game data to client dist directory"
+        cd RealAnalysisGame
+        mkdir -p ../lean4game/client/dist/data/g/local/RealAnalysisGame
+        if [ -d ".lake/gamedata" ]; then
+          cp -r .lake/gamedata/* ../lean4game/client/dist/data/g/local/RealAnalysisGame/
+          echo "Game data copied successfully"
+          ls -la ../lean4game/client/dist/data/g/local/RealAnalysisGame/
+        else
+          echo "Warning: .lake/gamedata not found"
+          ls -la .lake/ || echo "No .lake directory"
+        fi
         
     - name: Debug build output
       run: |
@@ -63,6 +75,10 @@ jobs:
         find . -name "out" -type d
         echo "Contents of client folder:"
         ls -la lean4game/client/ || echo "No client folder"
+        echo "Contents of client/dist:"
+        ls -la lean4game/client/dist/ || echo "No client/dist folder"
+        echo "Game data verification:"
+        ls -la lean4game/client/dist/data/g/local/RealAnalysisGame/ || echo "No game data found"
       
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
