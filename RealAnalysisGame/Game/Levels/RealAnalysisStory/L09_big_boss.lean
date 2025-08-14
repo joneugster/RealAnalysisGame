@@ -17,7 +17,7 @@ Congratulations! You've learned many fundamental tactics for mathematical reason
 - `use` for providing witnesses to existence statements in goals
 - `intro` for handling universal quantifiers in goals
 - `specialize` for applying universal statements to specific values in hypotheses
-- `obtain ⟨value, hypothesisOnValue⟩ := ExistentialHypothesis ` for extracting information from existence statements in hypotheses
+- `choose value hypothesisOnValue using ExistentialHypothesis ` for extracting information from existence statements in hypotheses
 
 Now it's time for your first **Big Boss** - a problem that requires you to use almost ALL of these tactics in a single proof!
 
@@ -32,7 +32,7 @@ This is what real mathematical proofs look like - a careful orchestration of mul
 Statement (f : ℝ → ℝ) (h_existential : ∃ (a : ℝ), f (a) = 3) (h_universal : ∀ x > 0, f (x + 1) = f (x) + 9) :
   ∃ (b : ℝ), ∀ y > 0, f (y + 1)^2 = (f (y) + (f b)^2)^2 := by
   -- Step 1: Extract the witness from the existence hypothesis
-  obtain ⟨a, ha⟩ := h_existential
+  choose a ha using h_existential
   -- Step 2: We'll use a as our witness for b
   use a
   -- Step 3: Introduce the universal quantifier
@@ -54,7 +54,7 @@ Conclusion "
 
 **Let's see what you just accomplished:**
 
-1. **`obtain ⟨a, ha⟩ := h_existential`** - Extracted the witness `a` and fact that `f (a) = 3` from the hypothesis
+1. **`choose a ha using h_existential`** - Extracted the witness `a` and fact that `f (a) = 3` from the hypothesis
 2. **`use a`** - Chose `a` as your witness for the existence statement in the goal
 3. **`intro y hy`** - Handled the universal quantifier \"for all y > 0\" in the goal
 4. **`specialize h_universal y hy`** - Applied the universal property to your specific value in the hypothesis
