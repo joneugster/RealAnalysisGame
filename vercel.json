@@ -1,0 +1,5 @@
+{
+  "buildCommand": "curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y && export PATH=\"$HOME/.elan/bin:$PATH\" && cd lean4game && npm ci && cd ../RealAnalysisGame && elan default $(cat lean-toolchain 2>/dev/null || echo \"leanprover/lean4:stable\") && lake build && cd ../lean4game && npm run build_relay && npm run build_client",
+  "outputDirectory": "lean4game/client/dist",
+  "installCommand": "echo 'Skipping root install'"
+}
