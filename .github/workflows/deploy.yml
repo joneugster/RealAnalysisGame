@@ -12,20 +12,28 @@ jobs:
     - name: Checkout source repository
       uses: actions/checkout@v4
       
-    - name: Setup Lean
-      uses: leanprover/lean-action@v1
+    - name: Install Elan (Lean toolchain manager)
+      run: |
+        curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+        echo "$HOME/.elan/bin" >> $GITHUB_PATH
+        
+    - name: Setup Lean toolchain
+      run: |
+        cd RealAnalysisGame/RealAnalysisGame
+        elan default $(cat lean-toolchain 2>/dev/null || echo "leanprover/lean4:stable")
         
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: 'npm'
+        cache-dependency-path: 'lean4game/package-lock.json'
         
     - name: Install dependencies
       run: cd lean4game && npm ci
       
     - name: Build Lean server (game)
-      run: cd RealAnalysisGame && lake build
+      run: cd RealAnalysisGame/RealAnalysisGame && lake build
       
     - name: Build Lean server (framework)
       run: cd lean4game/server && lake build
