@@ -51,17 +51,25 @@ jobs:
       run: cd lean4game && npm run build_relay
       
     - name: Build client
-      run: cd lean4game && npm run build_client
-      
+      run: |
+        cd lean4game
+        echo "Vite config:"
+        cat vite.config.ts
+        echo "Running build..."
+        npm run build_client
+        echo "Build completed, checking output..."
+        ls -la
+        
     - name: Debug build output
       run: |
         echo "Contents of lean4game folder after build:"
         ls -la lean4game/
-        echo "Looking for dist or build folders:"
+        echo "Checking for common build output folders:"
         find . -name "dist" -type d
         find . -name "build" -type d
-        echo "Contents of current directory:"
-        ls -la
+        find . -name "out" -type d
+        echo "Contents of client folder:"
+        ls -la lean4game/client/ || echo "No client folder"
       
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
