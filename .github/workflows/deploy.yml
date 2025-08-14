@@ -17,9 +17,18 @@ jobs:
         curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
         echo "$HOME/.elan/bin" >> $GITHUB_PATH
         
+    - name: Debug repository structure
+      run: |
+        echo "Repository root contents:"
+        ls -la
+        echo "Looking for lakefile.lean files:"
+        find . -name "lakefile.lean" -type f
+        echo "Looking for lake-manifest.json files:"
+        find . -name "lake-manifest.json" -type f
+        
     - name: Setup Lean toolchain
       run: |
-        cd RealAnalysisGame/RealAnalysisGame
+        cd RealAnalysisGame
         elan default $(cat lean-toolchain 2>/dev/null || echo "leanprover/lean4:stable")
         
     - name: Setup Node.js
@@ -33,7 +42,7 @@ jobs:
       run: cd lean4game && npm ci
       
     - name: Build Lean server (game)
-      run: cd RealAnalysisGame/RealAnalysisGame && lake build
+      run: cd RealAnalysisGame && lake build
       
     - name: Build Lean server (framework)
       run: cd lean4game/server && lake build
