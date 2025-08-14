@@ -53,6 +53,16 @@ jobs:
     - name: Build client
       run: cd lean4game && npm run build_client
       
+    - name: Debug build output
+      run: |
+        echo "Contents of lean4game folder after build:"
+        ls -la lean4game/
+        echo "Looking for dist or build folders:"
+        find . -name "dist" -type d
+        find . -name "build" -type d
+        echo "Contents of current directory:"
+        ls -la
+      
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
