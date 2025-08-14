@@ -1,63 +1,36 @@
 import GameServer
+import Mathlib.Data.Real.Basic
 
 World "RealAnalysisStory"
 Level 1
-Title "The Real Numbers: Obviously Obvious"
+Title "Introduction to Lean"
 
 Introduction "
-# At First, Everything Seemed Clear
+# Theorem Prover Software
+
+In this course, we will be using a \"proof assistant\" called Lean. This is software that checks that our proofs prove *exactly* what we
+claim they prove. It has other really cool pedagogical features that we'll get to later.
+It will take a little while to get used to the syntax, so until we're comfortable, we'll intersperse exercises teaching Lean with exercises teaching Real Analysis. Pretty soon all the exercises will just be about Real Analysis.
 
 
-
-This number line satisfied \"obvious\" properties kids learn in grade school:
-
-**Commutativity:** 3 + 5 = 5 + 3 and 3 × 5 = 5 × 3
-
-**Associativity:** 3 + (5 + 6) = (3 + 5) + 6 and 3 × (5 × 6) = (3 × 5) × 6
-
-**Distributive Law:** 3 × (5 + 6) = 3 × 5 + 3 × 6
-
-Nobody questioned these. They were just... true.
-
-
-
-For millennia, people thought they understood what the \"real numbers\" were. Then mathematics grew too big for its foundations, and everything fell apart.
-
-This course has three mathematical goals, resolving the great crises of the 19th century:
-
-**(1) Construction of the real numbers** (by Cauchy sequences), and proving their basic properties (commutativity, associativity, and the distributive law, which will no longer be obvious!)
-
-**(2) A corrected statement and rigorous proof** of Cauchy's claim that limits of continuous functions are continuous
-
-**(3) A rigorous proof** of Fourier's claim about sines and cosines
-
-We'll take a scenic route to these goals, as our interests and tastes dictate.
-
-**Begin with \"Level 0: The Story of Real Analysis\"** to understand why we need all this rigor.
-
-
-
-
-For Millennia, Everything Was Clear
-
-For thousands of years, people understood what the \"real numbers\" were:
-the number line, with whole numbers, fractions, irrational square roots, etc.
-
-Image RealLine.png
-
+For this first exercise, we have a hypothesis that we called `h` (but we could've called it anything, like `x_eq_5`, or `Alice`) that says a real number `x` equals 5. Our goal is to prove that `x` equals 5.
+This shouldn't be very hard, but if you don't know
+the command, you'll be out of luck. Our goal is to
+prove *exactly* the same statement as one of the hypotheses.
+To solve that goal, the syntax is to write `exact`, then a space, and then the name of the hypothesis which exactly matches the goal.
 "
+/-- The `exact` tactic solves a goal when one of the hypotheses is *exactly* the same as the goal. The syntax is `exact hypothesis_name` -/
+TacticDoc exact
 
-/-- This level has no proof - it's pure exposition. -/
-Statement : True := by
-  trivial
+/-- If we know that $x = 5$, then we can prove that $x = 5$. -/
+Statement (x : ℝ) (h : x = 5) : x = 5 := by
+  Hint "Use `exact h` since the hypothesis `h` is exactly what we want to prove."
+  exact h
+
+NewTactic exact
 
 Conclusion "
-Everything was peaceful in the mathematical world.
+Perfect! You've completed your first Lean proof involving real numbers.
 
-The real numbers were the number line. Addition and multiplication worked
-the way they always had. Mathematics was built on solid, obvious foundations.
-
-**Then came the 17th century...**
-
-**Next:** Newton and Leibniz ignite a revolution.
+Remember: the `exact` tactic is used when you have exactly what you need to prove the goal. Look at the top right: your list of tactics now includes `exact`, and if you forget how it works or what it does, just click on it for a reminder.
 "
