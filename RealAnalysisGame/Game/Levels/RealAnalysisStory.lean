@@ -1,7 +1,9 @@
 import Game.Levels.RealAnalysisStory.L00_the_problem
+import Game.Levels.RealAnalysisStory.L02_rfl
+import Game.Levels.RealAnalysisStory.L03_rw
 
 World "RealAnalysisStory"
-Title "Level 0: The Story of Real Analysis"
+Title "Level 1: The Story of Real Analysis"
 
 Introduction "
 # A First Course in Real Analysis
@@ -38,7 +40,7 @@ up to a variable amount, $x$, that is, let
 Socrates: And the second?
 
 Simplicio:
-The second one says that, conversely, if $F$ is an antiderivative of $f$, that is, $F'(x)=f(x), then
+The second one says that, conversely, if $F$ is an antiderivative of $f$, that is, $F'(x)=f(x)$, then
 it's easy to work out the area under the curve, because
  $\\int_a^b f(x)dx = F(b) - F(a)$.
 So differentiation and integration are inverse operations!
@@ -85,8 +87,8 @@ Simplicio: Ok, so what's the right answer, how *do* you do calculus rigorously?
 Socrates: Not so fast! Things got even worse, and by the mid-19th century, people realized that
 we don't even know what the real numbers *are*!
 
-Simplicio: What? What do you mean, what are they? Here they are right here: There's zero, and one, and
-root-2, and $e$ and $\\pi$. What's the problem?
+Simplicio: What? What do you mean, what are they? Here they are right here: There's zero, and one, and $-2$, and $\\frac35$, and
+$\\sqrt 2$, and $e$ and $\\pi$. What's the problem?
 
 Socrates: Well, do you remember that you need something called the Intermediate Value Theorem
 in calculus?
@@ -96,28 +98,29 @@ then it has to cross zero at some point in between.
 
 Socrates: Very good. Tell me about the function $f : x \\mapsto x^2 - 2$. (We say: \"$f$ maps
 $x$ to $x^2-2$\". Note that we write $f : \\R \\to \\R$ to mean that $f$ takes real numbers to real numbers, but
-replace $\\to$ with $\\mapsto$ -- see the tail on the arrow? -- when we want to say what happens to a particular input $x$ under the action of
-$f$.) In particular, what happens to $f$ on the rational numbers?
+replace $\\to$ with $\\mapsto$ (see the tail on the second arrow?) when we want to say what happens to a particular input $x$ under the action of
+$f$. Let me remind you that $x$ here is a dummy variable, so it's the same function if we'd said $f : u \\mapsto u ^ 2 - 2$.) In particular, what happens to $f$ on the rational numbers?
 
 Simplicio: Ok, well if $x$ is a rational number, then so is $x^2$, and hence so is $x^2-2$.
-The graph of $y=f(x)$ is a simple parabola.
+So actually, we could say that $f : \\Q \\to \\Q$, that is, $f$ maps rational numbers to rational numbers.
+Over the reals, the graph of $y=f(x)$ is a simple parabola.
 But you'd asked me about the Intermediate Value Theorem. Hmm. When $x=0$, I know that $f(x)$ will
 be $f(0)=0^2-2=-2$ which is negative. And when $x=2$, $f(2)=2^2-2=2$ which is positive.
 
 Socrates: Go on...
 
-Simplicio: But the place where $f$ crosses the $x$-axis is at $x=\\sqrt2$.
+Simplicio: So there's a root of $f$ somewhere between $0$ and $2$. But the place where $f$ crosses the $x$-axis is at $x=\\sqrt2\\approx 1.41\\dots$.
 
 Socrates: And what did the Pythagoreans know about this number?
 
 Simplicio: Supposedly one of them, Hippasus, figured out that $\\sqrt2$ is irrational, which ruined
-their entire theory of geometry and form (they originally believed that all numbers were rational); legend has it
-that they drowned him at sea for his herecy.
+their entire theory of geometry and form (they originally believed that *all* numbers were rational); legend has it
+that Hippasus was drowned at sea for his herecy.
 
 Socrates: So...
 
 Simplicio: So wait, if we just restrict to rational inputs, then this parabola is negative, and then
-it's positive, and it *never* crosses zero?! So what makes the real numbers different from the
+it's positive, and it *never* crosses zero?! But there's tons of rational numbers almost everywhere you look. So what makes the real numbers different from the
 rational numbers, so that the Intermediate Value Theorem actually holds?
 
 Socrates: Ah! Now, my friend, we are ready to begin.
