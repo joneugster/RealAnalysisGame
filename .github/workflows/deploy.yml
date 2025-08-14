@@ -14,8 +14,6 @@ jobs:
       
     - name: Setup Lean
       uses: leanprover/lean-action@v1
-      with:
-        lean-version: '4.21.0'
         
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -24,16 +22,16 @@ jobs:
         cache: 'npm'
         
     - name: Install dependencies
-      run: npm ci
+      run: cd lean4game && npm ci
       
     - name: Build Lean server
-      run: cd server && lake build
+      run: cd RealAnalysisGame && lake build
       
     - name: Build relay
-      run: npm run build_relay
+      run: cd lean4game && npm run build_relay
       
     - name: Build client
-      run: npm run build_client
+      run: cd lean4game && npm run build_client
       
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
@@ -41,6 +39,6 @@ jobs:
         token: ${{ secrets.DEPLOY_TOKEN }}
         repository-name: AlexKontorovich/alexkontorovich.github.io
         branch: main
-        folder: dist
+        folder: lean4game/dist
         target-folder: 2025F311H
         clean: true
