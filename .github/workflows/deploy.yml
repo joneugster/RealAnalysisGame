@@ -24,8 +24,11 @@ jobs:
     - name: Install dependencies
       run: cd lean4game && npm ci
       
-    - name: Build Lean server
+    - name: Build Lean server (game)
       run: cd RealAnalysisGame && lake build
+      
+    - name: Build Lean server (framework)
+      run: cd lean4game/server && lake build
       
     - name: Build relay
       run: cd lean4game && npm run build_relay
