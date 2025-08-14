@@ -1,9 +1,9 @@
 import Lake
 open Lake DSL
 
--- Pin to stable versions instead of dynamic leanVersion
-def stableLeanVersion : String := "v4.12.0"
-def stableGameServerVersion : String := "v4.12.0"
+-- Use latest stable versions
+def stableLeanVersion : String := "v4.22.0"
+def stableGameServerVersion : String := "v4.22.0"
 
 /--
 Use the GameServer from a `lean4game` folder lying next to the game on your local computer.
@@ -39,36 +39,9 @@ open Lean in
   modifyEnv (fun env => Lake.packageDepAttr.ext.addEntry env gameServerName)
   : Elab.Command.CommandElabM Unit)
 
-/-!
-# USER DEPENDENCIES
-
-Add any further dependencies of your game below.
-
-Note: If your package (like `mathlib` or `Std`) has tags of the form `v4.X.0` then
-you can use
-
-```
-require "leanprover-community" / mathlib @ git leanVersion
-```
- -/
-
--- Pin mathlib to a stable version that builds without simp? issues
+-- Use latest stable mathlib
 require "leanprover-community" / mathlib @ git stableLeanVersion
 
-/-!
-# PACKAGE CONFIGURATION
-
-Here you can set options used in your game. The player will use the same options as you'll
-have set here.
-
-NOTE: The `leanOptions` and `moreServerOptions` influence how the player preceives the game.
-For example, it is important to have `linter.all` set to `false` to prevent any linter
-warnings from showing up during playing.
-
-NOTE: We abuse the `trace.debug` option to toggle messages in VSCode on and
-off when calling `lake build`. Ideally there would be a better way using `logInfo` and
-an option like `lean4game.verbose`.
--/
 package Game where
   /- Used in all cases. -/
   leanOptions := #[
