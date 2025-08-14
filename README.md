@@ -1,0 +1,1 @@
+This repo contains the source code for the Real Analysis Game, currently under development, which is temporarily being served (minus Lean) from https://real-analysis-game.vercel.app/#/g/local/RealAnalysisGame.
