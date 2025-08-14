@@ -1,9 +1,8 @@
 import Lake
 open Lake DSL
 
--- Use latest stable versions
-def stableLeanVersion : String := "v4.22.0"
-def stableGameServerVersion : String := "v4.22.0"
+-- Use v4.21.0 - this is what lean4game currently supports
+def stableLeanVersion : String := "v4.21.0"
 
 /--
 Use the GameServer from a `lean4game` folder lying next to the game on your local computer.
@@ -24,8 +23,8 @@ Deactivate local version with `lake update -R`.
 def RemoteGameServer : Dependency := {
   name := `GameServer
   scope := "hhu-adam"
-  src? := DependencySrc.git "https://github.com/leanprover-community/lean4game.git" stableGameServerVersion "server"
-  version? := s!"git#{stableGameServerVersion}"
+  src? := DependencySrc.git "https://github.com/leanprover-community/lean4game.git" "main" "server"
+  version? := none
   opts := ∅
 }
 
