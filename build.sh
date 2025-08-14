@@ -3,9 +3,9 @@ set -e
 
 echo "=== Starting build process ==="
 
-# Install npm dependencies first
+# Install npm dependencies first with legacy peer deps to handle TypeScript conflicts
 echo "=== Installing npm dependencies ==="
-npm ci
+npm ci --legacy-peer-deps
 
 # Install Elan with better error handling
 echo "=== Installing Elan ==="
