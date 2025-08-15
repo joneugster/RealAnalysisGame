@@ -3,7 +3,8 @@ run-name: Build the game
 on:
   workflow_dispatch:
   push:
-    branches-ignore: [ "main" ]
+    branches-ignore:
+    - "main"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,17 +18,3 @@ jobs:
           lint: false
           mk_all-check: false
           use-mathlib-cache: true
-
-      - name: compress built game
-        #run: tar -czvf ../game.tar.gz .
-        run: zip game.zip * .lake/ .i18n/ -r
-
-      - name: upload compressed game folder
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-for-server-import
-          path: |
-            game.zip
-
-      - name: What next?
-        run: echo "To export the game to the Game Server, open https://adam.math.hhu.de/import/trigger/${GITHUB_REPOSITORY,,} \n Afterwards, you can play the game at https://adam.math.hhu.de/#/g/${GITHUB_REPOSITORY,,}"
