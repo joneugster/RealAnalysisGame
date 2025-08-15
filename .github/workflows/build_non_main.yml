@@ -1,0 +1,20 @@
+name: Build
+run-name: Build the game
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+    - "main"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          use-github-cache: false
+          build: true
+          test: false
+          lint: false
+          mk_all-check: false
+          use-mathlib-cache: true
