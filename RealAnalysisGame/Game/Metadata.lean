@@ -1,5 +1,6 @@
 import GameServer
--- import Mathlib.Tactic.Common
+
+import Game.CustomTactic.Rw  -- weaker `rw` which behaves like Lean's `rewrite` tactic (i.e. uses no `rfl`)
 
 /-! Use this file to add things that should be available in all levels.
 
