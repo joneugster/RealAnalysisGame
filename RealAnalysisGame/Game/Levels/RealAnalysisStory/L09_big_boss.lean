@@ -19,6 +19,12 @@ Congratulations! You've learned many fundamental tactics for mathematical reason
 - `specialize` for applying universal statements to specific values in hypotheses
 - `choose value hypothesisOnValue using ExistentialHypothesis ` for extracting information from existence statements in hypotheses
 
+Here's a little \"Universal/Existential Quantifier Cheat Sheet\":
+|           | ∀        | ∃      |
+|-----------|----------|--------|
+| **⊢**  | `intro`    | `use`    |
+| **Hypothesis** | `specialize` | `choose` |
+
 Now it's time for your first **Big Boss** - a problem that requires you to use almost ALL of these tactics in a single proof!
 
 **The Challenge:**
