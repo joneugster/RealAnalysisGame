@@ -1,5 +1,5 @@
 name: Build
-run-name: Build the game
+run-name: Build the game and upload artifact
 on:
   workflow_dispatch:
   push:

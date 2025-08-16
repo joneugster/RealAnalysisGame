@@ -2,7 +2,7 @@ import Lake
 open Lake DSL
 
 -- Use v4.21.0 - this is what lean4game currently supports
-def stableLeanVersion : String := "v4.21.0"
+def stableLeanVersion : String := s!"v{Lean.versionString}"
 
 /--
 Use the GameServer from a `lean4game` folder lying next to the game on your local computer.
