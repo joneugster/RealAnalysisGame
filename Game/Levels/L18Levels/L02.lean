@@ -57,7 +57,7 @@ TheoremDoc AntitoneLimitBound as "AntitoneLimitBound" in "aₙ"
 -- ADD TO HOMEWORK
 theorem AntitoneLimitBound {a : ℕ → ℝ} (ha : Antitone a) {L : ℝ} (aLim : SeqLim a L) : ∀ n,
   L ≤ a n := by
-sorry
+  sorry
 
 /--
   If `a → L` and `b → M` and `a - b → 0`, then `L = M`.
@@ -124,28 +124,28 @@ NewTheorem AntitoneLimitBound CoherenceOfReals SeqEvenOdd MonotoneSeriesEven Ant
 TheoremDoc AlternatingSeriesTest as "AlternatingSeriesTest" in "∑aₙ"
 
 Statement AlternatingSeriesTest {a : ℕ → ℝ} (ha : Antitone a) (aLim : SeqLim a 0) : SeriesConv (fun n ↦ (-1)^n * a n) := by
-have apos : ∀ n, 0 ≤ a n := by apply AntitoneLimitBound ha aLim
-let S2n : ℕ → ℝ := (fun n ↦ ∑ k ∈ range (2 * n), (-1)^k * a k)
-let S2np1 : ℕ → ℝ := (fun n ↦ ∑ k ∈ range (2 * n + 1), (-1)^k * a k)
-have s2nMono : Monotone S2n := by apply MonotoneSeriesEven ha apos
-have s2np1Anti : Antitone S2np1 := by apply AntitoneSeriesOdd ha apos
-have s2nBdd : ∀ n, S2n n ≤ a 0 := by apply BddSeriesEven ha apos
-have s2np1Bdd : ∀ n, 0 ≤ S2np1 n := by apply BddSeriesOdd ha apos
-have s2nCauchy : IsCauchy S2n := by apply IsCauchy_of_MonotoneBdd s2nMono s2nBdd
-have s2nLim : SeqConv S2n := by apply SeqConv_of_IsCauchy s2nCauchy
-have s2np1Cauchy : IsCauchy S2np1 := by apply IsCauchy_of_AntitoneBdd s2np1Anti s2np1Bdd
-have s2np1Lim : SeqConv S2np1 := by apply SeqConv_of_IsCauchy s2np1Cauchy
-choose L hL using s2nLim
-choose M hM using s2np1Lim
-have diffZero : SeqLim (fun n ↦ S2np1 n - S2n n) 0 := by apply DiffGoesToZero aLim
-have hLM : M = L :=  CoherenceOfReals hM hL diffZero
-have s2nIs : S2n = fun n ↦ Series (fun k ↦ (-1)^k * a k) (2 * n) := by rfl
-rewrite [s2nIs] at hL
-have s2np1Is : S2np1 = fun n ↦ Series (fun k ↦ (-1)^k * a k) (2 * n + 1) := by rfl
-rewrite [s2np1Is] at hM
-rewrite [hLM] at hM
-use L
-apply SeqEvenOdd hL hM
+  have apos : ∀ n, 0 ≤ a n := by apply AntitoneLimitBound ha aLim
+  let S2n : ℕ → ℝ := (fun n ↦ ∑ k ∈ range (2 * n), (-1)^k * a k)
+  let S2np1 : ℕ → ℝ := (fun n ↦ ∑ k ∈ range (2 * n + 1), (-1)^k * a k)
+  have s2nMono : Monotone S2n := by apply MonotoneSeriesEven ha apos
+  have s2np1Anti : Antitone S2np1 := by apply AntitoneSeriesOdd ha apos
+  have s2nBdd : ∀ n, S2n n ≤ a 0 := by apply BddSeriesEven ha apos
+  have s2np1Bdd : ∀ n, 0 ≤ S2np1 n := by apply BddSeriesOdd ha apos
+  have s2nCauchy : IsCauchy S2n := by apply IsCauchy_of_MonotoneBdd s2nMono s2nBdd
+  have s2nLim : SeqConv S2n := by apply SeqConv_of_IsCauchy s2nCauchy
+  have s2np1Cauchy : IsCauchy S2np1 := by apply IsCauchy_of_AntitoneBdd s2np1Anti s2np1Bdd
+  have s2np1Lim : SeqConv S2np1 := by apply SeqConv_of_IsCauchy s2np1Cauchy
+  choose L hL using s2nLim
+  choose M hM using s2np1Lim
+  have diffZero : SeqLim (fun n ↦ S2np1 n - S2n n) 0 := by apply DiffGoesToZero aLim
+  have hLM : M = L :=  CoherenceOfReals hM hL diffZero
+  have s2nIs : S2n = fun n ↦ Series (fun k ↦ (-1)^k * a k) (2 * n) := by rfl
+  rewrite [s2nIs] at hL
+  have s2np1Is : S2np1 = fun n ↦ Series (fun k ↦ (-1)^k * a k) (2 * n + 1) := by rfl
+  rewrite [s2np1Is] at hM
+  rewrite [hLM] at hM
+  use L
+  apply SeqEvenOdd hL hM
 
 Conclusion "
 # Congratulations!

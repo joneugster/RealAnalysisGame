@@ -51,22 +51,22 @@ TheoremDoc IsBdd_of_Cauchy as "IsBdd_of_Cauchy" in "aₙ"
 -/
 Statement IsBdd_of_Cauchy {X : Type*} [NormedField X] [LinearOrder X] [IsStrictOrderedRing X] (a : ℕ → X) (ha : IsCauchy a)
     : SeqBdd a := by
-choose N hN using ha 1 (by bound)
-use |a N| + 1 + ∑ k ∈ range N, |a k|
-have aNnonneg : 0 ≤ |a N| := by bound
-have sumNonneg : 0 ≤ ∑ k ∈ range N, |a k| := by apply sum_nonneg (by bound)
-have f1 : ∀ n < N, |a n| ≤ ∑ k ∈ range N, |a k| := by apply TermLeSum a N
-split_ands
-linarith [aNnonneg, sumNonneg]
-intro m
-specialize hN N (by bound) m
-by_cases hm : m < N
-specialize f1 m hm
-linarith [f1, aNnonneg]
-specialize hN (by bound)
-have f2 : |a m| = |(a m - a N) + a N| := by ring_nf
-have f3 : |(a m - a N) + a N| ≤ |a m - a N| + |a N| := by apply abs_add_le
-linarith [f2, f3, hN, sumNonneg]
+  choose N hN using ha 1 (by bound)
+  use |a N| + 1 + ∑ k ∈ range N, |a k|
+  have aNnonneg : 0 ≤ |a N| := by bound
+  have sumNonneg : 0 ≤ ∑ k ∈ range N, |a k| := by apply sum_nonneg (by bound)
+  have f1 : ∀ n < N, |a n| ≤ ∑ k ∈ range N, |a k| := by apply TermLeSum a N
+  split_ands
+  linarith [aNnonneg, sumNonneg]
+  intro m
+  specialize hN N (by bound) m
+  by_cases hm : m < N
+  specialize f1 m hm
+  linarith [f1, aNnonneg]
+  specialize hN (by bound)
+  have f2 : |a m| = |(a m - a N) + a N| := by ring_nf
+  have f3 : |(a m - a N) + a N| ≤ |a m - a N| + |a N| := by apply abs_add_le
+  linarith [f2, f3, hN, sumNonneg]
 
 Conclusion "
 # Outstanding! You've proven that Cauchy sequences are bounded!

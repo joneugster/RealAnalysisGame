@@ -53,15 +53,15 @@ TheoremDoc SeriesOrderThm as "SeriesOrderThm" in "∑aₙ"
 
 
 Statement SeriesOrderThm {a b : ℕ → ℝ} (hab : ∀ n, a n ≤ b n) : ∀ n, Series a n ≤ Series b n := by
-intro n
-induction' n with n hn
-bound
-change ∑ k ∈ range (n + 1), a k ≤ ∑ k ∈ range (n + 1), b k
-change ∑ k ∈ range (n), a k ≤ ∑ k ∈ range (n), b k at hn
-rewrite [show ∑ k ∈ range (n + 1), a k = ∑ k ∈ range n, a k + a n by
-  apply sum_range_succ]
-rewrite [sum_range_succ]
-linarith [hab n, hn]
+  intro n
+  induction' n with n hn
+  bound
+  change ∑ k ∈ range (n + 1), a k ≤ ∑ k ∈ range (n + 1), b k
+  change ∑ k ∈ range (n), a k ≤ ∑ k ∈ range (n), b k at hn
+  rewrite [show ∑ k ∈ range (n + 1), a k = ∑ k ∈ range n, a k + a n by
+    apply sum_range_succ]
+  rewrite [sum_range_succ]
+  linarith [hab n, hn]
 
 Conclusion "
 Perfect! You've proven a fundamental monotonicity property of series.

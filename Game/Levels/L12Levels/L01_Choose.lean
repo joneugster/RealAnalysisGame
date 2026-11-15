@@ -42,17 +42,17 @@ Isn't that cool?! Now you should be able to use the idea from the last level to 
 -/
 Statement (p : ℕ → Prop) (h : ∀ N, ∃ n > N, p n) :
   ∃ σ, Subseq σ ∧ ∀ n, p (σ n) := by
-Hint (hidden := true) "Try starting your proof with `choose τ hτBnd hτP using h`."
-choose τ hτBnd hτP using h
-Hint (hidden := true) (strict := true) "You can make `σ` by taking an orbit of `τ`! You can start at any base point, as long as `p` is satisfied for that base point; since we don't *a priori* know of such a point, we can start with `τ 0`. Try writing `let σ : ℕ → ℕ := fun n ↦ τ^[n] (τ 0)`."
-let σ : ℕ → ℕ := fun n ↦ τ^[n] (τ 0)
-use σ
-split_ands
-apply Subseq_of_Iterate τ hτBnd (τ 0)
-intro n
-change p (τ^[n+1] 0)
-rewrite [← show  τ (τ^[n] 0) = τ^[n+1] 0 by apply succ_iterate]
-apply hτP (τ^[n] 0)
+  Hint (hidden := true) "Try starting your proof with `choose τ hτBnd hτP using h`."
+  choose τ hτBnd hτP using h
+  Hint (hidden := true) (strict := true) "You can make `σ` by taking an orbit of `τ`! You can start at any base point, as long as `p` is satisfied for that base point; since we don't *a priori* know of such a point, we can start with `τ 0`. Try writing `let σ : ℕ → ℕ := fun n ↦ τ^[n] (τ 0)`."
+  let σ : ℕ → ℕ := fun n ↦ τ^[n] (τ 0)
+  use σ
+  split_ands
+  apply Subseq_of_Iterate τ hτBnd (τ 0)
+  intro n
+  change p (τ^[n+1] 0)
+  rewrite [← show  τ (τ^[n] 0) = τ^[n+1] 0 by apply succ_iterate]
+  apply hτP (τ^[n] 0)
 
 Conclusion "
 ## What You've Accomplished

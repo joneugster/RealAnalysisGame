@@ -39,14 +39,14 @@ NewTheorem abs_lt
 -/
 Statement (a : ℕ → ℝ) (L : ℝ) (ha : SeqLim a L) :
   ∃ N, ∀ n ≥ N, a n ≥ L - 1 := by
-specialize ha 1 (by bound)
-choose N hN using ha
-use N
-intro n hn
-specialize hN n hn
-rewrite [abs_lt] at hN
-have : -1 < a n - L := by apply hN.1
-bound
+  specialize ha 1 (by bound)
+  choose N hN using ha
+  use N
+  intro n hn
+  specialize hN n hn
+  rewrite [abs_lt] at hN
+  have : -1 < a n - L := by apply hN.1
+  bound
 
 Conclusion "
 # 📐 Absolute Value Mastery Achieved! 📐

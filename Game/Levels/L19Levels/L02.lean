@@ -71,20 +71,20 @@ TheoremDoc EventuallyCovers_of_Rearrangement as "EventuallyCovers_of_Rearrangeme
 Statement EventuallyCovers_of_Rearrangement
     {σ : ℕ → ℕ} (hσ : Rearrangement σ) (M : ℕ) :
     ∃ N, ∀ n ≥ N, (range M) ⊆ image σ (range n) := by
-have surj : ∀ j, ∃ n, σ n = j := hσ.2
-choose τ hτ using surj
-let N := 1 + ∑ k ∈ range M, τ k
-have hN : N = 1 + ∑ k ∈ range M, τ k := by rfl
-use N
-intro n hn m hm
-rewrite [mem_image]
-use τ m
-split_ands
-rewrite [mem_range]
-have hτ' : ∀ k ∈ range M, 0 ≤ τ k := by intro k hk; bound
-have f : τ m ≤ ∑ k ∈ range M, τ k := by apply sum_le_mem_of_nonneg hm hτ'
-linarith [f, hN, hn]
-apply hτ m
+  have surj : ∀ j, ∃ n, σ n = j := hσ.2
+  choose τ hτ using surj
+  let N := 1 + ∑ k ∈ range M, τ k
+  have hN : N = 1 + ∑ k ∈ range M, τ k := by rfl
+  use N
+  intro n hn m hm
+  rewrite [mem_image]
+  use τ m
+  split_ands
+  rewrite [mem_range]
+  have hτ' : ∀ k ∈ range M, 0 ≤ τ k := by intro k hk; bound
+  have f : τ m ≤ ∑ k ∈ range M, τ k := by apply sum_le_mem_of_nonneg hm hτ'
+  linarith [f, hN, hn]
+  apply hτ m
 
 
 

@@ -80,14 +80,14 @@ TheoremDoc SubseqConv as "SubseqConv" in "aₙ"
 -/
 Statement SubseqConv (a : ℕ → ℝ) (L : ℝ) (ha : SeqLim a L) (σ : ℕ → ℕ) (hσ : Subseq σ) :
     SeqLim (a ∘ σ) L := by
-intro ε hε
-choose N hN using ha ε hε
-use N
-intro n hn
-have f1 : n ≤ σ n := by apply SubseqGe hσ n
-have f2 : N ≤ σ n := by linarith [f1, hn]
-specialize hN (σ n) f2
-apply hN
+  intro ε hε
+  choose N hN using ha ε hε
+  use N
+  intro n hn
+  have f1 : n ≤ σ n := by apply SubseqGe hσ n
+  have f2 : N ≤ σ n := by linarith [f1, hn]
+  specialize hN (σ n) f2
+  apply hN
 
 Conclusion "
 Beautiful! That was remarkably simple for such a powerful theorem.

@@ -45,35 +45,35 @@ TheoremDoc HasIntegral_of_UnifContOn as "HasIntegral_of_UnifContOn" in "∫f"
 
 Statement HasIntegral_of_UnifContOn (f : ℝ → ℝ) (a b : ℝ) (hab : a < b) (hf : UnifContOn f (Icc a b)) :
     IntegrableOn f a b := by
-apply SeqConv_of_IsCauchy
-intro ε hε
-choose δ hδ₁ hδ₂ using hf (ε / (2 * (b - a))) (by bound)
-choose N hN using ArchProp (show 0 < δ / (2 * (b - a)) by bound)
-use N
-intro n hn m hnm
-have pos1 : 0 < 1 / (δ / (2 * (b - a))) := by bound
-have NposR : (0 : ℝ) < N := by linarith [hN, pos1]
-have Npos : 0 < N := by exact_mod_cast NposR
-have npos : 0 < n := by bound
-have mpos : 0 < m := by bound
-change |RiemannSum f a b m - RiemannSum f a b n| < ε
-have hn_small : 2 * (b - a) / n < δ := by sorry
-have hm_small : 2 * (b - a) / m < δ := by sorry
-have f1 : |RiemannSum f a b m - RiemannSum f a b n| ≤
-    |RiemannSum f a b m - RiemannSum f a b (m * n)| + |RiemannSum f a b (n * m) - RiemannSum f a b n| := by
-  rewrite [show RiemannSum f a b m - RiemannSum f a b n =
-      (RiemannSum f a b m - RiemannSum f a b (m * n)) +
-      (RiemannSum f a b (n * m) - RiemannSum f a b n) by ring_nf]
-  apply abs_add_le
-have hfn := RiemannSumRefinement f hab (show n ≠ 0 by bound) (show m ≠ 0 by bound) (show 0 < ε / (2 * (b - a)) by bound)
-    (show 0 < δ by bound) hδ₂ hn_small
-have hfm := RiemannSumRefinement f hab (show m ≠ 0 by bound) (show n ≠ 0 by bound) (show 0 < ε / (2 * (b - a)) by bound)
-    (show 0 < δ by bound) hδ₂ hm_small
-rewrite [show |RiemannSum f a b (m * n) - RiemannSum f a b m| =
-    |RiemannSum f a b m - RiemannSum f a b (m * n)| by apply abs_sub_comm] at hfm
-have bapos : 0 < b - a := by linarith [hab]
-rewrite [show (b - a) * (ε / (2 * (b - a))) = ε / 2 by field_simp] at hfn hfm
-linarith [f1, hfn, hfm]
+  apply SeqConv_of_IsCauchy
+  intro ε hε
+  choose δ hδ₁ hδ₂ using hf (ε / (2 * (b - a))) (by bound)
+  choose N hN using ArchProp (show 0 < δ / (2 * (b - a)) by bound)
+  use N
+  intro n hn m hnm
+  have pos1 : 0 < 1 / (δ / (2 * (b - a))) := by bound
+  have NposR : (0 : ℝ) < N := by linarith [hN, pos1]
+  have Npos : 0 < N := by exact_mod_cast NposR
+  have npos : 0 < n := by bound
+  have mpos : 0 < m := by bound
+  change |RiemannSum f a b m - RiemannSum f a b n| < ε
+  have hn_small : 2 * (b - a) / n < δ := by sorry
+  have hm_small : 2 * (b - a) / m < δ := by sorry
+  have f1 : |RiemannSum f a b m - RiemannSum f a b n| ≤
+      |RiemannSum f a b m - RiemannSum f a b (m * n)| + |RiemannSum f a b (n * m) - RiemannSum f a b n| := by
+    rewrite [show RiemannSum f a b m - RiemannSum f a b n =
+        (RiemannSum f a b m - RiemannSum f a b (m * n)) +
+        (RiemannSum f a b (n * m) - RiemannSum f a b n) by ring_nf]
+    apply abs_add_le
+  have hfn := RiemannSumRefinement f hab (show n ≠ 0 by bound) (show m ≠ 0 by bound) (show 0 < ε / (2 * (b - a)) by bound)
+      (show 0 < δ by bound) hδ₂ hn_small
+  have hfm := RiemannSumRefinement f hab (show m ≠ 0 by bound) (show n ≠ 0 by bound) (show 0 < ε / (2 * (b - a)) by bound)
+      (show 0 < δ by bound) hδ₂ hm_small
+  rewrite [show |RiemannSum f a b (m * n) - RiemannSum f a b m| =
+      |RiemannSum f a b m - RiemannSum f a b (m * n)| by apply abs_sub_comm] at hfm
+  have bapos : 0 < b - a := by linarith [hab]
+  rewrite [show (b - a) * (ε / (2 * (b - a))) = ε / 2 by field_simp] at hfn hfm
+  linarith [f1, hfn, hfm]
 
 Conclusion "
 # A Major Milestone!

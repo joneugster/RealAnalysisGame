@@ -19,16 +19,16 @@ TheoremDoc ComparisonTest as "ComparisonTest" in "∑aₙ"
 
 Statement ComparisonTest {a b : ℕ → ℝ} (ha : ∀ n, 0 ≤ a n) (hab : ∀ n, a n ≤ b n)
   (hb : SeriesConv b) : SeriesConv a := by
-have bNonneg : ∀ n, 0 ≤ b n := by
-  intro n;
-  linarith [hab n, ha n]
-choose L hL using hb
-apply SeqConv_of_MonotoneBdd (Series a) L
-intro n
-have habBnd := SeriesOrderThm hab n
-have bBnd := MonotoneLimitBound (Monotone_of_NonNegSeries bNonneg) hL n
-linarith [habBnd, bBnd]
-apply Monotone_of_NonNegSeries ha
+  have bNonneg : ∀ n, 0 ≤ b n := by
+    intro n;
+    linarith [hab n, ha n]
+  choose L hL using hb
+  apply SeqConv_of_MonotoneBdd (Series a) L
+  intro n
+  have habBnd := SeriesOrderThm hab n
+  have bBnd := MonotoneLimitBound (Monotone_of_NonNegSeries bNonneg) hL n
+  linarith [habBnd, bBnd]
+  apply Monotone_of_NonNegSeries ha
 
 Conclusion "
 "

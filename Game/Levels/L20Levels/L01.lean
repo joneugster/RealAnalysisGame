@@ -56,15 +56,15 @@ NewDefinition FunLimAt
 
 Statement :
     ∃ L, FunLimAt (fun x ↦ (x^2 - 1)/(x - 1)) L 1 := by
-use 2
-intro ε hε
-use ε, hε
-intro x hxc hx
-change |(x ^ 2 - 1) / (x - 1) - 2| < ε
-have f1 : x - 1 ≠ 0 := by bound
-rewrite [show (x ^ 2 - 1) / (x - 1) = x + 1 by field_simp; ring_nf]
-rewrite [show x + 1 - 2 = x - 1 by ring_nf]
-apply hx
+  use 2
+  intro ε hε
+  use ε, hε
+  intro x hxc hx
+  change |(x ^ 2 - 1) / (x - 1) - 2| < ε
+  have f1 : x - 1 ≠ 0 := by bound
+  rewrite [show (x ^ 2 - 1) / (x - 1) = x + 1 by field_simp; ring_nf]
+  rewrite [show x + 1 - 2 = x - 1 by ring_nf]
+  apply hx
 
 Conclusion "
 ## What We've Learned

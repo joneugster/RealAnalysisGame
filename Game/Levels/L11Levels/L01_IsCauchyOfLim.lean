@@ -66,17 +66,17 @@ TheoremDoc IsCauchy_of_SeqConv as "IsCauchy_of_SeqConv" in "aₙ"
 -/
 Statement IsCauchy_of_SeqConv {a : ℕ → ℝ} (ha : SeqConv a)
     : IsCauchy a := by
-choose L hL using ha
-intro ε hε
-choose N hN using hL (ε / 2) (by bound)
-use N
-intro n hn m hm
-have hn' : |a n - L| < ε / 2 := by apply hN n hn
-have hm' : |a m - L| < ε / 2 := by apply hN m (by bound)
-rewrite [(by ring_nf : |a m - a n| = |(a m - L) + (L - a n)|)]
-have f1 : |(a m - L) + (L - a n)| ≤ |a m - L| + |L - a n| := by apply abs_add_le
-have f2 : |L - a n| = |a n - L| := by apply abs_sub_comm
-linarith [f1, f2, hn', hm']
+  choose L hL using ha
+  intro ε hε
+  choose N hN using hL (ε / 2) (by bound)
+  use N
+  intro n hn m hm
+  have hn' : |a n - L| < ε / 2 := by apply hN n hn
+  have hm' : |a m - L| < ε / 2 := by apply hN m (by bound)
+  rewrite [(by ring_nf : |a m - a n| = |(a m - L) + (L - a n)|)]
+  have f1 : |(a m - L) + (L - a n)| ≤ |a m - L| + |L - a n| := by apply abs_add_le
+  have f2 : |L - a n| = |a n - L| := by apply abs_sub_comm
+  linarith [f1, f2, hn', hm']
 
 Conclusion "
 # Congratulations! You've proven that convergence implies Cauchy!

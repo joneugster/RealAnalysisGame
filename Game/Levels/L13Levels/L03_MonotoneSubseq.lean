@@ -83,45 +83,45 @@ TheoremDoc MonotoneSubseq_of_BddPeaks as "MonotoneSubseq_of_BddPeaks" in "aₙ"
 /-- Prove this
 -/
 Statement MonotoneSubseq_of_BddPeaks {X : Type*} [NormedField X] [LinearOrder X] [IsStrictOrderedRing X] [FloorSemiring X] (a : ℕ → X) (ha : ¬ UnBddPeaks a) : ∃ σ, Subseq σ ∧ Monotone (a ∘ σ) := by
-change ¬ (∀ k, ∃ n > k, ∀ m > n, a m ≤ a n) at ha
-push_neg at ha
-choose k hk using ha
-choose τ τ_gt hτ using hk
-let τ' : ℕ → ℕ := fun n => if h : n ≤ k then n + 1 else τ n (lt_of_not_ge h)
-have τ'_eq : ∀ n, τ' n = if h : n ≤ k then n + 1 else τ n (lt_of_not_ge h) := by intro n; rfl
-have τ'_gt : ∀ n, n < τ' n := by
-  intro n;
-  by_cases hn : n ≤ k;
-  rewrite [τ'_eq];
-  bound;
-  rewrite [τ'_eq];
+  change ¬ (∀ k, ∃ n > k, ∀ m > n, a m ≤ a n) at ha
+  push_neg at ha
+  choose k hk using ha
+  choose τ τ_gt hτ using hk
+  let τ' : ℕ → ℕ := fun n => if h : n ≤ k then n + 1 else τ n (lt_of_not_ge h)
+  have τ'_eq : ∀ n, τ' n = if h : n ≤ k then n + 1 else τ n (lt_of_not_ge h) := by intro n; rfl
+  have τ'_gt : ∀ n, n < τ' n := by
+    intro n;
+    by_cases hn : n ≤ k;
+    rewrite [τ'_eq];
+    bound;
+    rewrite [τ'_eq];
+    bound
+  let σ : ℕ → ℕ := fun n ↦ τ'^[n] (k+1)
+  have σ_eq : ∀ n, σ n = τ'^[n] (k+1) := by intro n; rfl
+  have hσ : ∀ n, k < σ n := by
+    intro n;
+    induction' n with n hn;
+    rewrite [σ_eq];
+    bound;
+    rewrite [σ_eq];
+    rewrite [← show τ' (τ'^[n] (k + 1)) = τ'^[n + 1] (k + 1) by apply succ_iterate];
+    rewrite [← σ_eq];
+    specialize τ'_gt (σ n);
+    linarith [τ'_gt, hn]
+  use σ
+  split_ands
+  apply Subseq_of_Iterate
+  apply τ'_gt
+  apply Monotone_of_succ
+  intro n
+  specialize hσ n
+  specialize hτ (σ n) hσ
+  change a (σ n) ≤ a (σ (n + 1))
+  rewrite [show σ (n + 1) = τ'^[n+1] (k + 1) by apply σ_eq]
+  rewrite [← show τ' (τ'^[n] (k + 1)) = τ'^[n + 1] (k + 1) by apply succ_iterate]
+  rewrite [← show σ (n) = τ'^[n] (k + 1) by apply σ_eq]
+  rewrite [τ'_eq]
   bound
-let σ : ℕ → ℕ := fun n ↦ τ'^[n] (k+1)
-have σ_eq : ∀ n, σ n = τ'^[n] (k+1) := by intro n; rfl
-have hσ : ∀ n, k < σ n := by
-  intro n;
-  induction' n with n hn;
-  rewrite [σ_eq];
-  bound;
-  rewrite [σ_eq];
-  rewrite [← show τ' (τ'^[n] (k + 1)) = τ'^[n + 1] (k + 1) by apply succ_iterate];
-  rewrite [← σ_eq];
-  specialize τ'_gt (σ n);
-  linarith [τ'_gt, hn]
-use σ
-split_ands
-apply Subseq_of_Iterate
-apply τ'_gt
-apply Monotone_of_succ
-intro n
-specialize hσ n
-specialize hτ (σ n) hσ
-change a (σ n) ≤ a (σ (n + 1))
-rewrite [show σ (n + 1) = τ'^[n+1] (k + 1) by apply σ_eq]
-rewrite [← show τ' (τ'^[n] (k + 1)) = τ'^[n + 1] (k + 1) by apply succ_iterate]
-rewrite [← show σ (n) = τ'^[n] (k + 1) by apply σ_eq]
-rewrite [τ'_eq]
-bound
 
 Conclusion "
 

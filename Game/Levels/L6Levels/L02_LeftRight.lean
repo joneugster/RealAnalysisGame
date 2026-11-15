@@ -35,8 +35,8 @@ NewTactic left right
 -/
 Statement (x y : ℝ) (hx : x = 2) (hy : y = 3) :
     x = 3 ∨ y = 3 := by
-right
-apply hy
+  right
+  apply hy
 
 Conclusion "
 # 🎯 Strategic Decision-Making Mastered! 🎯

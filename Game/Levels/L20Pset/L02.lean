@@ -15,15 +15,15 @@ Prove the backwards direction: If the limit at `x=c` of `f` exists and is equal 
 -/
 Statement (f : ℝ → ℝ) (c : ℝ) (hf : FunLimAt f (f c) c) :
   FunContAt f c := by
-intro ε hε
-choose δ δpos hδ using hf ε hε
-use δ, δpos
-intro x hx
-by_cases h : x = c
-rewrite [h]
-norm_num
-apply hε
-apply hδ x h hx
+  intro ε hε
+  choose δ δpos hδ using hf ε hε
+  use δ, δpos
+  intro x hx
+  by_cases h : x = c
+  rewrite [h]
+  norm_num
+  apply hε
+  apply hδ x h hx
 
 Conclusion "
 "

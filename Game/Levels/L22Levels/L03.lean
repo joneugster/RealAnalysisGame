@@ -193,36 +193,36 @@ NewTheorem Finset.sum_add_distrib Finset.sum_const Finset.card_range Finset.sum_
 
 Statement {a b : ℝ} (hab : a < b) :
     IntegrableOn (fun x ↦ x) a b := by
-use (b^2-a^2)/2
-intro ε hε
-have bnd : 0 < 2 * ε / (b - a) ^ 2 := by bound
-have bndinv : 0 < 1 / (2 * ε / (b - a) ^ 2) := by bound
-choose N hN using ArchProp bnd
-use N
-intro n hn
-have hn' : (N : ℝ) ≤ n := by exact_mod_cast hn
-have Npos : (0 : ℝ) < N := by linarith [bndinv, hN]
-have npos : (0 : ℝ) < n := by linarith [Npos, hn']
-have f1 : (fun N => RiemannSum (fun x => x) a b N) n - (b ^ 2 - a ^ 2) / 2  = (b-a)^2 / (2 * n) := by
-  change ((b - a) / n * (∑ i ∈ range n, (a + (i + 1) * (b - a) / n))) - (b ^ 2 - a ^ 2) / 2  = _
-  rewrite [show ∑ i ∈ range n, (a + (i + 1) * (b - a) / n) =
-    (∑ i ∈ range n, a) +
-    ∑ i ∈ range n, ((i + 1) * (b - a) / n) by apply sum_add_distrib]
-  rewrite [show ∑ i ∈ range n, a = #(range n) • a by apply sum_const]
-  rewrite [show #(range n) = n by apply card_range]
-  rewrite [show ∑ i ∈ range n, ((i + 1) * (b - a) / n) = (∑ i ∈ range n, (i + 1) * (b - a)) / n by rewrite [← sum_div]; rfl]
-  rewrite [show (∑ i ∈ range n, (i + 1) * (b - a)) / n = (∑ i ∈ range n, (i + 1 : ℝ)) * (b - a) / n by rewrite [← sum_mul]; rfl]
-  rewrite [show ∑ i ∈ range n, ((i : ℝ) + 1) = n * (n + 1) / 2  by apply sum_range_add_one]
+  use (b^2-a^2)/2
+  intro ε hε
+  have bnd : 0 < 2 * ε / (b - a) ^ 2 := by bound
+  have bndinv : 0 < 1 / (2 * ε / (b - a) ^ 2) := by bound
+  choose N hN using ArchProp bnd
+  use N
+  intro n hn
+  have hn' : (N : ℝ) ≤ n := by exact_mod_cast hn
+  have Npos : (0 : ℝ) < N := by linarith [bndinv, hN]
+  have npos : (0 : ℝ) < n := by linarith [Npos, hn']
+  have f1 : (fun N => RiemannSum (fun x => x) a b N) n - (b ^ 2 - a ^ 2) / 2  = (b-a)^2 / (2 * n) := by
+    change ((b - a) / n * (∑ i ∈ range n, (a + (i + 1) * (b - a) / n))) - (b ^ 2 - a ^ 2) / 2  = _
+    rewrite [show ∑ i ∈ range n, (a + (i + 1) * (b - a) / n) =
+      (∑ i ∈ range n, a) +
+      ∑ i ∈ range n, ((i + 1) * (b - a) / n) by apply sum_add_distrib]
+    rewrite [show ∑ i ∈ range n, a = #(range n) • a by apply sum_const]
+    rewrite [show #(range n) = n by apply card_range]
+    rewrite [show ∑ i ∈ range n, ((i + 1) * (b - a) / n) = (∑ i ∈ range n, (i + 1) * (b - a)) / n by rewrite [← sum_div]; rfl]
+    rewrite [show (∑ i ∈ range n, (i + 1) * (b - a)) / n = (∑ i ∈ range n, (i + 1 : ℝ)) * (b - a) / n by rewrite [← sum_mul]; rfl]
+    rewrite [show ∑ i ∈ range n, ((i : ℝ) + 1) = n * (n + 1) / 2  by apply sum_range_add_one]
+    field_simp
+    ring_nf
+  rewrite [f1]
+  have f2 : 0 ≤ (b - a) ^ 2 / (2 * n) := by bound
+  rewrite [abs_of_nonneg f2]
   field_simp
-  ring_nf
-rewrite [f1]
-have f2 : 0 ≤ (b - a) ^ 2 / (2 * n) := by bound
-rewrite [abs_of_nonneg f2]
-field_simp
-field_simp at hN
-have f3 : 2 * ε * N ≤ 2 * ε * n := by bound
-rewrite [show 2 * ε * n = 2 * n * ε by ring_nf] at f3
-linarith [hN, f3]
+  field_simp at hN
+  have f3 : 2 * ε * N ≤ 2 * ε * n := by bound
+  rewrite [show 2 * ε * n = 2 * n * ε by ring_nf] at f3
+  linarith [hN, f3]
 
 Conclusion "
 # Level 3 Conclusion: The Art of Exact Computation

@@ -104,27 +104,27 @@ Statement (q : ℕ → ℕ → ℚ) (hq : ∀ n, IsCauchy (q n))
   ∃ (y : ℕ → ℚ), (IsCauchy y) ∧
   ∀ ε > 0, ∃ N, ∀ n ≥ N, SeqDiffBy (q n) y ε
   := by
-choose N hN using fun n ↦ hq n (1 / (n + 1)) (by bound)
-let N' := fun n ↦ ∑ k ∈ range n, N k
-have N'mono : Monotone N' := by sorry
-have N'bnd : ∀ m, N m ≤ N' m := by sorry
-have N'bnd' : ∀ m, ∀ n ≤ m, N n ≤ N' m := by
-  intro m n hn
-  linarith [N'bnd n, N'mono hn]
-let y := fun n ↦ q n (N' n)
-use y
-split_ands
-intro ε hε
-choose N1 hN1 using hx (ε / 2) (by bound)
-choose N2 hN2 using ArchProp (show (0 : ℝ) < ε / 2 by norm_num; bound)
-use N1 + N2
-intro n hn m hm
-change |q m (N' m) - q n (N' n)| < ε
-have f1 : |q m (N' m) - q n (N' n)| = |(q m (N' m) -  q n (N' m)) + (q n (N' m) - q n (N' n))| := by ring_nf
-have f2 : |(q m (N' m) -  q n (N' m)) + (q n (N' m) - q n (N' n))| ≤
-  |(q m (N' m) -  q n (N' m))| + |(q n (N' m) - q n (N' n))| := by apply abs_add_le
-have := (N'bnd' m n hm)
-have := hN1
+  choose N hN using fun n ↦ hq n (1 / (n + 1)) (by bound)
+  let N' := fun n ↦ ∑ k ∈ range n, N k
+  have N'mono : Monotone N' := by sorry
+  have N'bnd : ∀ m, N m ≤ N' m := by sorry
+  have N'bnd' : ∀ m, ∀ n ≤ m, N n ≤ N' m := by
+    intro m n hn
+    linarith [N'bnd n, N'mono hn]
+  let y := fun n ↦ q n (N' n)
+  use y
+  split_ands
+  intro ε hε
+  choose N1 hN1 using hx (ε / 2) (by bound)
+  choose N2 hN2 using ArchProp (show (0 : ℝ) < ε / 2 by norm_num; bound)
+  use N1 + N2
+  intro n hn m hm
+  change |q m (N' m) - q n (N' n)| < ε
+  have f1 : |q m (N' m) - q n (N' n)| = |(q m (N' m) -  q n (N' m)) + (q n (N' m) - q n (N' n))| := by ring_nf
+  have f2 : |(q m (N' m) -  q n (N' m)) + (q n (N' m) - q n (N' n))| ≤
+    |(q m (N' m) -  q n (N' m))| + |(q n (N' m) - q n (N' n))| := by apply abs_add_le
+  have := (N'bnd' m n hm)
+  have := hN1
 --have := hN m (N' m) (N'bnd m) (N' n) (by apply N'mono hm)
 
 
@@ -136,62 +136,62 @@ have := hN1
 
 
 
-sorry
-sorry
+  sorry
+  sorry
 
-#exit
-choose N hN using fun (n : ℕ) ↦ SeqLim_of_Real_of_Cau (hq n) (1 / (n + 1)) (by bound)
-change  ∀ n, ∀ m ≥ N n, |(q n m) - Real_of_CauSeq (hq n)| < 1 / (n + 1) at hN
-let y := fun n ↦ q n (N n)
-use y
-have hy : IsCauchy y := by
+  #exit
+  choose N hN using fun (n : ℕ) ↦ SeqLim_of_Real_of_Cau (hq n) (1 / (n + 1)) (by bound)
+  change  ∀ n, ∀ m ≥ N n, |(q n m) - Real_of_CauSeq (hq n)| < 1 / (n + 1) at hN
+  let y := fun n ↦ q n (N n)
+  use y
+  have hy : IsCauchy y := by
+    intro ε hε
+    choose N1 hN1 using hx (ε / 3) (by norm_num; bound)
+    choose N2 hN2 using ArchProp (show (0 : ℝ) < ε / 3 by norm_num; bound)
+    use N1 + N2
+    intro n hn m hm
+    change |(q m (N m)) - q n (N n)| < ε
+    specialize hN1 n (by bound) m hm
+    let xn := Real_of_CauSeq (hq n)
+    let xm := Real_of_CauSeq (hq m)
+    change |(xm - xn)| < ε / 3  at hN1
+    have qnBnd := hN n (N n) (by bound)
+    change |(q n (N n)) - xn| < 1 / (n + 1) at qnBnd
+    have qmBnd := hN m (N m) (by bound)
+    change |(q m (N m)) - xm| < 1 / (m + 1) at qmBnd
+    have f1 : |(q m (N m) : ℝ) - q n (N n)| = |(q m (N m) - xm) + ((xn - q n (N n)) + (xm - xn))| := by ring_nf
+    have f2 : |(q m (N m) - xm) + ((xn - q n (N n)) + (xm - xn))| ≤
+      |(q m (N m) - xm)| + |(xn - q n (N n)) + (xm - xn)| := by apply abs_add_le
+    have f3 : |(xn - q n (N n)) + (xm - xn)| ≤ |(xn - q n (N n))| + |(xm - xn)| := by apply abs_add_le
+    have f3' : |(xn - q n (N n))| = |q n (N n) - xn| := by apply abs_sub_comm
+    have f4 : (1 : ℝ) / (n + 1) < ε / 3 := by sorry
+    have f5 : (1 : ℝ) / (m + 1) < ε / 3 := by sorry
+    have f6 : |(q m (N m) : ℝ) - q n (N n)| < ε := by linarith [f1, f2, f3, f4, f5, qnBnd, qmBnd, hN1, f3']
+    exact_mod_cast f6
+  use hy
+
   intro ε hε
-  choose N1 hN1 using hx (ε / 3) (by norm_num; bound)
-  choose N2 hN2 using ArchProp (show (0 : ℝ) < ε / 3 by norm_num; bound)
-  use N1 + N2
-  intro n hn m hm
-  change |(q m (N m)) - q n (N n)| < ε
-  specialize hN1 n (by bound) m hm
+  choose N1 hN1 using hx (ε / 2) (by norm_num; bound)
+  choose N2 hN2 using ArchProp (show (0 : ℝ) < ε / 2 by norm_num; bound)
+  choose N3 hN3 using SeqLim_of_Real_of_Cau hy (ε / 2) (by norm_num; bound)
+  use N1 + N2 + N3
+  intro n hn
+
   let xn := Real_of_CauSeq (hq n)
-  let xm := Real_of_CauSeq (hq m)
-  change |(xm - xn)| < ε / 3  at hN1
-  have qnBnd := hN n (N n) (by bound)
-  change |(q n (N n)) - xn| < 1 / (n + 1) at qnBnd
-  have qmBnd := hN m (N m) (by bound)
-  change |(q m (N m)) - xm| < 1 / (m + 1) at qmBnd
-  have f1 : |(q m (N m) : ℝ) - q n (N n)| = |(q m (N m) - xm) + ((xn - q n (N n)) + (xm - xn))| := by ring_nf
-  have f2 : |(q m (N m) - xm) + ((xn - q n (N n)) + (xm - xn))| ≤
-    |(q m (N m) - xm)| + |(xn - q n (N n)) + (xm - xn)| := by apply abs_add_le
-  have f3 : |(xn - q n (N n)) + (xm - xn)| ≤ |(xn - q n (N n))| + |(xm - xn)| := by apply abs_add_le
-  have f3' : |(xn - q n (N n))| = |q n (N n) - xn| := by apply abs_sub_comm
-  have f4 : (1 : ℝ) / (n + 1) < ε / 3 := by sorry
-  have f5 : (1 : ℝ) / (m + 1) < ε / 3 := by sorry
-  have f6 : |(q m (N m) : ℝ) - q n (N n)| < ε := by linarith [f1, f2, f3, f4, f5, qnBnd, qmBnd, hN1, f3']
-  exact_mod_cast f6
-use hy
+  let L := Real_of_CauSeq hy
+  change |xn - L| < ε
+  change ∀ n ≥ N3, |y n - L| < ε / 2 at hN3
 
-intro ε hε
-choose N1 hN1 using hx (ε / 2) (by norm_num; bound)
-choose N2 hN2 using ArchProp (show (0 : ℝ) < ε / 2 by norm_num; bound)
-choose N3 hN3 using SeqLim_of_Real_of_Cau hy (ε / 2) (by norm_num; bound)
-use N1 + N2 + N3
-intro n hn
+  rewrite [show |xn - L| = |(xn - y n) + (y n - L)| by ring_nf]
+  have f1 : |(xn - y n) + (y n - L)| ≤ |(xn - y n)| + |(y n - L)| := by apply abs_add_le
+  specialize hN n (N n) (by bound)
+  change |y n - xn| < 1 / (n + 1) at hN
+  rewrite [show |y n - xn| = |xn - y n| by apply abs_sub_comm] at hN
+  specialize hN3 n (by bound)
 
-let xn := Real_of_CauSeq (hq n)
-let L := Real_of_CauSeq hy
-change |xn - L| < ε
-change ∀ n ≥ N3, |y n - L| < ε / 2 at hN3
+  have f2 : (1 : ℝ) / (n + 1) < ε / 2 := by sorry
 
-rewrite [show |xn - L| = |(xn - y n) + (y n - L)| by ring_nf]
-have f1 : |(xn - y n) + (y n - L)| ≤ |(xn - y n)| + |(y n - L)| := by apply abs_add_le
-specialize hN n (N n) (by bound)
-change |y n - xn| < 1 / (n + 1) at hN
-rewrite [show |y n - xn| = |xn - y n| by apply abs_sub_comm] at hN
-specialize hN3 n (by bound)
-
-have f2 : (1 : ℝ) / (n + 1) < ε / 2 := by sorry
-
-linarith [f1, f2, hN, hN3]
+  linarith [f1, f2, hN, hN3]
 
 Conclusion "
 "

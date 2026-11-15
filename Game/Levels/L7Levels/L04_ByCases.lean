@@ -88,12 +88,12 @@ TheoremDoc EventuallyGeHalfLim as "EventuallyGeHalfLim" in "aₙ"
 -/
 Statement EventuallyGeHalfLim (a : ℕ → ℝ) (L : ℝ) (aToL : SeqLim a L) :
     ∃ N, ∀ n ≥ N, |L| / 2 ≤ |a (n)| := by
-by_cases h : L = 0
-use 1
-intro n hn
-rewrite [h]
-bound
-apply EventuallyGeHalfLimPos a L aToL h
+  by_cases h : L = 0
+  use 1
+  intro n hn
+  rewrite [h]
+  bound
+  apply EventuallyGeHalfLimPos a L aToL h
 
 Conclusion "
 ## Case Analysis Mastered!

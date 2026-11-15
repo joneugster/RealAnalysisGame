@@ -56,15 +56,15 @@ TheoremDoc SeqLim_of_FunLimAt as "SeqLim_of_FunLimAt" in "f(x)"
 Statement SeqLim_of_FunLimAt {f : ℝ → ℝ} {L c : ℝ}
     (hf : FunLimAt f L c) :
     ∀ x : ℕ → ℝ, (∀ n, x n ≠ c) → SeqLim x c → SeqLim (fun n ↦ f (x n)) L := by
-intro x hxc hx
-intro ε hε
-choose δ hδ hfδ using hf ε hε
-choose N hN using hx δ hδ
-use N
-intro n hn
-specialize hN n hn
-specialize hxc n
-apply hfδ (x n) hxc hN
+  intro x hxc hx
+  intro ε hε
+  choose δ hδ hfδ using hf ε hε
+  choose N hN using hx δ hδ
+  use N
+  intro n hn
+  specialize hN n hn
+  specialize hxc n
+  apply hfδ (x n) hxc hN
 
 Conclusion "
 ## What We've Learned

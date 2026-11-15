@@ -65,16 +65,16 @@ TheoremDoc AbsLim as "AbsLim" in "aₙ"
 Statement AbsLim (a : ℕ → ℝ) (L : ℝ) (aToL : SeqLim a L) (b : ℕ →
 ℝ) (bEqAbsa : ∀ n, b n = |a n|) :
     SeqLim b |L| := by
-intro ε hε
-specialize aToL ε hε
-choose N hN using aToL
-use N
-intro n hn
-specialize hN n hn
-specialize bEqAbsa n
-rewrite [bEqAbsa]
-have : |(|a n|) - (|L|)| ≤ |a n - L| := by apply abs_Lipschitz
-bound
+  intro ε hε
+  specialize aToL ε hε
+  choose N hN using aToL
+  use N
+  intro n hn
+  specialize hN n hn
+  specialize bEqAbsa n
+  rewrite [bEqAbsa]
+  have : |(|a n|) - (|L|)| ≤ |a n - L| := by apply abs_Lipschitz
+  bound
 
 Conclusion "
 ## What You've Proven

@@ -59,16 +59,16 @@ TheoremDoc OrderLimLe as "OrderLimLe" in "aₙ"
 -/
 Statement OrderLimLe (a : ℕ → ℝ) (L : ℝ) (ha : SeqLim a L) (K : ℝ) (hK : SeqBddBy a K) :
     L ≤ K := by
-by_contra hL
-have hL' : K < L := by bound
-have hLK : 0 < (L - K) := by linarith [hL']
-choose N hN using ha (L - K) hLK
-specialize hN N (by bound)
-rewrite [abs_lt] at hN
-have f1 : L - (L - K) < a N := by linarith [hN.1]
-have f2 : K = L - (L - K) := by ring_nf
-specialize hK N
-linarith [f2, hK, f1]
+  by_contra hL
+  have hL' : K < L := by bound
+  have hLK : 0 < (L - K) := by linarith [hL']
+  choose N hN using ha (L - K) hLK
+  specialize hN N (by bound)
+  rewrite [abs_lt] at hN
+  have f1 : L - (L - K) < a N := by linarith [hN.1]
+  have f2 : K = L - (L - K) := by ring_nf
+  specialize hK N
+  linarith [f2, hK, f1]
 
 Conclusion "
 Excellent work! You've proven that limits respect inequalities.

@@ -25,13 +25,13 @@ Statement Diverge_of_DiffSubseqLim (a : ℕ → ℝ) (σ τ : ℕ → ℕ)
     (σsub : Subseq σ) (τsub : Subseq τ) (L M : ℝ)
     (hσ : SeqLim (a ∘ σ) L) (hτ : SeqLim (a ∘ τ) M) (hLM : L ≠ M)
     : ¬ SeqConv a := by
-intro h
-choose K hK using h
-have haσ : SeqLim (a ∘ σ) K := by apply SubseqConv a K hK σ σsub
-have hLK : L = K := by apply LimUnique (a ∘ σ) L K hσ haσ
-have haτ : SeqLim (a ∘ τ) K := by apply SubseqConv a K hK τ τsub
-have hMK : M = K := by apply LimUnique (a ∘ τ) M K hτ haτ
-rewrite [hLK, hMK] at hLM
-contradiction
+  intro h
+  choose K hK using h
+  have haσ : SeqLim (a ∘ σ) K := by apply SubseqConv a K hK σ σsub
+  have hLK : L = K := by apply LimUnique (a ∘ σ) L K hσ haσ
+  have haτ : SeqLim (a ∘ τ) K := by apply SubseqConv a K hK τ τsub
+  have hMK : M = K := by apply LimUnique (a ∘ τ) M K hτ haτ
+  rewrite [hLK, hMK] at hLM
+  contradiction
 
 Conclusion "Done."

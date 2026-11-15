@@ -49,9 +49,9 @@ Your task: Prove the Rearrangement Theorem—and unlock one of the deepest truth
 "
 
 theorem Series_image (a : ℕ → ℝ) (σ : ℕ → ℕ) (hσ : Injective σ) (n : ℕ) : Series (a ∘ σ) n = ∑ k ∈ image σ (range n), a k := by
-rewrite [sum_image]
-rfl
-apply hσ.injOn
+  rewrite [sum_image]
+  rfl
+  apply hσ.injOn
 
 /--
 For a sequence `a : ℕ → ℝ` and an injective `σ : ℕ → ℕ`, we have that:
@@ -79,64 +79,64 @@ TheoremDoc RearrangementThm as "RearrangementThm" in "∑aₙ"
 
 Statement RearrangementThm {a : ℕ → ℝ} (ha : AbsSeriesConv a) :
   ∃ L, ∀ (σ : ℕ → ℕ) (_ : Rearrangement σ), SeriesLim (a ∘ σ) L := by
-choose L hL using Conv_of_AbsSeriesConv ha
-use L
-intro σ hσ
-intro ε hε
-apply IsCauchy_of_SeqConv at ha
-choose N1 hN1 using ha (ε / 2) (by bound)
-choose N2 hN2 using hL (ε / 2) (by bound)
-choose N3 hN3 using EventuallyCovers_of_Rearrangement hσ (N1 + N2)
-use N1 + N2 + N3 + 1
-intro n hn
-specialize hN2 (N1 + N2) (by bound)
-specialize hN1 (N1 + N2) (by bound)
-rewrite [show Series (a ∘ σ) n - L =
-  (Series (a ∘ σ) n - Series a (N1 + N2)) + (Series a (N1 + N2) - L) by ring_nf]
-have f1 : |Series (a ∘ σ) n - Series a (N1 + N2) + (Series a (N1 + N2) - L)|
-        ≤ |Series (a ∘ σ) n - Series a (N1 + N2)| + |(Series a (N1 + N2) - L)| := by apply abs_add_le
-have f2 : |Series (a ∘ σ) n - Series a (N1 + N2)| =
-    |∑ k ∈ image σ (range n) \ range (N1 + N2), a k| := by
-  have f : Series (a ∘ σ) n = ∑ k ∈ image σ (range n), a k := Series_image a σ hσ.1 n
-  rewrite [f]
-  change |(∑ k ∈ image σ (range n), a k) - (∑ k ∈ range (N1 + N2), a k)| = |(∑ k ∈ image σ (range n) \ range (N1 + N2), a k)|
-  rewrite [← Finset.sum_sdiff (hN3 n (by bound))]
-  ring_nf
-have f3 : |∑ k ∈ image σ (range n) \ range (N1 + N2), a k|
-    ≤ ∑ k ∈ image σ (range n) \ range (N1 + N2), |a k| := by
-  apply abs_sum_le_sum_abs
-let M := N1 + N2 + 1 + ∑ k ∈ range n, σ k
-have Mis : M = N1 + N2 + 1 + ∑ k ∈ range n, σ k := by rfl
-have Mbnd : ∀ k ∈ range n, σ k < M := by
-  intro k hk
-  rewrite [Mis]
-  have f : σ k ≤ ∑ j ∈ range n, σ j := by apply sum_le_mem_of_nonneg hk; intro i hi; bound
-  linarith [f]
-have f4 : ∑ k ∈ image σ (range n) \ range (N1 + N2), |a k| ≤ ∑ k ∈ Ico (N1 + N2) M, |a k| := by
-  apply sum_le_sum_of_nonneg
-  intro i hi
-  rewrite [mem_Ico]
-  rewrite [mem_sdiff] at hi
-  rewrite [mem_range] at hi
-  rewrite [mem_image] at hi
-  have hi2 : N1 + N2 ≤ i := by bound
-  split_ands
-  apply hi2
-  have hi1 : ∃ a ∈ range n, σ a = i := by apply hi.1
-  choose a ha using hi1
-  rewrite [← ha.2]
-  apply Mbnd a ha.1
-  intro i hi;
-  bound
-have sNonneg : 0 ≤ ∑ k ∈ range n, σ k := by
-  apply sum_nonneg
-  intro i hi
-  bound
-have Mbnd : N1 + N2 ≤ M := by rewrite [Mis]; linarith [sNonneg]
-specialize hN1 M Mbnd
-rewrite [DiffOfSeries _ Mbnd] at hN1
-have f5 : ∑ k ∈ Ico (N1 + N2) M, |a k| ≤ |∑ k ∈ Ico (N1 + N2) M, (|a k|)| := by bound
-linarith [f1, hN2, f2, f3, f4, f5, hN1, hN3]
+  choose L hL using Conv_of_AbsSeriesConv ha
+  use L
+  intro σ hσ
+  intro ε hε
+  apply IsCauchy_of_SeqConv at ha
+  choose N1 hN1 using ha (ε / 2) (by bound)
+  choose N2 hN2 using hL (ε / 2) (by bound)
+  choose N3 hN3 using EventuallyCovers_of_Rearrangement hσ (N1 + N2)
+  use N1 + N2 + N3 + 1
+  intro n hn
+  specialize hN2 (N1 + N2) (by bound)
+  specialize hN1 (N1 + N2) (by bound)
+  rewrite [show Series (a ∘ σ) n - L =
+    (Series (a ∘ σ) n - Series a (N1 + N2)) + (Series a (N1 + N2) - L) by ring_nf]
+  have f1 : |Series (a ∘ σ) n - Series a (N1 + N2) + (Series a (N1 + N2) - L)|
+          ≤ |Series (a ∘ σ) n - Series a (N1 + N2)| + |(Series a (N1 + N2) - L)| := by apply abs_add_le
+  have f2 : |Series (a ∘ σ) n - Series a (N1 + N2)| =
+      |∑ k ∈ image σ (range n) \ range (N1 + N2), a k| := by
+    have f : Series (a ∘ σ) n = ∑ k ∈ image σ (range n), a k := Series_image a σ hσ.1 n
+    rewrite [f]
+    change |(∑ k ∈ image σ (range n), a k) - (∑ k ∈ range (N1 + N2), a k)| = |(∑ k ∈ image σ (range n) \ range (N1 + N2), a k)|
+    rewrite [← Finset.sum_sdiff (hN3 n (by bound))]
+    ring_nf
+  have f3 : |∑ k ∈ image σ (range n) \ range (N1 + N2), a k|
+      ≤ ∑ k ∈ image σ (range n) \ range (N1 + N2), |a k| := by
+    apply abs_sum_le_sum_abs
+  let M := N1 + N2 + 1 + ∑ k ∈ range n, σ k
+  have Mis : M = N1 + N2 + 1 + ∑ k ∈ range n, σ k := by rfl
+  have Mbnd : ∀ k ∈ range n, σ k < M := by
+    intro k hk
+    rewrite [Mis]
+    have f : σ k ≤ ∑ j ∈ range n, σ j := by apply sum_le_mem_of_nonneg hk; intro i hi; bound
+    linarith [f]
+  have f4 : ∑ k ∈ image σ (range n) \ range (N1 + N2), |a k| ≤ ∑ k ∈ Ico (N1 + N2) M, |a k| := by
+    apply sum_le_sum_of_nonneg
+    intro i hi
+    rewrite [mem_Ico]
+    rewrite [mem_sdiff] at hi
+    rewrite [mem_range] at hi
+    rewrite [mem_image] at hi
+    have hi2 : N1 + N2 ≤ i := by bound
+    split_ands
+    apply hi2
+    have hi1 : ∃ a ∈ range n, σ a = i := by apply hi.1
+    choose a ha using hi1
+    rewrite [← ha.2]
+    apply Mbnd a ha.1
+    intro i hi;
+    bound
+  have sNonneg : 0 ≤ ∑ k ∈ range n, σ k := by
+    apply sum_nonneg
+    intro i hi
+    bound
+  have Mbnd : N1 + N2 ≤ M := by rewrite [Mis]; linarith [sNonneg]
+  specialize hN1 M Mbnd
+  rewrite [DiffOfSeries _ Mbnd] at hN1
+  have f5 : ∑ k ∈ Ico (N1 + N2) M, |a k| ≤ |∑ k ∈ Ico (N1 + N2) M, (|a k|)| := by bound
+  linarith [f1, hN2, f2, f3, f4, f5, hN1, hN3]
 
 
 Conclusion "

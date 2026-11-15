@@ -27,7 +27,7 @@ Note that for longer conjunctions like `P ∧ Q ∧ R`, `h.1` gives `P` as expec
 -/
 Statement (x y : ℝ) (h : x = 2 ∧ y = 3) :
     y = 3 := by
-apply h.2
+  apply h.2
 
 Conclusion "
 # 🔍 Information Extraction Mastered! 🔍

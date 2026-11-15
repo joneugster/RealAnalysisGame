@@ -62,35 +62,35 @@ TheoremDoc FunLim_of_SeqLim as "FunLim_of_SeqLim" in "f(x)"
 Statement FunLim_of_SeqLim {f : ℝ → ℝ} {L c : ℝ}
     (h : ∀ x : ℕ → ℝ, (∀ n, x n ≠ c) → SeqLim x c → SeqLim (fun n ↦ f (x n)) L) :
     FunLimAt f L c := by
-by_contra hf
-change ¬ (∀ ε > 0, ∃ δ > 0, ∀ x ≠ c, |x - c| < δ → |f x - L| < ε) at hf
-push_neg at hf
-choose ε hε hδ using hf
-choose g hg_ne_c hg_lt_δ hg using hδ
-let x : ℕ → ℝ := fun n ↦ (g (1 / (n + 1)) (by bound))
-have hxc : ∀ n, x n ≠ c := by
-    intro n;
-    apply (hg_ne_c (1 / (n + 1)) (by bound))
-have hx_lim : SeqLim x c := by
-    intro δ hδ_pos
-    choose N hN using ArchProp hδ_pos
-    use N
-    intro n hn
-    have f : |x n - c| < 1 / (n + 1) := by apply hg_lt_δ (1 / (n + 1)) (by bound)
-    have f2 : 1 / (n + 1) ≤ δ := by
-        have hn' : (N : ℝ) ≤ n := by norm_cast
-        have f2' : 0 < 1 / δ := by bound
-        have hN' : (0 : ℝ) < N := by linarith [hN, f2']
-        have npos : (0 : ℝ) < n := by linarith [hN', hn']
-        have hn'' : (1 : ℝ) / n ≤ 1 / N := by bound
-        have hn''' : (1 : ℝ) / (n + 1) ≤ 1 / n := by field_simp; bound
-        have ff : (1 : ℝ) / N < δ := by field_simp at ⊢ hN; apply hN
-        linarith [hn''', hn'', ff]
-    linarith [f, f2]
-choose N hN using h x hxc hx_lim ε hε
-specialize hN N (by bound)
-specialize hg (1 / (N + 1)) (by bound)
-linarith [hN, hg]
+  by_contra hf
+  change ¬ (∀ ε > 0, ∃ δ > 0, ∀ x ≠ c, |x - c| < δ → |f x - L| < ε) at hf
+  push_neg at hf
+  choose ε hε hδ using hf
+  choose g hg_ne_c hg_lt_δ hg using hδ
+  let x : ℕ → ℝ := fun n ↦ (g (1 / (n + 1)) (by bound))
+  have hxc : ∀ n, x n ≠ c := by
+      intro n;
+      apply (hg_ne_c (1 / (n + 1)) (by bound))
+  have hx_lim : SeqLim x c := by
+      intro δ hδ_pos
+      choose N hN using ArchProp hδ_pos
+      use N
+      intro n hn
+      have f : |x n - c| < 1 / (n + 1) := by apply hg_lt_δ (1 / (n + 1)) (by bound)
+      have f2 : 1 / (n + 1) ≤ δ := by
+          have hn' : (N : ℝ) ≤ n := by norm_cast
+          have f2' : 0 < 1 / δ := by bound
+          have hN' : (0 : ℝ) < N := by linarith [hN, f2']
+          have npos : (0 : ℝ) < n := by linarith [hN', hn']
+          have hn'' : (1 : ℝ) / n ≤ 1 / N := by bound
+          have hn''' : (1 : ℝ) / (n + 1) ≤ 1 / n := by field_simp; bound
+          have ff : (1 : ℝ) / N < δ := by field_simp at ⊢ hN; apply hN
+          linarith [hn''', hn'', ff]
+      linarith [f, f2]
+  choose N hN using h x hxc hx_lim ε hε
+  specialize hN N (by bound)
+  specialize hg (1 / (N + 1)) (by bound)
+  linarith [hN, hg]
 
 Conclusion "
 # Congratulations!

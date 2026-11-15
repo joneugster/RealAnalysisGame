@@ -51,23 +51,23 @@ TheoremDoc FunContAtAdd as "FunContAtAdd" in "f(x)"
 Statement FunContAtAdd {f g : ℝ → ℝ} {c : ℝ}
     (hf : FunContAt f c) (hg : FunContAt g c) :
     FunContAt (fun x ↦ f x + g x) c := by
-intro ε hε
-choose δ₁ hδ₁ hf using hf (ε / 2) (by bound)
-choose δ₂ hδ₂ hg using hg (ε / 2) (by bound)
-use min δ₁ δ₂
-split_ands
-bound
-intro x hx
-have hd1 : min δ₁ δ₂ ≤ δ₁ := by bound
-have hx1 : |x - c| < δ₁ := by bound
-have hd2 : min δ₁ δ₂ ≤ δ₂ := by bound
-have hx2 : |x - c| < δ₂ := by bound
-specialize hf x hx1
-specialize hg x hx2
-change |f x + g x - (f c + g c)| < ε
-rewrite [show f x + g x - (f c + g c) = (f x - f c) + (g x - g c) by ring_nf]
-have f1 : |(f x - f c) + (g x - g c)| ≤ |(f x - f c)| + |(g x - g c)| := by apply abs_add_le
-linarith [f1, hf, hg]
+  intro ε hε
+  choose δ₁ hδ₁ hf using hf (ε / 2) (by bound)
+  choose δ₂ hδ₂ hg using hg (ε / 2) (by bound)
+  use min δ₁ δ₂
+  split_ands
+  bound
+  intro x hx
+  have hd1 : min δ₁ δ₂ ≤ δ₁ := by bound
+  have hx1 : |x - c| < δ₁ := by bound
+  have hd2 : min δ₁ δ₂ ≤ δ₂ := by bound
+  have hx2 : |x - c| < δ₂ := by bound
+  specialize hf x hx1
+  specialize hg x hx2
+  change |f x + g x - (f c + g c)| < ε
+  rewrite [show f x + g x - (f c + g c) = (f x - f c) + (g x - g c) by ring_nf]
+  have f1 : |(f x - f c) + (g x - g c)| ≤ |(f x - f c)| + |(g x - g c)| := by apply abs_add_le
+  linarith [f1, hf, hg]
 
 Conclusion "
 ## What We've Learned

@@ -57,15 +57,15 @@ Statement {X : Type*} [NormedField X] [LinearOrder X] [IsStrictOrderedRing X] (a
   (hgap : ∀ n, ε ≤ |a (σ n) - a (τ n)|)
   : ∀ (k : ℕ), k * ε ≤ a (σ^[k] 0) - a 0
   := by
-intro k
-induction' k with k hk
-norm_num
-specialize hgap (σ^[k] 0)
-rewrite [(show |a (σ (σ^[k] 0)) - a (τ (σ^[k] 0))| = a (σ (σ^[k] 0)) - a (τ (σ^[k] 0)) by apply abs_of_nonneg (by bound))] at hgap
-rewrite [show σ (σ^[k] 0) = σ^[k + 1] 0 by apply succ_iterate] at hgap
-have f1 : 0 ≤ a (τ (σ^[k] 0)) - a (σ^[k] 0) := by bound
-push_cast
-linarith [f1, hk, hgap]
+  intro k
+  induction' k with k hk
+  norm_num
+  specialize hgap (σ^[k] 0)
+  rewrite [(show |a (σ (σ^[k] 0)) - a (τ (σ^[k] 0))| = a (σ (σ^[k] 0)) - a (τ (σ^[k] 0)) by apply abs_of_nonneg (by bound))] at hgap
+  rewrite [show σ (σ^[k] 0) = σ^[k + 1] 0 by apply succ_iterate] at hgap
+  have f1 : 0 ≤ a (τ (σ^[k] 0)) - a (σ^[k] 0) := by bound
+  push_cast
+  linarith [f1, hk, hgap]
 
 Conclusion "
 ## What You've Accomplished

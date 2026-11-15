@@ -67,27 +67,27 @@ NewDefinition FunContAt
 
 Statement :
     FunContAt (fun x ↦ x^2 - 1) 2 := by
-intro ε hε
-use min 1 (ε / 5)
-split_ands
-bound
-intro x hx
-change |x ^ 2 - 1 - (2 ^ 2 - 1)| < ε
-rewrite [show x ^ 2 - 1 - (2 ^ 2 - 1) = (x + 2) * (x - 2) by ring_nf]
-rewrite [show |(x + 2) * (x - 2)| = |(x + 2)| * |(x - 2)| by bound]
-have f1 : min 1 (ε / 5) ≤ 1 := by bound
-have f2 : min 1 (ε / 5) ≤ ε / 5 := by bound
-have hx' : |x - 2| < 1 := by bound
-have hx'' : |x + 2| < 5 := by
-  rewrite [abs_lt] at hx' ⊢
+  intro ε hε
+  use min 1 (ε / 5)
   split_ands
-  linarith [hx']
-  linarith [hx']
-have hx''' : |x - 2| < ε / 5 := by bound
-have f3 : |(x + 2)| * |(x - 2)| ≤ 5 * |(x - 2)| := by bound
-have f4 : 5 * |(x - 2)| < 5 * ε / 5 := by bound
-rewrite [show 5 * ε / 5 = ε by bound] at f4
-linarith [f3, f4]
+  bound
+  intro x hx
+  change |x ^ 2 - 1 - (2 ^ 2 - 1)| < ε
+  rewrite [show x ^ 2 - 1 - (2 ^ 2 - 1) = (x + 2) * (x - 2) by ring_nf]
+  rewrite [show |(x + 2) * (x - 2)| = |(x + 2)| * |(x - 2)| by bound]
+  have f1 : min 1 (ε / 5) ≤ 1 := by bound
+  have f2 : min 1 (ε / 5) ≤ ε / 5 := by bound
+  have hx' : |x - 2| < 1 := by bound
+  have hx'' : |x + 2| < 5 := by
+    rewrite [abs_lt] at hx' ⊢
+    split_ands
+    linarith [hx']
+    linarith [hx']
+  have hx''' : |x - 2| < ε / 5 := by bound
+  have f3 : |(x + 2)| * |(x - 2)| ≤ 5 * |(x - 2)| := by bound
+  have f4 : 5 * |(x - 2)| < 5 * ε / 5 := by bound
+  rewrite [show 5 * ε / 5 = ε by bound] at f4
+  linarith [f3, f4]
 
 Conclusion "
 ## What We've Learned
