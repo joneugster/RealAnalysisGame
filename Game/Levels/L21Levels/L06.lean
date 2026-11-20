@@ -84,14 +84,14 @@ NewDefinition FunDerivAt
 
 Statement :
     FunDerivAt (fun x ↦ x^2 - 1) 4 2 := by
-intro ε hε
-use ε, hε
-intro h hh0 hh
-change |((((2 + h) ^ 2 - 1) - (2 ^ 2 - 1)) / h) - 4| < ε
-rewrite [show (2 + h) ^ 2 - 1 - (2 ^ 2 - 1) = 4 * h + h ^ 2 by ring_nf]
-rewrite [show (4 * h + h ^ 2) / h = 4 + h by field_simp]
-rewrite [show 4 + h - 4 = h - 0 by ring_nf]
-apply hh
+  intro ε hε
+  use ε, hε
+  intro h hh0 hh
+  change |((((2 + h) ^ 2 - 1) - (2 ^ 2 - 1)) / h) - 4| < ε
+  rewrite [show (2 + h) ^ 2 - 1 - (2 ^ 2 - 1) = 4 * h + h ^ 2 by ring_nf]
+  rewrite [show (4 * h + h ^ 2) / h = 4 + h by field_simp]
+  rewrite [show 4 + h - 4 = h - 0 by ring_nf]
+  apply hh
 
 Conclusion "
 # Excellent Work!

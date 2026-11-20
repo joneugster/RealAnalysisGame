@@ -44,14 +44,14 @@ TheoremDoc MonotoneNeg_of_Antitone as "MonotoneNeg_of_Antitone" in "aₙ"
 
 theorem IsCauchyNeg {X : Type*} [NormedField X] [Lattice X]
 (a : ℕ → X) (ha : IsCauchy a) : IsCauchy (-a) := by
-intro ε hε
-choose N hN using ha ε hε
-use N
-intro n hn m hm
-change |(- a m) - (- a n)| < ε
-rewrite [show (- a m) - (- a n) = -(a m - a n) by ring_nf]
-rewrite [show |-(a m - a n)| = |(a m - a n)| by apply abs_neg]
-apply hN n hn m hm
+  intro ε hε
+  choose N hN using ha ε hε
+  use N
+  intro n hn m hm
+  change |(- a m) - (- a n)| < ε
+  rewrite [show (- a m) - (- a n) = -(a m - a n) by ring_nf]
+  rewrite [show |-(a m - a n)| = |(a m - a n)| by apply abs_neg]
+  apply hN n hn m hm
 
 /-- If `a` satisfies `IsCauchy`, then `-a` does too. -/
 TheoremDoc IsCauchyNeg as "IsCauchyNeg" in "aₙ"
@@ -65,13 +65,13 @@ NewTheorem MonotoneNeg_of_Antitone IsCauchyNeg
 Statement  {X : Type*} [NormedField X] [LinearOrder X] [IsStrictOrderedRing X] [FloorSemiring X]
     {a : ℕ → X} {M : X} (ha : Antitone a) (hM : ∀ n, M ≤ a n)
     : IsCauchy a := by
-let b := -a
-have hb : Monotone b := by apply MonotoneNeg_of_Antitone a ha
-have b_bdd : ∀ n, b n ≤ -M := by intro n; change -a n ≤ - M; linarith [hM n]
-have bCauchy : IsCauchy b := IsCauchy_of_MonotoneBdd hb b_bdd
-have negbCauchy : IsCauchy (-b) := IsCauchyNeg b bCauchy
-change IsCauchy (- -a) at negbCauchy
-rewrite [show - - a = a by ring_nf] at negbCauchy
-apply negbCauchy
+  let b := -a
+  have hb : Monotone b := by apply MonotoneNeg_of_Antitone a ha
+  have b_bdd : ∀ n, b n ≤ -M := by intro n; change -a n ≤ - M; linarith [hM n]
+  have bCauchy : IsCauchy b := IsCauchy_of_MonotoneBdd hb b_bdd
+  have negbCauchy : IsCauchy (-b) := IsCauchyNeg b bCauchy
+  change IsCauchy (- -a) at negbCauchy
+  rewrite [show - - a = a by ring_nf] at negbCauchy
+  apply negbCauchy
 
 Conclusion ""

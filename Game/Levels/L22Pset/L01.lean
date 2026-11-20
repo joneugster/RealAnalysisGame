@@ -18,9 +18,9 @@ then it also converges pointwise.
 -/
 Statement (f : ℕ → ℝ → ℝ) (F : ℝ → ℝ) (hfF : UnifConv f F) :
   ∀ x, SeqLim (fun n ↦ f n x) (F x) := by
-intro x
-intro ε hε
-choose N hN using hfF ε hε
-use N
-intro n hn
-apply hN n hn x
+  intro x
+  intro ε hε
+  choose N hN using hfF ε hε
+  use N
+  intro n hn
+  apply hN n hn x

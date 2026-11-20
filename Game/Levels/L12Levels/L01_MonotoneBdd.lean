@@ -66,7 +66,7 @@ DefinitionDoc Monotone as "Monotone"
 NewDefinition Monotone
 
 theorem Monotone_of_succ {X : Type*} [Preorder X] (a : ℕ → X) (ha : ∀ n, a n ≤ a (n + 1)) : Monotone a := by
-exact monotone_nat_of_le_succ ha
+  exact monotone_nat_of_le_succ ha
 
 /-- If `a n ≤ a (n+1)` holds for all `n`, then `a` is `Monotone`. -/
 TheoremDoc Monotone_of_succ as "Monotone_of_succ" in "aₙ"
@@ -78,15 +78,15 @@ theorem IterateGap {X : Type*} [NormedField X] [LinearOrder X] [IsStrictOrderedR
   (hgap : ∀ n, ε ≤ |a (σ n) - a (τ n)|)
   : ∀ (k : ℕ), k * ε ≤ a (σ^[k] 0) - a 0
   := by
-intro k
-induction' k with k hk
-norm_num
-specialize hgap (σ^[k] 0)
-rewrite [(show |a (σ (σ^[k] 0)) - a (τ (σ^[k] 0))| = a (σ (σ^[k] 0)) - a (τ (σ^[k] 0)) by apply abs_of_nonneg (by bound))] at hgap
-rewrite [show σ (σ^[k] 0) = σ^[k + 1] 0 by apply succ_iterate] at hgap
-have f1 : 0 ≤ a (τ (σ^[k] 0)) - a (σ^[k] 0) := by bound
-push_cast
-linarith [f1, hk, hgap]
+  intro k
+  induction' k with k hk
+  norm_num
+  specialize hgap (σ^[k] 0)
+  rewrite [(show |a (σ (σ^[k] 0)) - a (τ (σ^[k] 0))| = a (σ (σ^[k] 0)) - a (τ (σ^[k] 0)) by apply abs_of_nonneg (by bound))] at hgap
+  rewrite [show σ (σ^[k] 0) = σ^[k + 1] 0 by apply succ_iterate] at hgap
+  have f1 : 0 ≤ a (τ (σ^[k] 0)) - a (σ^[k] 0) := by bound
+  push_cast
+  linarith [f1, hk, hgap]
 
 
 /--
@@ -111,18 +111,18 @@ TheoremDoc IsCauchy_of_MonotoneBdd as "IsCauchy_of_MonotoneBdd" in "aₙ"
 Statement IsCauchy_of_MonotoneBdd {X : Type*} [NormedField X] [LinearOrder X] [IsStrictOrderedRing X]
   [FloorSemiring X] {a : ℕ → X} {M : X} (ha : Monotone a) (hM : ∀ n, a n ≤ M)
   : IsCauchy a := by
-intro ε hε
-by_contra h
-push_neg at h
-choose τ hτ σ hσ hgap using h
-have f1 : ∀ k, k * ε ≤ a (σ^[k] 0) - a 0 := by apply IterateGap a ha ε hε τ hτ σ hσ hgap
-let k : ℕ := ⌈(M - a 0) / ε⌉₊ + 1
-have hk' : (M - a 0) / ε ≤  ⌈(M - a 0) / ε⌉₊ := by bound
-have hk : (M - a 0) / ε < k := by change (M - a 0) / ε < (⌈(M - a 0) / ε⌉₊ + 1 : ℕ); push_cast; linarith [hk']
-specialize f1 k
-specialize hM (σ^[k] 0)
-have f2 : (M - a 0) < k * ε := by field_simp at hk; rewrite [show k * ε = ε * k by ring_nf]; apply hk
-linarith [f1, f2, hM]
+  intro ε hε
+  by_contra h
+  push_neg at h
+  choose τ hτ σ hσ hgap using h
+  have f1 : ∀ k, k * ε ≤ a (σ^[k] 0) - a 0 := by apply IterateGap a ha ε hε τ hτ σ hσ hgap
+  let k : ℕ := ⌈(M - a 0) / ε⌉₊ + 1
+  have hk' : (M - a 0) / ε ≤  ⌈(M - a 0) / ε⌉₊ := by bound
+  have hk : (M - a 0) / ε < k := by change (M - a 0) / ε < (⌈(M - a 0) / ε⌉₊ + 1 : ℕ); push_cast; linarith [hk']
+  specialize f1 k
+  specialize hM (σ^[k] 0)
+  have f2 : (M - a 0) < k * ε := by field_simp at hk; rewrite [show k * ε = ε * k by ring_nf]; apply hk
+  linarith [f1, f2, hM]
 
 Conclusion "
 ## What You've Accomplished

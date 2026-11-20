@@ -93,35 +93,35 @@ TheoremDoc SeqConv_of_MonotoneBdd as "SeqConv_of_MonotoneBdd" in "aₙ"
 
 theorem SeqConv_of_MonotoneBdd (a : ℕ → ℝ) (M : ℝ) (hM : ∀ n, a n ≤ M) (ha : Monotone a) :
   SeqConv a := by
-apply SeqConv_of_IsCauchy (IsCauchy_of_MonotoneBdd ha hM)
+  apply SeqConv_of_IsCauchy (IsCauchy_of_MonotoneBdd ha hM)
 
 NewTheorem SeqConv_of_MonotoneBdd SeqConv_of_IsCauchy
 
 Statement (a : ℕ → ℝ) (ha : ∀ n, a n = 1 / ((n + 2) ^ 2)) : SeriesConv a := by
-apply SeqConv_of_MonotoneBdd (Series a) 1
-let b : ℕ → ℝ := fun n ↦ 1 / ((n + 1) * (n + 2))
-have hb : ∀ n, b n = 1 / ((n + 1) * (n + 2)) := by intro n; rfl
-have hab : ∀ n, a n ≤ b n := by
+  apply SeqConv_of_MonotoneBdd (Series a) 1
+  let b : ℕ → ℝ := fun n ↦ 1 / ((n + 1) * (n + 2))
+  have hb : ∀ n, b n = 1 / ((n + 1) * (n + 2)) := by intro n; rfl
+  have hab : ∀ n, a n ≤ b n := by
+    intro n
+    rewrite [ha n, hb n]
+    field_simp
+    bound
   intro n
-  rewrite [ha n, hb n]
-  field_simp
-  bound
-intro n
-have bLeib := LeibnizSeriesFinite hb n
-have habBnd := SeriesOrderThm hab n
-change Series b n = 1 - 1 / (n + 1) at bLeib
-have h1 : (1 : ℝ) - 1 / (n + 1) ≤ 1 := by
-  field_simp
-  bound
-linarith [habBnd, h1, bLeib]
-apply Monotone_of_succ
-intro n
-change ∑ k ∈ range n, a k ≤ ∑ k ∈ range (n + 1), a k
-rewrite [show ∑ k ∈ range (n + 1), a k = ∑ k ∈ range n, a k + a n by
-  apply sum_range_succ]
-rewrite [ha n]
-have han : (0 : ℝ) ≤ 1 / ((n + 2) ^ 2) := by bound
-linarith [han]
+  have bLeib := LeibnizSeriesFinite hb n
+  have habBnd := SeriesOrderThm hab n
+  change Series b n = 1 - 1 / (n + 1) at bLeib
+  have h1 : (1 : ℝ) - 1 / (n + 1) ≤ 1 := by
+    field_simp
+    bound
+  linarith [habBnd, h1, bLeib]
+  apply Monotone_of_succ
+  intro n
+  change ∑ k ∈ range n, a k ≤ ∑ k ∈ range (n + 1), a k
+  rewrite [show ∑ k ∈ range (n + 1), a k = ∑ k ∈ range n, a k + a n by
+    apply sum_range_succ]
+  rewrite [ha n]
+  have han : (0 : ℝ) ≤ 1 / ((n + 2) ^ 2) := by bound
+  linarith [han]
 
 Conclusion "
 Magnificent! You've proven that the Basel series converges—a major milestone in the history of mathematics!

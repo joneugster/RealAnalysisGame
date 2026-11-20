@@ -21,8 +21,8 @@ Statement (a b c d e : ℕ → ℝ) (L : ℝ)
 (hcd : ∀ n, c n ≤ d n)
 (hde : ∀ n, d n ≤ e n)
   : SeqLim b L ∧ SeqLim d L := by
-split_ands
-apply SqueezeThm a b c L ha hc hab hbc
-apply SqueezeThm c d e L hc he hcd hde
+  split_ands
+  apply SqueezeThm a b c L ha hc hab hbc
+  apply SqueezeThm c d e L hc he hcd hde
 
 Conclusion "Done. (Hopefully you didn't do that by hand, but rather quoted -- twice -- a theorem that we recently proved?)"

@@ -13,6 +13,6 @@ Your goal is to show that: `z = 4`.
 /-- Prove the statement. -/
 Statement (x y z : ℝ) (h : x = 2 ∧ y = 3 ∧ z = 4)
   : z = 4 := by
-apply h.2.2
+  apply h.2.2
 
 Conclusion "Done."

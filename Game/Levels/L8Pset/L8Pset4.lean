@@ -22,11 +22,11 @@ TheoremDoc SubseqGe as "SubseqGe" in "aₙ"
 
 /-- Prove the statement. -/
 Statement SubseqGe {σ : ℕ → ℕ} (hσ : ∀ i j, i < j → σ (i) < σ (j)) : ∀ n, n ≤ σ (n)  := by
-intro n
-induction' n with n hn
-bound
-have f1 : n < n + 1 := by bound
-specialize hσ n (n + 1) f1
-linarith [hn, f1, hσ]
+  intro n
+  induction' n with n hn
+  bound
+  have f1 : n < n + 1 := by bound
+  specialize hσ n (n + 1) f1
+  linarith [hn, f1, hσ]
 
 Conclusion ""

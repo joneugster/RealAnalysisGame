@@ -77,7 +77,7 @@ Prove the `Conditional Convergence Theorem`
 Statement  {a : ℕ → ℝ} (ha1 : SeriesConv a) (ha2 : ¬ AbsSeriesConv a) : ∀ L,
   ∃ (σ : ℕ → ℕ) (hσ : Rearrangement σ), SeriesLim (a ∘ σ) L := by
 
-sorry
+  sorry
 
 
 Conclusion "

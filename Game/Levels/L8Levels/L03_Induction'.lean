@@ -75,16 +75,16 @@ NewTactic induction'
 /-- Prove this
 -/
 Statement IdLeTwoPow (n : ℕ) : n < 2 ^ n := by
-induction' n with k hk
-norm_num
-by_cases hk0 : k = 0
-rewrite [hk0]
-norm_num
-have : 1 ≤ k := by apply ge_one_of_nonzero hk0
-have f1 : k + 1 ≤ 2 * k := by bound
-have f2 : 2 * k < 2 * 2 ^ k := by linarith [hk]
-have f3 : 2 * 2 ^ k = 2 ^ (k + 1) := by ring_nf
-linarith [f1, f2, f3]
+  induction' n with k hk
+  norm_num
+  by_cases hk0 : k = 0
+  rewrite [hk0]
+  norm_num
+  have : 1 ≤ k := by apply ge_one_of_nonzero hk0
+  have f1 : k + 1 ≤ 2 * k := by bound
+  have f2 : 2 * k < 2 * 2 ^ k := by linarith [hk]
+  have f3 : 2 * 2 ^ k = 2 ^ (k + 1) := by ring_nf
+  linarith [f1, f2, f3]
 
 
 

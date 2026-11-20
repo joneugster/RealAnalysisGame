@@ -36,11 +36,11 @@ NewTactic cases'
 -/
 Statement (x y : ℝ) (h : x = 2 ∨ y = 3) :
     (x - 2) * (y - 3) = 0 := by
-cases' h with h1 h2
-rewrite [h1]
-ring_nf
-rewrite [h2]
-ring_nf
+  cases' h with h1 h2
+  rewrite [h1]
+  ring_nf
+  rewrite [h2]
+  ring_nf
 
 
 Conclusion "

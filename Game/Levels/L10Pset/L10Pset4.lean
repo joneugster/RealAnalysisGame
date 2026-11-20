@@ -20,15 +20,15 @@ TheoremDoc OrderLimGt as "OrderLimGt" in "aₙ"
 -/
 Statement OrderLimGt (a : ℕ → ℝ) (L : ℝ) (ha : SeqLim a L) (K : ℝ) (hK : ∀ n, K < a n) :
     K ≤ L := by
-by_contra hL
-have hL' : L < K := by bound
-have hLK : 0 < (K - L) := by linarith [hL']
-choose N hN using ha (K - L) hLK
-specialize hN N (by bound)
-rewrite [abs_lt] at hN
-have f1 : a N < L + (K - L) := by linarith [hN.2]
-have f2 : K = L + (K - L) := by ring_nf
-specialize hK N
-linarith [f2, hK, f1]
+  by_contra hL
+  have hL' : L < K := by bound
+  have hLK : 0 < (K - L) := by linarith [hL']
+  choose N hN using ha (K - L) hLK
+  specialize hN N (by bound)
+  rewrite [abs_lt] at hN
+  have f1 : a N < L + (K - L) := by linarith [hN.2]
+  have f2 : K = L + (K - L) := by ring_nf
+  specialize hK N
+  linarith [f2, hK, f1]
 
 Conclusion "Done."

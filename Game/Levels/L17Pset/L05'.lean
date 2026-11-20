@@ -18,20 +18,20 @@ TheoremDoc MonotoneLimitBound as "MonotoneLimitBound" in "aₙ"
 
 Statement MonotoneLimitBound {a : ℕ → ℝ} (amono : Monotone a) {L : ℝ} (ha : SeqLim a L) : ∀ n,
   a n ≤ L := by
-intro n
-by_contra h
-push_neg at h
-let ε := (a n - L)
-have εis : ε = a n - L := by rfl
-have εpos : 0 < ε := by bound
-choose N hN using ha ε εpos
-let m := N + n
-have anm := amono (show n ≤ m by bound)
-specialize hN m (by bound)
-have hm : 0 ≤ a m - L := by bound
-rewrite [show |a m - L| = a m - L by apply abs_of_nonneg hm] at hN
-rewrite [εis] at hN
-linarith [anm, hN]
+  intro n
+  by_contra h
+  push_neg at h
+  let ε := (a n - L)
+  have εis : ε = a n - L := by rfl
+  have εpos : 0 < ε := by bound
+  choose N hN using ha ε εpos
+  let m := N + n
+  have anm := amono (show n ≤ m by bound)
+  specialize hN m (by bound)
+  have hm : 0 ≤ a m - L := by bound
+  rewrite [show |a m - L| = a m - L by apply abs_of_nonneg hm] at hN
+  rewrite [εis] at hN
+  linarith [anm, hN]
 
 Conclusion "
 "

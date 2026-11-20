@@ -73,20 +73,20 @@ TheoremDoc Bdd_of_ConvNonzero as "Bdd_of_ConvNonzero" in "aₙ"
 -/
 Statement Bdd_of_ConvNonzero (a : ℕ → ℝ) (L : ℝ) (ha : SeqLim a L) (hL : L ≠ 0) :
     SeqBdd a := by
-choose N hN using EventuallyBdd_of_SeqConv a L ha hL
-use 2 * |L| + ∑ k ∈ range N, |a k|
-have absL : 0 < |L| := by apply abs_pos_of_nonzero hL
-have f1 : ∀ k ∈ range N, 0 ≤ |a k| := by bound
-have f2 : 0 ≤ ∑ k ∈ range N, |a k| := by apply sum_nonneg f1
-split_ands
-linarith [f2, absL]
-intro n
-by_cases hn : N ≤ n
-specialize hN n hn
-linarith [hN, f2]
-have hn' : n < N := by bound
-have f3 : |a n| ≤ ∑ k ∈ range N, |a k| := by apply TermLeSum a N n hn'
-linarith [f3, absL]
+  choose N hN using EventuallyBdd_of_SeqConv a L ha hL
+  use 2 * |L| + ∑ k ∈ range N, |a k|
+  have absL : 0 < |L| := by apply abs_pos_of_nonzero hL
+  have f1 : ∀ k ∈ range N, 0 ≤ |a k| := by bound
+  have f2 : 0 ≤ ∑ k ∈ range N, |a k| := by apply sum_nonneg f1
+  split_ands
+  linarith [f2, absL]
+  intro n
+  by_cases hn : N ≤ n
+  specialize hN n hn
+  linarith [hN, f2]
+  have hn' : n < N := by bound
+  have f3 : |a n| ≤ ∑ k ∈ range N, |a k| := by apply TermLeSum a N n hn'
+  linarith [f3, absL]
 
 Conclusion "
 # 🎉 Outstanding Achievement!

@@ -31,9 +31,9 @@ NewTactic split_ands
 -/
 Statement (x y : ℝ) (hx : x = 2) (hy : y = 3) :
     x = 2 ∧ y = 3 := by
-split_ands
-apply hx
-apply hy
+  split_ands
+  apply hx
+  apply hy
 
 Conclusion "🎯 Tactical Mastery Achieved! 🎯
 

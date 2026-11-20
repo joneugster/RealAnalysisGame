@@ -62,32 +62,32 @@ TheoremDoc InvLim as "InvLim" in "aₙ"
 Statement InvLim (a : ℕ → ℝ) (L : ℝ) (aToL : SeqLim a L) (LneZero : L ≠ 0) (b : ℕ →
 ℝ) (bEqInva : ∀ n, b n = 1 / a n) :
     SeqLim b (1 / L) := by
-choose NhalfL hNhalfL using EventuallyGeHalfLimPos a L aToL LneZero
-intro ε hε
-have : 0 < |L| := by apply abs_pos_of_nonzero LneZero
-specialize aToL (ε * |L| * |L| / 2) (by bound)
-choose Na hNa using aToL
-use Na + NhalfL
-intro n hn
-specialize bEqInva n
-rewrite [bEqInva]
-have hnHalfL : NhalfL ≤ n := by bound
-have hna : Na ≤ n := by bound
-specialize hNhalfL n hnHalfL
-specialize hNa n hna
-have : 0 < |a n| := by bound
-have : a n ≠ 0 := by apply nonzero_of_abs_pos this
-have l1 : |1 / a n - 1 / L| = |(L - a n) / (a n * L)| := by field_simp
-have l2 :  |(L - a n) / (a n * L)| =  |(L - a n)| / |(a n * L)| := by apply abs_div
-have l3 : |(L - a n)| / |(a n * L)| = |(L - a n)| / (|a n| * |L|) := by bound
-have l4 : |L - a n| = |-(a n - L)| := by ring_nf
-have l5 : |-(a n - L)| = |(a n - L)| := by apply abs_neg
-have l6 : |a n - L| / (|a n| * |L|) < (ε * |L| * |L| / 2) / (|a n| * |L|) := by field_simp; bound
-have l10 : |(L - a n)| / (|a n| * |L|) = |-(a n - L)| / (|a n| * |L|) := by rewrite [l4]; rfl
-have l11 : |-(a n - L)| / (|a n| * |L|) = |(a n - L)| / (|a n| * |L|) := by rewrite [l5]; rfl
-have l13 : ε * |L| * |L| / 2 / (|a n| * |L|) = ε * |L| / 2 / |a n| := by field_simp
-have l14 : ε * |L| / 2 / |a n| ≤ ε := by field_simp; bound
-linarith [l1, l2, l3, l10, l11, l6, l13, l14]
+  choose NhalfL hNhalfL using EventuallyGeHalfLimPos a L aToL LneZero
+  intro ε hε
+  have : 0 < |L| := by apply abs_pos_of_nonzero LneZero
+  specialize aToL (ε * |L| * |L| / 2) (by bound)
+  choose Na hNa using aToL
+  use Na + NhalfL
+  intro n hn
+  specialize bEqInva n
+  rewrite [bEqInva]
+  have hnHalfL : NhalfL ≤ n := by bound
+  have hna : Na ≤ n := by bound
+  specialize hNhalfL n hnHalfL
+  specialize hNa n hna
+  have : 0 < |a n| := by bound
+  have : a n ≠ 0 := by apply nonzero_of_abs_pos this
+  have l1 : |1 / a n - 1 / L| = |(L - a n) / (a n * L)| := by field_simp
+  have l2 :  |(L - a n) / (a n * L)| =  |(L - a n)| / |(a n * L)| := by apply abs_div
+  have l3 : |(L - a n)| / |(a n * L)| = |(L - a n)| / (|a n| * |L|) := by bound
+  have l4 : |L - a n| = |-(a n - L)| := by ring_nf
+  have l5 : |-(a n - L)| = |(a n - L)| := by apply abs_neg
+  have l6 : |a n - L| / (|a n| * |L|) < (ε * |L| * |L| / 2) / (|a n| * |L|) := by field_simp; bound
+  have l10 : |(L - a n)| / (|a n| * |L|) = |-(a n - L)| / (|a n| * |L|) := by rewrite [l4]; rfl
+  have l11 : |-(a n - L)| / (|a n| * |L|) = |(a n - L)| / (|a n| * |L|) := by rewrite [l5]; rfl
+  have l13 : ε * |L| * |L| / 2 / (|a n| * |L|) = ε * |L| / 2 / |a n| := by field_simp
+  have l14 : ε * |L| / 2 / |a n| ≤ ε := by field_simp; bound
+  linarith [l1, l2, l3, l10, l11, l6, l13, l14]
 
 Conclusion "
 ## Congratulations, Big Boss Defeated!

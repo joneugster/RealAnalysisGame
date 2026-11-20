@@ -83,21 +83,21 @@ TheoremDoc TermLeSum as "TermLeSum" in "∑aₙ"
 -/
 Statement TermLeSum {X : Type*} [NormedField X] [LinearOrder X] [IsStrictOrderedRing X] (a : ℕ → X) (N : ℕ) :
     ∀ n < N, |a n| ≤ ∑ k ∈ range N, |a k| := by
-induction' N with N hN
-intro n hn
-contradiction
-intro n hn
-have f1 : ∑ k ∈ range (N + 1), |a k| = (∑ k ∈ range N, |a k|) + |a N| := by apply sum_range_succ
-rewrite [f1]
-by_cases hn' : n < N
-specialize hN n hn'
-have f1' : 0 ≤ |a N| := by bound
-linarith [f1', hN]
-have f2 : n = N := by bound
-rewrite [f2]
-have f3 : ∀ k ∈ range N, 0 ≤ |a k| := by bound
-have f4 : 0 ≤ ∑ k ∈ range N, |a k| := by apply sum_nonneg f3
-linarith [f4]
+  induction' N with N hN
+  intro n hn
+  contradiction
+  intro n hn
+  have f1 : ∑ k ∈ range (N + 1), |a k| = (∑ k ∈ range N, |a k|) + |a N| := by apply sum_range_succ
+  rewrite [f1]
+  by_cases hn' : n < N
+  specialize hN n hn'
+  have f1' : 0 ≤ |a N| := by bound
+  linarith [f1', hN]
+  have f2 : n = N := by bound
+  rewrite [f2]
+  have f3 : ∀ k ∈ range N, 0 ≤ |a k| := by bound
+  have f4 : 0 ≤ ∑ k ∈ range N, |a k| := by apply sum_nonneg f3
+  linarith [f4]
 
 
 Conclusion "

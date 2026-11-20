@@ -52,7 +52,7 @@ TheoremDoc DiffOfSeries as "DiffOfSeries" in "∑aₙ"
 
 theorem DiffOfSeries (a : ℕ → ℝ) {n m : ℕ} (hmn : n ≤ m) :
   Series a m - Series a n = ∑ k ∈ Ico n m, a k := by
-sorry
+  sorry
 
 -- Future: replace `Series_abs_add` by `(Finset.)abs_sum_le_sum_abs`?
 /--
@@ -62,7 +62,7 @@ TheoremDoc Series_abs_add as "Series_abs_add" in "∑aₙ"
 
 theorem Series_abs_add (a : ℕ → ℝ) {n m : ℕ} (hmn : n ≤ m) :
   |∑ k ∈ Ico n m, a k| ≤ ∑ k ∈ Ico n m, |a k| := by
-sorry
+  sorry
 
 NewTheorem DiffOfSeries Series_abs_add
 
@@ -72,18 +72,18 @@ NewTheorem DiffOfSeries Series_abs_add
 TheoremDoc Conv_of_AbsSeriesConv as "Conv_of_AbsSeriesConv" in "∑aₙ"
 
 Statement Conv_of_AbsSeriesConv {a : ℕ → ℝ} (ha : AbsSeriesConv a) : SeriesConv a := by
-apply SeqConv_of_IsCauchy
-intro ε hε
-apply IsCauchy_of_SeqConv at ha
-choose N hN using ha ε hε
-use N
-intro n hn m hnm
-rewrite [DiffOfSeries _ hnm]
-specialize hN n hn m hnm
-rewrite [DiffOfSeries _ hnm] at hN
-have f1 : |∑ k ∈ Ico n m, a k| ≤ ∑ k ∈ Ico n m, |a k| := by apply Series_abs_add _ hnm
-have f2 :  ∑ k ∈ Ico n m, |a k| ≤ |∑ k ∈ Ico n m, (|a k|)| := by bound
-linarith [f1, f2, hN]
+  apply SeqConv_of_IsCauchy
+  intro ε hε
+  apply IsCauchy_of_SeqConv at ha
+  choose N hN using ha ε hε
+  use N
+  intro n hn m hnm
+  rewrite [DiffOfSeries _ hnm]
+  specialize hN n hn m hnm
+  rewrite [DiffOfSeries _ hnm] at hN
+  have f1 : |∑ k ∈ Ico n m, a k| ≤ ∑ k ∈ Ico n m, |a k| := by apply Series_abs_add _ hnm
+  have f2 :  ∑ k ∈ Ico n m, |a k| ≤ |∑ k ∈ Ico n m, (|a k|)| := by bound
+  linarith [f1, f2, hN]
 
 Conclusion "
 # Congratulations!

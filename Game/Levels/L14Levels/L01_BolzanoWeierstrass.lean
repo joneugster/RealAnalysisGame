@@ -120,14 +120,14 @@ TheoremDoc IsCauchy_of_AntitoneBdd as "IsCauchy_of_AntitoneBdd" in "aₙ"
 Statement IsCauchy_of_AntitoneBdd {X : Type*} [NormedField X] [LinearOrder X] [IsStrictOrderedRing X]
     [FloorSemiring X] {a : ℕ → X} {M : X} (ha : Antitone a) (hM : ∀ n, M ≤ a n)
     : IsCauchy a := by
-let b := -a
-have hb : Monotone b := by apply MonotoneNeg_of_Antitone a ha
-have b_bdd : ∀ n, b n ≤ -M := by intro n; change -a n ≤ - M; linarith [hM n]
-have bCauchy : IsCauchy b := IsCauchy_of_MonotoneBdd hb b_bdd
-have negbCauchy : IsCauchy (-b) := IsCauchyNeg b bCauchy
-change IsCauchy (- -a) at negbCauchy
-rewrite [show - - a = a by ring_nf] at negbCauchy
-apply negbCauchy
+  let b := -a
+  have hb : Monotone b := by apply MonotoneNeg_of_Antitone a ha
+  have b_bdd : ∀ n, b n ≤ -M := by intro n; change -a n ≤ - M; linarith [hM n]
+  have bCauchy : IsCauchy b := IsCauchy_of_MonotoneBdd hb b_bdd
+  have negbCauchy : IsCauchy (-b) := IsCauchyNeg b bCauchy
+  change IsCauchy (- -a) at negbCauchy
+  rewrite [show - - a = a by ring_nf] at negbCauchy
+  apply negbCauchy
 
 /--
 If a sequence `a : ℕ → X` (where `X` could be `ℚ` or `ℝ`) has unbounded peaks, then it has an `Antitone` subsequence.
@@ -136,21 +136,21 @@ TheoremDoc AntitoneSubseq_of_UnBddPeaks as "AntitoneSubseq_of_UnBddPeaks" in "a�
 
 theorem AntitoneSubseq_of_UnBddPeaks
 {X : Type*} [NormedField X] [LinearOrder X] [IsStrictOrderedRing X] [FloorSemiring X] (a : ℕ → X) (ha : UnBddPeaks a) : ∃ σ, Subseq σ ∧ Antitone (a ∘ σ) := by
-change ∀ k, ∃ n > k, ∀ m > n, a m ≤ a n at ha
-choose τ hτbnd hτAbnd using ha
-let σ : ℕ → ℕ := fun n ↦ τ^[n] (τ 0)
-use σ
-split_ands
-apply Subseq_of_Iterate
-apply hτbnd
-apply antitone_nat_of_succ_le
-intro n
-change a (τ^[n + 2] 0) ≤ a (τ^[n+1] 0)
-rewrite [← show τ (τ^[n] 0) = τ^[n + 1] 0 by apply succ_iterate]
-apply hτAbnd
-rewrite [← show τ (τ^[n+1] 0) = τ^[n + 2] 0 by apply succ_iterate]
-rewrite [show τ (τ^[n] 0) = τ^[n + 1] 0 by apply succ_iterate]
-apply hτbnd
+  change ∀ k, ∃ n > k, ∀ m > n, a m ≤ a n at ha
+  choose τ hτbnd hτAbnd using ha
+  let σ : ℕ → ℕ := fun n ↦ τ^[n] (τ 0)
+  use σ
+  split_ands
+  apply Subseq_of_Iterate
+  apply hτbnd
+  apply antitone_nat_of_succ_le
+  intro n
+  change a (τ^[n + 2] 0) ≤ a (τ^[n+1] 0)
+  rewrite [← show τ (τ^[n] 0) = τ^[n + 1] 0 by apply succ_iterate]
+  apply hτAbnd
+  rewrite [← show τ (τ^[n+1] 0) = τ^[n + 2] 0 by apply succ_iterate]
+  rewrite [show τ (τ^[n] 0) = τ^[n + 1] 0 by apply succ_iterate]
+  apply hτbnd
 
 
 NewTheorem AntitoneSubseq_of_UnBddPeaks IsCauchy_of_AntitoneBdd abs_le
@@ -163,27 +163,27 @@ TheoremDoc BolzanoWeierstrass as "BolzanoWeierstrass" in "aₙ"
 /-- Prove this
 -/
 Statement BolzanoWeierstrass {X : Type*} [NormedField X] [LinearOrder X] [IsStrictOrderedRing X] [FloorSemiring X] (a : ℕ → X) (ha : SeqBdd a) : ∃ σ, Subseq σ ∧ IsCauchy (a ∘ σ) := by
-choose M Mpos hM using ha
-have aBddAbove : ∀ n, a n ≤ M := by intro n; specialize hM n; rewrite [abs_le] at hM; apply hM.2
-have aBddBelow : ∀ n, -M ≤ a n := by intro n; specialize hM n; rewrite [abs_le] at hM; apply hM.1
-by_cases hPeaks : UnBddPeaks a
-choose σ σsubseq σanti using AntitoneSubseq_of_UnBddPeaks a hPeaks
-use σ
-split_ands
-apply σsubseq
-apply IsCauchy_of_AntitoneBdd σanti
-intro n
-change -M ≤ a (σ n)
-apply aBddBelow
-choose σ σsubseq σmono using MonotoneSubseq_of_BddPeaks a hPeaks
-use σ
-split_ands
-apply σsubseq
-apply IsCauchy_of_MonotoneBdd
-apply σmono
-intro n
-change a (σ n) ≤ M
-apply aBddAbove
+  choose M Mpos hM using ha
+  have aBddAbove : ∀ n, a n ≤ M := by intro n; specialize hM n; rewrite [abs_le] at hM; apply hM.2
+  have aBddBelow : ∀ n, -M ≤ a n := by intro n; specialize hM n; rewrite [abs_le] at hM; apply hM.1
+  by_cases hPeaks : UnBddPeaks a
+  choose σ σsubseq σanti using AntitoneSubseq_of_UnBddPeaks a hPeaks
+  use σ
+  split_ands
+  apply σsubseq
+  apply IsCauchy_of_AntitoneBdd σanti
+  intro n
+  change -M ≤ a (σ n)
+  apply aBddBelow
+  choose σ σsubseq σmono using MonotoneSubseq_of_BddPeaks a hPeaks
+  use σ
+  split_ands
+  apply σsubseq
+  apply IsCauchy_of_MonotoneBdd
+  apply σmono
+  intro n
+  change a (σ n) ≤ M
+  apply aBddAbove
 
 Conclusion "
 

@@ -14,17 +14,17 @@ More fun with Cauchy sequences. Show that `1/n` is Cauchy but is neither `Monoto
 /-- Prove this
 -/
 Statement (a : ℕ → ℝ) (ha : ∀ n, a n = 1 / n) : IsCauchy a ∧ ¬ Monotone a ∧ ¬ Antitone a := by
-split_ands
-apply IsCauchy_of_SeqConv
-use 0
-apply OneOverNLimZero a ha
-intro h
-specialize h (by bound : 1 ≤ 2)
-rewrite [ha, ha] at h
-norm_num at h
-intro h
-specialize h (by bound : 0 ≤ 1)
-rewrite [ha, ha] at h
-norm_num at h
+  split_ands
+  apply IsCauchy_of_SeqConv
+  use 0
+  apply OneOverNLimZero a ha
+  intro h
+  specialize h (by bound : 1 ≤ 2)
+  rewrite [ha, ha] at h
+  norm_num at h
+  intro h
+  specialize h (by bound : 0 ≤ 1)
+  rewrite [ha, ha] at h
+  norm_num at h
 
 Conclusion ""

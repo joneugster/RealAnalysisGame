@@ -57,47 +57,47 @@ A compact set is bounded.
 TheoremDoc RealAnalysisGame.Bdd_of_Compact as "Bdd_of_Compact" in "x∈U"
 
 Statement Bdd_of_Compact (S : Set ℝ) (hcomp : IsCompact S) : ∃ M, ∀ s ∈ S, |s| < M := by
-let ι := ℕ
-let xs : ι → ℝ := fun n ↦ 0
-let δs : ι → ℝ := fun n ↦ n + 1
-have δspos : ∀ n, 0 < δs n := by
-  intro n
-  change 0 < (n : ℝ) + 1
-  linarith
-have hcover : S ⊆ ⋃ i, Ball (xs i) (δs i) := by
+  let ι := ℕ
+  let xs : ι → ℝ := fun n ↦ 0
+  let δs : ι → ℝ := fun n ↦ n + 1
+  have δspos : ∀ n, 0 < δs n := by
+    intro n
+    change 0 < (n : ℝ) + 1
+    linarith
+  have hcover : S ⊆ ⋃ i, Ball (xs i) (δs i) := by
+    intro s hs
+    rewrite [mem_Union]
+    use ⌈|s|⌉₊
+    change s ∈ Ioo ((0 : ℝ) - ((⌈|s|⌉₊ + 1))) (0 + ((⌈|s|⌉₊ + 1)))
+    rewrite [mem_Ioo]
+    rewrite [show (0 : ℝ) - (⌈|s|⌉₊ + 1) = - (⌈|s|⌉₊ + 1) by ring_nf]
+    rewrite [show (0 : ℝ) + (⌈|s|⌉₊ + 1) = (⌈|s|⌉₊ + 1) by ring_nf]
+    rewrite [← abs_lt]
+    have f : ∀ x ≥ (0 : ℝ), x ≤ ⌈x⌉₊ := by
+      intro x hx
+      bound
+    specialize f (|s|) (by bound)
+    linarith [f]
+  choose V hV using hcomp ι xs δs δspos hcover
+  choose M hM using FinMax ι V δs
+  use M
   intro s hs
-  rewrite [mem_Union]
-  use ⌈|s|⌉₊
-  change s ∈ Ioo ((0 : ℝ) - ((⌈|s|⌉₊ + 1))) (0 + ((⌈|s|⌉₊ + 1)))
-  rewrite [mem_Ioo]
-  rewrite [show (0 : ℝ) - (⌈|s|⌉₊ + 1) = - (⌈|s|⌉₊ + 1) by ring_nf]
-  rewrite [show (0 : ℝ) + (⌈|s|⌉₊ + 1) = (⌈|s|⌉₊ + 1) by ring_nf]
-  rewrite [← abs_lt]
-  have f : ∀ x ≥ (0 : ℝ), x ≤ ⌈x⌉₊ := by
-    intro x hx
-    bound
-  specialize f (|s|) (by bound)
-  linarith [f]
-choose V hV using hcomp ι xs δs δspos hcover
-choose M hM using FinMax ι V δs
-use M
-intro s hs
-specialize hV hs
-rewrite [mem_Union] at hV
-choose i ball_i i_in_V s_in_Ball using hV
-rewrite [mem_range] at i_in_V
-choose hi hi' using i_in_V
-specialize hM i hi
-rewrite [← hi'] at s_in_Ball
-change s ∈ Ioo ((0 : ℝ) - (i + 1)) (0 + (i + 1)) at s_in_Ball
-rewrite [show (0 : ℝ) - (i + 1) = - (i + 1) by ring_nf] at s_in_Ball
-rewrite [show (0 : ℝ) + (i + 1) = (i + 1) by ring_nf] at s_in_Ball
-rewrite [mem_Ioo] at s_in_Ball
-rewrite [← abs_lt] at s_in_Ball
-change i + 1 ≤ M at hM
-linarith [s_in_Ball, hM]
+  specialize hV hs
+  rewrite [mem_Union] at hV
+  choose i ball_i i_in_V s_in_Ball using hV
+  rewrite [mem_range] at i_in_V
+  choose hi hi' using i_in_V
+  specialize hM i hi
+  rewrite [← hi'] at s_in_Ball
+  change s ∈ Ioo ((0 : ℝ) - (i + 1)) (0 + (i + 1)) at s_in_Ball
+  rewrite [show (0 : ℝ) - (i + 1) = - (i + 1) by ring_nf] at s_in_Ball
+  rewrite [show (0 : ℝ) + (i + 1) = (i + 1) by ring_nf] at s_in_Ball
+  rewrite [mem_Ioo] at s_in_Ball
+  rewrite [← abs_lt] at s_in_Ball
+  change i + 1 ≤ M at hM
+  linarith [s_in_Ball, hM]
 
-end RealAnalysisGame
+  end RealAnalysisGame
 
 Conclusion "
 # First Half Complete!

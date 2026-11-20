@@ -18,11 +18,11 @@ then its limit at `x=c` exists and is equal to `f c`.
 -/
 Statement (f : ℝ → ℝ) (c : ℝ) (hf : FunContAt f c) :
   FunLimAt f (f c) c := by
-intro ε hε
-choose δ δpos hδ using hf ε hε
-use δ, δpos
-intro x _ hx
-apply hδ x hx
+  intro ε hε
+  choose δ δpos hδ using hf ε hε
+  use δ, δpos
+  intro x _ hx
+  apply hδ x hx
 
 Conclusion "
 "

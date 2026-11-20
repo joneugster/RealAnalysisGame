@@ -18,6 +18,6 @@ This is the Machinist's response to scaling demands: 'If you want double the out
 Statement (a b : ℕ → ℝ) (L : ℝ)
     (h : SeqLim a L) (b_scaled : ∀ n, b n = 2 * a n) :
     SeqLim b (2 * L) := by
-sorry
+  sorry
 
 Conclusion ""

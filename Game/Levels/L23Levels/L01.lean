@@ -26,9 +26,9 @@ This will help you compare the refined sum (with `n * k` terms) to the original 
 lemma sum_of_prod {X : Type*} [CommSemiring X] (f : ℕ → X) (m n : ℕ) :
   ∑ i ∈ range (m * n), f i =
     ∑ j ∈ range m, ∑ k ∈ range n, f (j + k * m) := by
-induction' m with m hm
-simp
-sorry
+  induction' m with m hm
+  simp
+  sorry
 
 /--
 The sum over `m * n` terms can be expressed as a double sum over `m` and `n`.
@@ -49,32 +49,32 @@ Statement RiemannSumRefinement (f : ℝ → ℝ) {a b : ℝ} (hab : a < b) {n k 
     (hunif : ∀ x ∈ Icc a b, ∀ y ∈ Icc a b, |y - x| < δ → |f y - f x| < ε)
     (hfine : 2 * (b - a) / n < δ) :
   |RiemannSum f a b (n * k) - RiemannSum f a b n| < (b - a) * ε  := by
-change |(b - a) / ↑(n * k) * ∑ i ∈ range (n * k), f (a + (i + 1) * (b - a) / ↑(n * k)) -
-      (b - a) / n * ∑ i ∈ range n, f (a + (i + 1) * (b - a) / ↑n)| <
-  (b - a) * ε
-rewrite [sum_of_prod]
-rewrite [show (b - a) / ↑(n * k) * ∑ j ∈ Finset.range n, ∑ k_1 ∈ Finset.range k, f (a + (↑(j + k_1 * n) + 1) * (b - a) / ↑(n * k)) -
-      (b - a) / ↑n * ∑ i ∈ Finset.range n, f (a + (↑i + 1) * (b - a) / ↑n) =
-      (b - a) / n * ∑ j ∈ Finset.range n,  ((1 / k) * ∑ ℓ ∈ Finset.range k, f (a + (ℓ + j * k + 1) * (b - a) / (n * k)) -
-      f (a + (j + 1) * (b - a) / n)) by sorry]
-have dx : ∀ j ∈ range n, ∀ ℓ ∈ range k,
-      |a + (ℓ + j * k + 1) * (b - a) / (n * k) -  (a + (j + 1) * (b - a) / n)| < δ := by
-  intro j hj ℓ hℓ
-  rewrite [show
-    |a + (ℓ + j * k + 1) * (b - a) / (n * k) -  (a + (j + 1) * (b - a) / n)|
-    = |(ℓ + 1) * (b - a) / (n * k) -  (b - a) / n| by
-    field_simp
-    ring_nf]
-  have h1 : |(ℓ + 1) * (b - a) / (n * k)  -  (b - a) / n| ≤ 2 * (b - a) / n := by sorry
-  linarith [hfine, hδ, h1]
-have dy : ∀ j ∈ range n, ∀ ℓ ∈ range k,
-  |f (a + (ℓ + j * k + 1) * (b - a) / (n * k)) -  f (a + (j + 1) * (b - a) / n)| < ε := by
-  intro j hj ℓ hℓ
-  specialize hunif (a + (j + 1) * (b - a) / n) (by sorry)
-    (a + (ℓ + j * k + 1) * (b - a) / (n * k)) (by sorry)
-    (dx j hj ℓ hℓ)
-  apply hunif
-sorry
+  change |(b - a) / ↑(n * k) * ∑ i ∈ range (n * k), f (a + (i + 1) * (b - a) / ↑(n * k)) -
+        (b - a) / n * ∑ i ∈ range n, f (a + (i + 1) * (b - a) / ↑n)| <
+    (b - a) * ε
+  rewrite [sum_of_prod]
+  rewrite [show (b - a) / ↑(n * k) * ∑ j ∈ Finset.range n, ∑ k_1 ∈ Finset.range k, f (a + (↑(j + k_1 * n) + 1) * (b - a) / ↑(n * k)) -
+        (b - a) / ↑n * ∑ i ∈ Finset.range n, f (a + (↑i + 1) * (b - a) / ↑n) =
+        (b - a) / n * ∑ j ∈ Finset.range n,  ((1 / k) * ∑ ℓ ∈ Finset.range k, f (a + (ℓ + j * k + 1) * (b - a) / (n * k)) -
+        f (a + (j + 1) * (b - a) / n)) by sorry]
+  have dx : ∀ j ∈ range n, ∀ ℓ ∈ range k,
+        |a + (ℓ + j * k + 1) * (b - a) / (n * k) -  (a + (j + 1) * (b - a) / n)| < δ := by
+    intro j hj ℓ hℓ
+    rewrite [show
+      |a + (ℓ + j * k + 1) * (b - a) / (n * k) -  (a + (j + 1) * (b - a) / n)|
+      = |(ℓ + 1) * (b - a) / (n * k) -  (b - a) / n| by
+      field_simp
+      ring_nf]
+    have h1 : |(ℓ + 1) * (b - a) / (n * k)  -  (b - a) / n| ≤ 2 * (b - a) / n := by sorry
+    linarith [hfine, hδ, h1]
+  have dy : ∀ j ∈ range n, ∀ ℓ ∈ range k,
+    |f (a + (ℓ + j * k + 1) * (b - a) / (n * k)) -  f (a + (j + 1) * (b - a) / n)| < ε := by
+    intro j hj ℓ hℓ
+    specialize hunif (a + (j + 1) * (b - a) / n) (by sorry)
+      (a + (ℓ + j * k + 1) * (b - a) / (n * k)) (by sorry)
+      (dx j hj ℓ hℓ)
+    apply hunif
+  sorry
 
 Conclusion "
 # What You've Just Proved

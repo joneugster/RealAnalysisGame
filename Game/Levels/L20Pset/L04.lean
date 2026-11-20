@@ -20,18 +20,18 @@ TheoremDoc Bdd_of_LimAt as "Bdd_of_LimAt" in "f(x)"
 -/
 Statement Bdd_of_LimAt (f : ℝ → ℝ) (c L : ℝ) (hf : FunLimAt f L c) :
   ∃ M > 0, ∃ δ > 0, ∀ x ≠ c, |x - c| < δ → |f x| < M := by
-use |L| + 1, (by bound [show 0 ≤ |L| by bound])
-choose δ δpos hδ using hf 1 (by bound)
-use δ, δpos
-intro x xNe hx
-specialize hδ x xNe hx
-rewrite [abs_lt] at hδ
-rewrite [abs_lt]
-have f1 : L ≤ |L| := by bound
-have f2 : -|L| ≤ L := by bound
-split_ands
-linarith [hδ.1, f2]
-linarith [hδ.2, f1]
+  use |L| + 1, (by bound [show 0 ≤ |L| by bound])
+  choose δ δpos hδ using hf 1 (by bound)
+  use δ, δpos
+  intro x xNe hx
+  specialize hδ x xNe hx
+  rewrite [abs_lt] at hδ
+  rewrite [abs_lt]
+  have f1 : L ≤ |L| := by bound
+  have f2 : -|L| ≤ L := by bound
+  split_ands
+  linarith [hδ.1, f2]
+  linarith [hδ.2, f1]
 
 
 Conclusion "

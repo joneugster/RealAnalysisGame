@@ -27,37 +27,37 @@ DisabledTheorem BddSeriesEven
 /-- Prove `BddSeriesEven`
 -/
 Statement {a : ℕ → ℝ} (ha : Antitone a) (apos : ∀ n, 0 ≤ a n) (n : ℕ) : ∑ k ∈ range (2 * n), (-1)^k * a k ≤ a 0 := by
-have shift : ∀ m, ∑ x ∈ range (2 * (m + 1)), (-1) ^ x * a x =
-             a 0 + ∑ k ∈ range (2 * m + 1), (-1) ^ (k + 1) * a (k + 1) := by
-  intro m
-  rewrite [show 2 * (m + 1) = 2 * m + 2 by ring_nf]
-  rewrite [sum_range_succ']
-  ring_nf
-have f1 : ∀ m, ∑ k ∈ range (2 * (m + 1)), (-1) ^ k * a k =
-        (∑ k ∈ range (2 * m), (-1) ^ (k + 1) * a (k + 1)) + a 0 - a (2 * m + 1) := by
-  intro m
-  rewrite [shift, sum_range_succ]
-  ring_nf
-  bound
-have f2 : ∀ m, ∑ k ∈ range (2 * m), (-1) ^ (k + 1) * a (k + 1) ≤ 0 := by
-  intro m
-  induction' m with m hm
-  bound
-  rewrite [show 2 * (m + 1) = 2 * m + 2 by ring_nf]
-  rewrite [sum_range_succ, sum_range_succ]
-  rewrite [show  ∑ x ∈ range (2 * m), (-1) ^ (x + 1) * a (x + 1) + (-1) ^ (2 * m + 1) * a (2 * m + 1) +
-    (-1) ^ (2 * m + 1 + 1) * a (2 * m + 1 + 1) =  ∑ x ∈ range (2 * m), (-1) ^ (x + 1) * a (x + 1) + ((-1) ^ (2 * m + 1) * a (2 * m + 1) +
-    (-1) ^ (2 * m + 1 + 1) * a (2 * m + 1 + 1)) by ring_nf]
-  rewrite [show ((-1) ^ (2 * m + 1) * a (2 * m + 1) + (-1) ^ (2 * m + 1 + 1) * a (2 * m + 1 + 1))
-    = (-a (2 * m + 1) + a (2 * m + 1 + 1)) by ring_nf; bound]
-  have ham : a (2 * m + 1 + 1) ≤ a (2 * m + 1) := by apply ha (by bound)
-  linarith [ham, hm]
-induction' n with n hn
-rewrite [show ∑ k ∈ range (2 * 0), (-1) ^ k * a k = 0 by bound]
-apply apos 0
-rewrite [f1]
-have f3 : 0 ≤ a (2 * n + 1) := by apply apos
-linarith [f2 n, f3]
+  have shift : ∀ m, ∑ x ∈ range (2 * (m + 1)), (-1) ^ x * a x =
+               a 0 + ∑ k ∈ range (2 * m + 1), (-1) ^ (k + 1) * a (k + 1) := by
+    intro m
+    rewrite [show 2 * (m + 1) = 2 * m + 2 by ring_nf]
+    rewrite [sum_range_succ']
+    ring_nf
+  have f1 : ∀ m, ∑ k ∈ range (2 * (m + 1)), (-1) ^ k * a k =
+          (∑ k ∈ range (2 * m), (-1) ^ (k + 1) * a (k + 1)) + a 0 - a (2 * m + 1) := by
+    intro m
+    rewrite [shift, sum_range_succ]
+    ring_nf
+    bound
+  have f2 : ∀ m, ∑ k ∈ range (2 * m), (-1) ^ (k + 1) * a (k + 1) ≤ 0 := by
+    intro m
+    induction' m with m hm
+    bound
+    rewrite [show 2 * (m + 1) = 2 * m + 2 by ring_nf]
+    rewrite [sum_range_succ, sum_range_succ]
+    rewrite [show  ∑ x ∈ range (2 * m), (-1) ^ (x + 1) * a (x + 1) + (-1) ^ (2 * m + 1) * a (2 * m + 1) +
+      (-1) ^ (2 * m + 1 + 1) * a (2 * m + 1 + 1) =  ∑ x ∈ range (2 * m), (-1) ^ (x + 1) * a (x + 1) + ((-1) ^ (2 * m + 1) * a (2 * m + 1) +
+      (-1) ^ (2 * m + 1 + 1) * a (2 * m + 1 + 1)) by ring_nf]
+    rewrite [show ((-1) ^ (2 * m + 1) * a (2 * m + 1) + (-1) ^ (2 * m + 1 + 1) * a (2 * m + 1 + 1))
+      = (-a (2 * m + 1) + a (2 * m + 1 + 1)) by ring_nf; bound]
+    have ham : a (2 * m + 1 + 1) ≤ a (2 * m + 1) := by apply ha (by bound)
+    linarith [ham, hm]
+  induction' n with n hn
+  rewrite [show ∑ k ∈ range (2 * 0), (-1) ^ k * a k = 0 by bound]
+  apply apos 0
+  rewrite [f1]
+  have f3 : 0 ≤ a (2 * n + 1) := by apply apos
+  linarith [f2 n, f3]
 
 Conclusion "
 "

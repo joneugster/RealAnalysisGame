@@ -36,17 +36,17 @@ NewTactic grind
 -/
 Statement (a b c : ℕ → ℝ) (hc : ∀ n, c n = if Even n then a (n / 2) else b ((n - 1) / 2))
         (cConv : SeqConv c) : ∃ L, SeqLim a L := by
-choose L hL using cConv
-use L
-intro ε hε
-choose N hN using hL ε hε
-use 2 * N
-intro n hn
-specialize hN (2 * n) (by bound)
-specialize hc (2 * n)
-rewrite [hc] at hN
-have fact : (if Even (2 * n) then a (2 * n / 2) else b ((2 * n - 1) / 2)) = a n := by grind
-rewrite [fact] at hN
-apply hN
+  choose L hL using cConv
+  use L
+  intro ε hε
+  choose N hN using hL ε hε
+  use 2 * N
+  intro n hn
+  specialize hN (2 * n) (by bound)
+  specialize hc (2 * n)
+  rewrite [hc] at hN
+  have fact : (if Even (2 * n) then a (2 * n / 2) else b ((2 * n - 1) / 2)) = a n := by grind
+  rewrite [fact] at hN
+  apply hN
 
 Conclusion "Done."

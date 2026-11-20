@@ -101,57 +101,57 @@ A continuous function on a compact set is uniformly continuous on that set.
 TheoremDoc RealAnalysisGame.UnifContOn_of_Compact as "UnifContOn_of_Compact" in "f(x)"
 
 Statement UnifContOn_of_Compact (f : ℝ → ℝ) (hf : FunCont f) (S : Set ℝ) (hS : IsCompact S) : UnifContOn f S := by
-intro ε hε
-have h1 : ∀ x ∈ S, ∃ δ > 0, ∀ y ∈ S, |y - x| < δ → |f y - f x| < ε / 2 := by
-  intro x hx
-  choose δ δpos hδ using hf x (ε / 2) (by bound)
+  intro ε hε
+  have h1 : ∀ x ∈ S, ∃ δ > 0, ∀ y ∈ S, |y - x| < δ → |f y - f x| < ε / 2 := by
+    intro x hx
+    choose δ δpos hδ using hf x (ε / 2) (by bound)
+    use δ, δpos
+    intro y hy hxy
+    apply hδ y hxy
+  choose δs δspos hδs using h1
+  let ι : Type := S
+  let xs : ι → ℝ := fun i ↦ i
+  let δ's : ι → ℝ := fun i ↦ (δs (xs i) i.2 / 2)
+  have δ'spos : ∀ i, 0 < δ's i := by
+    intro i
+    change 0 < δs (xs i) i.2 / 2
+    linarith [δspos i.1 i.2]
+  have hScover : S ⊆ ⋃ i, Ball (xs i) (δ's i) := by
+    intro x hx
+    rewrite [mem_Union]
+    use ⟨x, hx⟩
+    change x ∈ Ioo (x - (δs x hx) / 2) (x + (δs x hx) / 2)
+    rewrite [Set.mem_Ioo]
+    split_ands
+    linarith [(δspos x hx)]
+    linarith [(δspos x hx)]
+  choose V hV using hS ι xs δ's δ'spos hScover
+  choose δ δpos hδ using FinMinPos ι V δ's δ'spos
   use δ, δpos
-  intro y hy hxy
-  apply hδ y hxy
-choose δs δspos hδs using h1
-let ι : Type := S
-let xs : ι → ℝ := fun i ↦ i
-let δ's : ι → ℝ := fun i ↦ (δs (xs i) i.2 / 2)
-have δ'spos : ∀ i, 0 < δ's i := by
-  intro i
-  change 0 < δs (xs i) i.2 / 2
-  linarith [δspos i.1 i.2]
-have hScover : S ⊆ ⋃ i, Ball (xs i) (δ's i) := by
-  intro x hx
-  rewrite [mem_Union]
-  use ⟨x, hx⟩
-  change x ∈ Ioo (x - (δs x hx) / 2) (x + (δs x hx) / 2)
-  rewrite [Set.mem_Ioo]
-  split_ands
-  linarith [(δspos x hx)]
-  linarith [(δspos x hx)]
-choose V hV using hS ι xs δ's δ'spos hScover
-choose δ δpos hδ using FinMinPos ι V δ's δ'spos
-use δ, δpos
-intro x hx y hy hxy
-have hx1 := hV hx
-have hx1' : ∃ i ∈ V, x ∈ Ball (xs i) (δ's i) := by
-  sorry
-choose i i_in_V x_in_Ball using hx1'
-have hxxi : |x - xs i| < (δs (xs i) i.2) / 2 := by
-  sorry
-have hxxi' : |x - xs i| < (δs (xs i) i.2) := by
-  sorry
-have hxy' : |y - x| < (δs i i.2) / 2 := by
-  sorry
-have hyxi : |y - xs i| < (δs i i.2) := by
-  rewrite [show y - xs i = (y - x) + (x - xs i) by ring_nf]
-  have h1 : |(y - x) + (x - xs i)| ≤ |y - x| + |x - xs i| := by apply abs_add_le
-  have h2 : |x - xs i| = |xs i - x| := by apply abs_sub_comm
-  linarith [hxy', hxxi, h1, h2]
-have fyfxi := hδs (xs i) i.2 y hy hyxi
-have fxix := hδs (xs i) i.2 x hx hxxi'
-rewrite [show f y - f x = (f y - f (xs i)) + (f (xs i) - f x) by ring_nf]
-have h1 : |(f y - f (xs i)) + (f (xs i) - f x)| ≤ |f y - f (xs i)| + |f (xs i) - f x| := by apply abs_add_le
-rewrite [show |f (xs i) - f x| = |f x - f (xs i)| by apply abs_sub_comm] at h1
-linarith [fyfxi, fxix, h1]
+  intro x hx y hy hxy
+  have hx1 := hV hx
+  have hx1' : ∃ i ∈ V, x ∈ Ball (xs i) (δ's i) := by
+    sorry
+  choose i i_in_V x_in_Ball using hx1'
+  have hxxi : |x - xs i| < (δs (xs i) i.2) / 2 := by
+    sorry
+  have hxxi' : |x - xs i| < (δs (xs i) i.2) := by
+    sorry
+  have hxy' : |y - x| < (δs i i.2) / 2 := by
+    sorry
+  have hyxi : |y - xs i| < (δs i i.2) := by
+    rewrite [show y - xs i = (y - x) + (x - xs i) by ring_nf]
+    have h1 : |(y - x) + (x - xs i)| ≤ |y - x| + |x - xs i| := by apply abs_add_le
+    have h2 : |x - xs i| = |xs i - x| := by apply abs_sub_comm
+    linarith [hxy', hxxi, h1, h2]
+  have fyfxi := hδs (xs i) i.2 y hy hyxi
+  have fxix := hδs (xs i) i.2 x hx hxxi'
+  rewrite [show f y - f x = (f y - f (xs i)) + (f (xs i) - f x) by ring_nf]
+  have h1 : |(f y - f (xs i)) + (f (xs i) - f x)| ≤ |f y - f (xs i)| + |f (xs i) - f x| := by apply abs_add_le
+  rewrite [show |f (xs i) - f x| = |f x - f (xs i)| by apply abs_sub_comm] at h1
+  linarith [fyfxi, fxix, h1]
 
-end RealAnalysisGame
+  end RealAnalysisGame
 
 
 Conclusion "

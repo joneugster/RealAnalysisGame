@@ -74,32 +74,32 @@ NewDefinition FunCont
 
 Statement :
     FunCont (fun x ↦ x^2 - 1) := by
-intro x
-intro ε hε
-let δ := min 1 (ε / (|2 * x| + 1))
-have δ1 : δ ≤ 1 := by bound
-have δ2 : δ ≤ (ε / (|2 * x| + 1)) := by bound
-have δpos : 0 < δ := by
-  have f1 : 0 ≤ |2 * x| := by bound
-  have f2 : 0 < |2 * x| + 1 := by bound
-  bound
-use δ, δpos
-intro t ht
-change |t ^ 2 - 1 - (x ^ 2 - 1)| < ε
-rewrite [show t ^ 2 - 1 - (x ^ 2 - 1) = (t - x) * (t + x) by ring_nf]
-rewrite [show |(t - x) * (t + x)| = |t - x| * |t + x| by bound]
-have ht1 : |t - x| < 1 := by linarith [ht, δ1]
-have ht2 : |t - x| < ε / (|2 * x| + 1) := by linarith [ht, δ2]
-have ht : |t + x| ≤ |2 * x| + 1 := by
-  have ht' : |t + x| ≤ |t - x| + |2 * x| := by
-    rewrite [show t + x = t - x + 2 * x by ring_nf]
-    have f1 : |t - x + 2 * x| ≤ |t - x| + |2 * x| := by apply abs_add_le
-    apply f1
-  linarith [ht', ht1]
-have ht' : |t - x| * |t + x| ≤ |t - x| * (|2 * x| + 1) := by bound
-have ht'' : |t - x| * (|2 * x| + 1) < (ε / (|2 * x| + 1)) * (|2 * x| + 1) := by field_simp at ⊢ ht2; apply ht2
-have ε1 : (ε / (|2 * x| + 1)) * (|2 * x| + 1) = ε := by field_simp
-linarith [ht', ht'', ε1]
+  intro x
+  intro ε hε
+  let δ := min 1 (ε / (|2 * x| + 1))
+  have δ1 : δ ≤ 1 := by bound
+  have δ2 : δ ≤ (ε / (|2 * x| + 1)) := by bound
+  have δpos : 0 < δ := by
+    have f1 : 0 ≤ |2 * x| := by bound
+    have f2 : 0 < |2 * x| + 1 := by bound
+    bound
+  use δ, δpos
+  intro t ht
+  change |t ^ 2 - 1 - (x ^ 2 - 1)| < ε
+  rewrite [show t ^ 2 - 1 - (x ^ 2 - 1) = (t - x) * (t + x) by ring_nf]
+  rewrite [show |(t - x) * (t + x)| = |t - x| * |t + x| by bound]
+  have ht1 : |t - x| < 1 := by linarith [ht, δ1]
+  have ht2 : |t - x| < ε / (|2 * x| + 1) := by linarith [ht, δ2]
+  have ht : |t + x| ≤ |2 * x| + 1 := by
+    have ht' : |t + x| ≤ |t - x| + |2 * x| := by
+      rewrite [show t + x = t - x + 2 * x by ring_nf]
+      have f1 : |t - x + 2 * x| ≤ |t - x| + |2 * x| := by apply abs_add_le
+      apply f1
+    linarith [ht', ht1]
+  have ht' : |t - x| * |t + x| ≤ |t - x| * (|2 * x| + 1) := by bound
+  have ht'' : |t - x| * (|2 * x| + 1) < (ε / (|2 * x| + 1)) * (|2 * x| + 1) := by field_simp at ⊢ ht2; apply ht2
+  have ε1 : (ε / (|2 * x| + 1)) * (|2 * x| + 1) = ε := by field_simp
+  linarith [ht', ht'', ε1]
 
 Conclusion "
 # Great Work!

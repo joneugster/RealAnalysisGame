@@ -107,23 +107,23 @@ TheoremDoc Cont_of_UnifConv as "Cont_of_UnifConv" in "f(x)"
 
 Statement Cont_of_UnifConv  (f : ℕ → ℝ → ℝ) (hf : ∀ n, FunCont (f n))
     (F : ℝ → ℝ) (hfF : UnifConv f F) : FunCont F:= by
-intro x ε hε
-choose N hN using hfF (ε / 3) (by bound)
-choose δ hδ₁ hδ₂ using hf N x (ε / 3) (by bound)
-use δ, hδ₁
-intro y hy
-have h1 : |F y - F x| ≤ |f N y - F y| + |f N y - f N x| + |f N x - F x| := by
-    rewrite [show F y - F x = (F y - f N y) + ((f N y - f N x) + (f N x - F x)) by ring_nf]
-    have f1 : |(F y - f N y) + ((f N y - f N x) + (f N x - F x))| ≤
-        |(F y - f N y)| + |((f N y - f N x) + (f N x - F x))| := by apply abs_add_le
-    have f2 : |((f N y - f N x) + (f N x - F x))| ≤ |f N y - f N x| + |f N x - F x| :=
-        by apply abs_add_le
-    have f3 : |F y - f N y| = |f N y - F y| := by apply abs_sub_comm
-    linarith [f1, f2, f3]
-have h2 : |f N y - F y| < ε / 3 := by apply hN N (by bound) y
-have h3 : |f N x - F x| < ε / 3 := by apply hN N (by bound) x
-have h4 : |f N y - f N x| < ε / 3 := by apply hδ₂ y hy
-linarith [h1, h2, h3, h4]
+  intro x ε hε
+  choose N hN using hfF (ε / 3) (by bound)
+  choose δ hδ₁ hδ₂ using hf N x (ε / 3) (by bound)
+  use δ, hδ₁
+  intro y hy
+  have h1 : |F y - F x| ≤ |f N y - F y| + |f N y - f N x| + |f N x - F x| := by
+      rewrite [show F y - F x = (F y - f N y) + ((f N y - f N x) + (f N x - F x)) by ring_nf]
+      have f1 : |(F y - f N y) + ((f N y - f N x) + (f N x - F x))| ≤
+          |(F y - f N y)| + |((f N y - f N x) + (f N x - F x))| := by apply abs_add_le
+      have f2 : |((f N y - f N x) + (f N x - F x))| ≤ |f N y - f N x| + |f N x - F x| :=
+          by apply abs_add_le
+      have f3 : |F y - f N y| = |f N y - F y| := by apply abs_sub_comm
+      linarith [f1, f2, f3]
+  have h2 : |f N y - F y| < ε / 3 := by apply hN N (by bound) y
+  have h3 : |f N x - F x| < ε / 3 := by apply hN N (by bound) x
+  have h4 : |f N y - f N x| < ε / 3 := by apply hδ₂ y hy
+  linarith [h1, h2, h3, h4]
 
 Conclusion "
 #Redemption and the Power of Uniformity

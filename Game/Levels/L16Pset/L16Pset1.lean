@@ -20,13 +20,13 @@ TheoremDoc FiniteGeomSeries as "FiniteGeomSeries" in "∑aₙ"
 /-- Prove this
 -/
 Statement FiniteGeomSeries (x : ℝ) (n : ℕ) : (1 - x) * ∑ k ∈ range n, x ^ k = 1 - x ^ n := by
-induction' n with n hn
-bound
-rewrite [sum_range_succ]
-rewrite [show (1 - x) * (∑ k ∈ range n, x ^ k + x ^ n) = (1 - x) * ∑ k ∈ range n, x ^ k + (1 - x) * x ^ n by
-  ring_nf]
-rewrite [hn]
-rewrite [show x ^ (n + 1) = x ^ n * x by ring_nf]
-ring_nf
+  induction' n with n hn
+  bound
+  rewrite [sum_range_succ]
+  rewrite [show (1 - x) * (∑ k ∈ range n, x ^ k + x ^ n) = (1 - x) * ∑ k ∈ range n, x ^ k + (1 - x) * x ^ n by
+    ring_nf]
+  rewrite [hn]
+  rewrite [show x ^ (n + 1) = x ^ n * x by ring_nf]
+  ring_nf
 
 Conclusion ""

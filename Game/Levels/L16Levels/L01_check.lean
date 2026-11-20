@@ -68,18 +68,18 @@ TheoremDoc LimZero_of_SeriesConv as "LimZero_of_SeriesConv" in "∑aₙ"
 
 
 Statement LimZero_of_SeriesConv (a : ℕ → ℝ) (ha : SeriesConv a) : SeqLim a 0 := by
-intro ε hε
-change SeqConv (Series a) at ha
-have cau : IsCauchy (Series a) := by apply IsCauchy_of_SeqConv ha
-choose N hN using cau ε hε
-use N
-intro n hn
-specialize hN n hn (n+1) (by bound)
-change |∑ k ∈ range (n+1), a k - ∑ k ∈ range n, a k| < ε at hN
-rewrite [show ∑ k ∈ range (n+1), a k = ∑ k ∈ range n, a k + a n by apply sum_range_succ] at hN
-rewrite [show ∑ k ∈ range n, a k + a n - ∑ k ∈ range n, a k = a n by ring_nf] at hN
-rewrite [show a n - 0 = a n by ring_nf]
-apply hN
+  intro ε hε
+  change SeqConv (Series a) at ha
+  have cau : IsCauchy (Series a) := by apply IsCauchy_of_SeqConv ha
+  choose N hN using cau ε hε
+  use N
+  intro n hn
+  specialize hN n hn (n+1) (by bound)
+  change |∑ k ∈ range (n+1), a k - ∑ k ∈ range n, a k| < ε at hN
+  rewrite [show ∑ k ∈ range (n+1), a k = ∑ k ∈ range n, a k + a n by apply sum_range_succ] at hN
+  rewrite [show ∑ k ∈ range n, a k + a n - ∑ k ∈ range n, a k = a n by ring_nf] at hN
+  rewrite [show a n - 0 = a n by ring_nf]
+  apply hN
 
 Conclusion "
 Excellent! You've proven one of the most important necessary conditions for series convergence.

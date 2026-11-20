@@ -159,64 +159,64 @@ Statement Reals_are_Complete (q : ℕ → ℕ → ℚ) (x : ℕ → ℝ) (hq : �
   (hx : ∀ n, x n = Real_of_CauSeq (hq n))
   (hxCau : IsCauchy x) :
   ∃ (y : ℕ → ℚ) (hy : IsCauchy y), SeqLim x (Real_of_CauSeq hy) := by
-choose N hN using fun (n : ℕ) ↦ SeqLim_of_Real_of_Cau (hq n) (1 / (n + 1)) (by bound)
-have hN : ∀ n, ∀ m ≥ N n, |(q n m) - x n| < 1 / (n + 1) := by intro n m hm; rewrite [hx n]; apply hN n m hm
-let y := fun n ↦ q n (N n)
-use y
-have hy : IsCauchy y := by
+  choose N hN using fun (n : ℕ) ↦ SeqLim_of_Real_of_Cau (hq n) (1 / (n + 1)) (by bound)
+  have hN : ∀ n, ∀ m ≥ N n, |(q n m) - x n| < 1 / (n + 1) := by intro n m hm; rewrite [hx n]; apply hN n m hm
+  let y := fun n ↦ q n (N n)
+  use y
+  have hy : IsCauchy y := by
+    intro ε hε
+    have hε' : (0 : ℝ) < ε := by exact_mod_cast hε
+    choose N1 hN1 using hxCau (ε / 3) (by norm_num; bound)
+    choose N2 hN2 using ArchProp (show (0 : ℝ) < ε / 3 by norm_num; bound)
+    use N1 + N2
+    intro n hn m hm
+    change |(q m (N m)) - q n (N n)| < ε
+    specialize hN1 n (by bound) m hm
+    have qnBnd := hN n (N n) (by bound)
+    have qmBnd := hN m (N m) (by bound)
+    have f1 : |(q m (N m) : ℝ) - q n (N n)| = |(q m (N m) - x m) + ((x n - q n (N n)) + (x m - x n))| := by ring_nf
+    have f2 : |(q m (N m) - x m) + ((x n - q n (N n)) + (x m - x n))| ≤
+      |(q m (N m) - x m)| + |(x n - q n (N n)) + (x m - x n)| := by apply abs_add_le
+    have f3 : |(x n - q n (N n)) + (x m - x n)| ≤ |(x n - q n (N n))| + |(x m - x n)| := by apply abs_add_le
+    have f3' : |(x n - q n (N n))| = |q n (N n) - x n| := by apply abs_sub_comm
+    field_simp at hN2
+    have hn' : (N1 : ℝ) + N2 ≤ n := by exact_mod_cast hn
+    have hm' : (n : ℝ) ≤ m := by exact_mod_cast hm
+    have f4' : (N2 : ℝ) ≤ n := by bound
+    have f4'' : (N2 : ℝ) * ε ≤ n * ε := by bound
+    have f4 : (1 : ℝ) / (n + 1) < ε / 3 := by field_simp; bound
+    have f5' : (N2 : ℝ) ≤ m := by bound
+    have f5'' : (N2 : ℝ) * ε ≤ m * ε := by bound
+    have f5 : (1 : ℝ) / (m + 1) < ε / 3 := by field_simp; bound
+    have f6 : |(q m (N m) : ℝ) - q n (N n)| < ε := by linarith [f1, f2, f3, f4, f5, qnBnd, qmBnd, hN1, f3']
+    exact_mod_cast f6
+  use hy
+
   intro ε hε
-  have hε' : (0 : ℝ) < ε := by exact_mod_cast hε
-  choose N1 hN1 using hxCau (ε / 3) (by norm_num; bound)
-  choose N2 hN2 using ArchProp (show (0 : ℝ) < ε / 3 by norm_num; bound)
-  use N1 + N2
-  intro n hn m hm
-  change |(q m (N m)) - q n (N n)| < ε
-  specialize hN1 n (by bound) m hm
-  have qnBnd := hN n (N n) (by bound)
-  have qmBnd := hN m (N m) (by bound)
-  have f1 : |(q m (N m) : ℝ) - q n (N n)| = |(q m (N m) - x m) + ((x n - q n (N n)) + (x m - x n))| := by ring_nf
-  have f2 : |(q m (N m) - x m) + ((x n - q n (N n)) + (x m - x n))| ≤
-    |(q m (N m) - x m)| + |(x n - q n (N n)) + (x m - x n)| := by apply abs_add_le
-  have f3 : |(x n - q n (N n)) + (x m - x n)| ≤ |(x n - q n (N n))| + |(x m - x n)| := by apply abs_add_le
-  have f3' : |(x n - q n (N n))| = |q n (N n) - x n| := by apply abs_sub_comm
+  choose N1 hN1 using hxCau (ε / 2) (by norm_num; bound)
+  choose N2 hN2 using ArchProp (show (0 : ℝ) < ε / 2 by norm_num; bound)
+  choose N3 hN3 using SeqLim_of_Real_of_Cau hy (ε / 2) (by norm_num; bound)
+  use N1 + N2 + N3
+  intro n hn
+
+  let L := Real_of_CauSeq hy
+  change |x n - L| < ε
+  change ∀ n ≥ N3, |y n - L| < ε / 2 at hN3
+
+  rewrite [show |x n - L| = |(x n - y n) + (y n - L)| by ring_nf]
+  have f1 : |(x n - y n) + (y n - L)| ≤ |(x n - y n)| + |(y n - L)| := by apply abs_add_le
+  specialize hN n (N n) (by bound)
+  change |y n - x n| < 1 / (n + 1) at hN
+  rewrite [show |y n - x n| = |x n - y n| by apply abs_sub_comm] at hN
+  specialize hN3 n (by bound)
+
   field_simp at hN2
-  have hn' : (N1 : ℝ) + N2 ≤ n := by exact_mod_cast hn
-  have hm' : (n : ℝ) ≤ m := by exact_mod_cast hm
-  have f4' : (N2 : ℝ) ≤ n := by bound
-  have f4'' : (N2 : ℝ) * ε ≤ n * ε := by bound
-  have f4 : (1 : ℝ) / (n + 1) < ε / 3 := by field_simp; bound
-  have f5' : (N2 : ℝ) ≤ m := by bound
-  have f5'' : (N2 : ℝ) * ε ≤ m * ε := by bound
-  have f5 : (1 : ℝ) / (m + 1) < ε / 3 := by field_simp; bound
-  have f6 : |(q m (N m) : ℝ) - q n (N n)| < ε := by linarith [f1, f2, f3, f4, f5, qnBnd, qmBnd, hN1, f3']
-  exact_mod_cast f6
-use hy
+  have hn' : (N1 : ℝ) + N2 + N3 ≤ n := by norm_cast
+  have f2' : (N2 : ℝ) ≤ n := by bound
+  have f2'' : (N2 : ℝ) * ε ≤ n * ε := by bound
+  have f2 : (1 : ℝ) / (n + 1) < ε / 2 := by field_simp; bound
 
-intro ε hε
-choose N1 hN1 using hxCau (ε / 2) (by norm_num; bound)
-choose N2 hN2 using ArchProp (show (0 : ℝ) < ε / 2 by norm_num; bound)
-choose N3 hN3 using SeqLim_of_Real_of_Cau hy (ε / 2) (by norm_num; bound)
-use N1 + N2 + N3
-intro n hn
-
-let L := Real_of_CauSeq hy
-change |x n - L| < ε
-change ∀ n ≥ N3, |y n - L| < ε / 2 at hN3
-
-rewrite [show |x n - L| = |(x n - y n) + (y n - L)| by ring_nf]
-have f1 : |(x n - y n) + (y n - L)| ≤ |(x n - y n)| + |(y n - L)| := by apply abs_add_le
-specialize hN n (N n) (by bound)
-change |y n - x n| < 1 / (n + 1) at hN
-rewrite [show |y n - x n| = |x n - y n| by apply abs_sub_comm] at hN
-specialize hN3 n (by bound)
-
-field_simp at hN2
-have hn' : (N1 : ℝ) + N2 + N3 ≤ n := by norm_cast
-have f2' : (N2 : ℝ) ≤ n := by bound
-have f2'' : (N2 : ℝ) * ε ≤ n * ε := by bound
-have f2 : (1 : ℝ) / (n + 1) < ε / 2 := by field_simp; bound
-
-linarith [f1, f2, hN, hN3]
+  linarith [f1, f2, hN, hN3]
 
 Conclusion "
 # Conclusion: The Reals Are Complete
