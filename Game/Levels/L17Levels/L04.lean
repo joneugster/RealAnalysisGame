@@ -112,7 +112,7 @@ Statement (a : ℕ → ℝ) (ha : ∀ n, a n = 1 / ((n + 2) ^ 2)) : SeriesConv a
   change Series b n = 1 - 1 / (n + 1) at bLeib
   have h1 : (1 : ℝ) - 1 / (n + 1) ≤ 1 := by
     field_simp
-    bound
+    grind -- TODO
   linarith [habBnd, h1, bLeib]
   apply Monotone_of_succ
   intro n

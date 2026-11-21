@@ -184,10 +184,10 @@ Statement Reals_are_Complete (q : ℕ → ℕ → ℚ) (x : ℕ → ℝ) (hq : �
     have hm' : (n : ℝ) ≤ m := by exact_mod_cast hm
     have f4' : (N2 : ℝ) ≤ n := by bound
     have f4'' : (N2 : ℝ) * ε ≤ n * ε := by bound
-    have f4 : (1 : ℝ) / (n + 1) < ε / 3 := by field_simp; bound
+    have f4 : (1 : ℝ) / (n + 1) < ε / 3 := by field_simp; grind -- TODO
     have f5' : (N2 : ℝ) ≤ m := by bound
     have f5'' : (N2 : ℝ) * ε ≤ m * ε := by bound
-    have f5 : (1 : ℝ) / (m + 1) < ε / 3 := by field_simp; bound
+    have f5 : (1 : ℝ) / (m + 1) < ε / 3 := by field_simp; grind -- TODO
     have f6 : |(q m (N m) : ℝ) - q n (N n)| < ε := by linarith [f1, f2, f3, f4, f5, qnBnd, qmBnd, hN1, f3']
     exact_mod_cast f6
   use hy
@@ -214,7 +214,7 @@ Statement Reals_are_Complete (q : ℕ → ℕ → ℚ) (x : ℕ → ℝ) (hq : �
   have hn' : (N1 : ℝ) + N2 + N3 ≤ n := by norm_cast
   have f2' : (N2 : ℝ) ≤ n := by bound
   have f2'' : (N2 : ℝ) * ε ≤ n * ε := by bound
-  have f2 : (1 : ℝ) / (n + 1) < ε / 2 := by field_simp; bound
+  have f2 : (1 : ℝ) / (n + 1) < ε / 2 := by field_simp; grind -- TODO
 
   linarith [f1, f2, hN, hN3]
 

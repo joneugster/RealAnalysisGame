@@ -38,7 +38,7 @@ Statement : ∃ a, SeqLim a 0 ∧ ∀ n, 0 < a n := by
   have hc : ∀ n, c n = 1 / n := by intro n; rfl
   have limc : SeqLim c 0 := by apply OneOverNLimZero c hc
   have f1 : ∀ n, a n = c (σ n) := by intro n; rewrite [ha, hσ, hc]; push_cast; rfl
-  have f2 : a = c ∘ σ := by bound
+  have f2 : a = c ∘ σ := by grind -- TODO
   rewrite [f2]
   apply SubseqConv c 0 limc σ isSub
   intro n
