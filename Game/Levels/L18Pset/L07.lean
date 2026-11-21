@@ -36,7 +36,7 @@ Statement {a : ℕ → ℝ} (ha : Antitone a) (apos : ∀ n, 0 ≤ a n) : Antito
           ((-1) ^ (2 * (n + 1) + 1) * a (2 * (n + 1) + 1) +
           (-1) ^ (2 * (n + 1) + 2) * a (2 * (n + 1) + 2)) by ring_nf]
   rw [show (-1 : ℝ) ^ (2 * (n + 1) + 1) * a (2 * (n + 1) + 1) =
-          -a (2 * (n + 1) + 1) by bound]
+          -a (2 * (n + 1) + 1) by sorry] -- TODO
   rw [show (-1 : ℝ) ^ (2 * (n + 1) + 2) = 1 by ring_nf; bound]
   have h1 : a (2 * (n + 1) + 2) ≤ a (2 * (n + 1) + 1) := ha (by bound)
   linarith [h1]

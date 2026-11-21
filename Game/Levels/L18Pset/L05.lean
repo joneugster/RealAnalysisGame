@@ -25,7 +25,7 @@ DisabledTheorem SeqEvenOdd
 /-- Prove `SeqEvenOdd`
 -/
 Statement {a : ℕ → ℝ} {L : ℝ} (ha2n : SeqLim (fun n ↦ a (2 * n)) L)
-(ha2np1 : SeqLim (fun n ↦ a (2 * n + 1)) L) : SeqLim a L := by
+    (ha2np1 : SeqLim (fun n ↦ a (2 * n + 1)) L) : SeqLim a L := by
   intro ε hε
   choose N1 hN1 using ha2n ε hε
   choose N2 hN2 using ha2np1 ε hε

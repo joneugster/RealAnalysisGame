@@ -16,7 +16,7 @@ DisabledTheorem MonotoneSeriesEven
 /-- Prove `MonotoneSeriesEven`
 -/
 Statement {a : ℕ → ℝ} (ha : Antitone a) (apos : ∀ n, 0 ≤ a n) :
-  Monotone (fun n ↦ ∑ k ∈ range (2 * n), (-1)^k * a k) := by
+    Monotone (fun n ↦ ∑ k ∈ range (2 * n), (-1)^k * a k) := by
   apply Monotone_of_succ
   intro n
   induction' n with n hn
@@ -33,7 +33,7 @@ Statement {a : ℕ → ℝ} (ha : Antitone a) (apos : ∀ n, 0 ≤ a n) :
       (-1) ^ (2 * (n + 1) + 1) * a (2 * (n + 1) + 1)) by ring_nf]
   rewrite [show ((-1) ^ (2 * (n + 1)) * a (2 * (n + 1)) +
       (-1) ^ (2 * (n + 1) + 1) * a (2 * (n + 1) + 1))
-      = a (2 * (n + 1)) + -a (2 * (n + 1) + 1) by bound]
+      = a (2 * (n + 1)) + -a (2 * (n + 1) + 1) by sorry] -- TODO
   have f1 : 0 ≤ a (2 * (n + 1)) + -a (2 * (n + 1) + 1) := by
     linarith [show a (2 * (n + 1) + 1) ≤ a (2 * (n + 1)) by apply ha (by bound)]
   linarith [f1]

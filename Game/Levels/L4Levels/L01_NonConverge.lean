@@ -164,7 +164,7 @@ Statement (a : ℕ → ℝ) (ha : ∀ n, a n = (-1) ^ n) :
   rewrite [f4] at f2
   have f5 : (-1 : ℝ) ^ (2 * N) = 1 := by bound
   rewrite [f5] at f1
-  have f6 : (-1 : ℝ) ^ (2 * N + 1) = -1 := by bound
+  have f6 : (-1 : ℝ) ^ (2 * N + 1) = -1 := by grind -- TODO
   rewrite [f6] at f2
   have f7 : (2 : ℝ) = |2| := (abs_of_pos two_pos).symm
   have f8 : |(2 : ℝ)| = |1 - (-1)| := by ring_nf

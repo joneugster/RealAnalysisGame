@@ -5,7 +5,7 @@ open Finset
 
 attribute [grind] inv_lt_of_inv_lt₀
 attribute [grind] one_mul
-attribute [grind] Mathlib.Tactic.Zify.natCast_le._simp_1
+-- attribute [grind] Mathlib.Tactic.Zify.natCast_le._simp_1 -- TODO
 attribute [grind] Mathlib.Tactic.Qify.intCast_le._simp_1
 attribute [grind] Mathlib.Tactic.Rify.ratCast_le._simp_1
 attribute [grind] Int.cast_natCast
